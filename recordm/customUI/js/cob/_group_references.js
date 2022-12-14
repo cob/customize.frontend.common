@@ -11,7 +11,6 @@ cob.custom.customize.push(function (core, utils, ui) {
             //isto permite escolher qual o references a mostrar 
             if(labelWithCount.indexOf(" <span>"+groupName+"</span>") == 0) {
                 group[0].innerHTML = labelWithCount
-                $(m.target).parent().parent().hide()
             }
         }
         var mo = new MutationObserver( (mutations) => mutations.forEach( m => update(m.target)) );
