@@ -13,7 +13,11 @@
     width: -webkit-fill-available;
 } */
 
+/*
+* estes defaults não são bons pq fazem desaparecer o menu de importações onde pode não haver alternativa de acesso
+Vou desactivar isto enquanto não se repensar nputra solução
 .cob-app .nav > li > a.js-menu-rm-importer-stats,
 .cob-app .nav > li > a.js-menu-reports {
   display:none
 }
+*/
