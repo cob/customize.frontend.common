@@ -1,0 +1,25 @@
+/* set $group AND $style[guidelines] and then sufields that are also $group */
+
+.custom-guidelines > table .legend {
+    display: none;
+} 
+.custom-guidelines > ol {
+    background-color: #f6faec !important;
+    color: #34644f;
+    margin-left: 235px !important;
+    padding-left: 13px;
+    margin-right: 0px !important;
+} 
+.custom-guidelines > ol a {
+    text-decoration: underline ;
+}
+.custom-guidelines > ol .legend {
+    border: none !important;
+}
+
+@media screen and (max-width: 767px) {
+    .custom-guidelines > ol {
+        margin-left: unset !important;
+        width: 98% !important;
+    } 
+}
