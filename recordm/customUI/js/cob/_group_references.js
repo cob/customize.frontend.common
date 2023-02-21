@@ -10,7 +10,9 @@ cob.custom.customize.push(function (core, utils, ui) {
             //Apenas muda o texto se o nome do $group for o mesmo que o do campo $references
             //isto permite escolher qual o references a mostrar 
             if(labelWithCount.indexOf(" <span>"+groupName+"</span>") == 0) {
-                group[0].innerHTML = labelWithCount
+                let linkHTML = $(div).parent().parent().find(".js-def-search-link")[0].cloneNode(true)
+                linkHTML.innerHTML = " >> "
+                group[0].innerHTML = labelWithCount + "&nbsp;" + linkHTML.outerHTML
             }
         }
         var mo = new MutationObserver( (mutations) => mutations.forEach( m => update(m.target)) );
