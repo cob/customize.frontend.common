@@ -11,8 +11,9 @@ cob.custom.customize.push(function (core, utils, ui) {
             //isto permite escolher qual o references a mostrar 
             if(labelWithCount.indexOf(" <span>"+groupName+"</span>") == 0) {
                 let linkHTML = $(div).parent().parent().find(".js-def-search-link")[0].cloneNode(true)
+                linkHTML.classList.add("legend")
                 linkHTML.innerHTML = " >> "
-                group[0].innerHTML = labelWithCount + "&nbsp;" + linkHTML.outerHTML
+                group[0].innerHTML = labelWithCount + linkHTML.outerHTML
             }
         }
         var mo = new MutationObserver( (mutations) => mutations.forEach( m => update(m.target)) );
