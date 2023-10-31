@@ -4,7 +4,7 @@ cob.custom.customize.push(function (core, utils, ui) {
     core.customizeAllInstances(function(instance, presenter) {
         const update = (div) => {
             let group = $(div).parentsUntil(".field-group.custom-use-reference-count").parent().find(".group-name")
-            let groupName = (group[0].children.length ? group[0].children[0].innerHTML : group[0].innerHTML).trim()
+            let groupName = group[0] ? ((group[0].children.length ? group[0].children[0].innerHTML : group[0].innerHTML).trim()) : ""
             let labelHTML = $(div).parent()[0].innerHTML
             let labelWithCount = labelHTML.substring(0,labelHTML.indexOf("<div"))
             //Apenas muda o texto se o nome do $group for o mesmo que o do campo $references
