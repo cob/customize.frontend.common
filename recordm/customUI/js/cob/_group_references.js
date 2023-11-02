@@ -4,16 +4,18 @@ cob.custom.customize.push(function (core, utils, ui) {
     core.customizeAllInstances(function(instance, presenter) {
         const update = (div) => {
             let group = $(div).parentsUntil(".field-group.custom-use-reference-count").parent().find(".group-name")
-            let groupName = group[0] ? ((group[0].children.length ? group[0].children[0].innerHTML : group[0].innerHTML).trim()) : ""
-            let labelHTML = $(div).parent()[0].innerHTML
-            let labelWithCount = labelHTML.substring(0,labelHTML.indexOf("<div"))
-            //Apenas muda o texto se o nome do $group for o mesmo que o do campo $references
-            //isto permite escolher qual o references a mostrar 
-            if(labelWithCount.indexOf(" <span>"+groupName+"</span>") == 0) {
-                let linkHTML = $(div).parent().parent().find(".js-def-search-link")[0].cloneNode(true)
-                linkHTML.classList.add("legend")
-                linkHTML.innerHTML = " >> "
-                group[0].innerHTML = labelWithCount + linkHTML.outerHTML
+            if(group.length !== 0){
+                let groupName = group[0] ? ((group[0].children.length ? group[0].children[0].innerHTML : group[0].innerHTML).trim()) : ""
+                let labelHTML = $(div).parent()[0].innerHTML
+                let labelWithCount = labelHTML.substring(0,labelHTML.indexOf("<div"))
+                //Apenas muda o texto se o nome do $group for o mesmo que o do campo $references
+                //isto permite escolher qual o references a mostrar
+                if(labelWithCount.indexOf(" <span>"+groupName+"</span>") == 0) {
+                    let linkHTML = $(div).parent().parent().find(".js-def-search-link")[0].cloneNode(true)
+                    linkHTML.classList.add("legend")
+                    linkHTML.innerHTML = " >> "
+                    group[0].innerHTML = labelWithCount + linkHTML.outerHTML
+                }
             }
         }
         var mo = new MutationObserver( (mutations) => mutations.forEach( m => update(m.target)) );
