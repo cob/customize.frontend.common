@@ -7,3 +7,8 @@ ol.fields>li.custom-radio-1line>table label {
 .cob-app .instance-detail-container div.instance-container ol.fields>li.custom-radio-compact>table td:nth-child(3) label {
     width: 30px;
 }
+
+/* For  $style[radio-fit-content] in addition to $radio */
+.cob-app .instance-detail-container div.instance-container ol.fields>li.custom-radio-compact>table td:nth-child(3) div.radiogroup {
+    width: fit-content;
+}
