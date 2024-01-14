@@ -21,3 +21,19 @@ Vou desactivar isto enquanto não se repensar nputra solução
   display:none
 }
 */
+
+/** Class to remove default style for $group **/
+.cob-app .instance-detail-container .instance-container .fields-container li.field-group.custom-no-style > ol.fields {
+    background-color: none;
+    margin:0px;
+    border: none;
+    display: unset !important;
+    visibility: unset !important;
+  }
+  .cob-app .instance-detail-container .instance-container .fields-container li.field-group.custom-no-style > ol.fields > li {
+    padding: 0;
+  }
+  
+  .cob-app .instance-detail-container .instance-container .fields-container li.field-group.custom-no-style > table {
+    display: none;
+  }
