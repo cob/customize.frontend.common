@@ -61,13 +61,15 @@
    }
    ol.fields table > tbody > tr > td:nth-child(2),
    ol.fields table > tbody > tr > td:nth-child(2) label {
-      width:100px !important;
-      min-width:100px !important;
+      min-width: 100% !important;
+      font-size: 1.25rem !important;
+      line-height: 1.75rem !important;
    }
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div > input,
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div > span > input {
-      min-width:140px !important;
-      max-width:140px !important;
+      min-width: 97% !important;
+      max-width: none !important;
+      font-size: 1.25rem !important;
    }
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > input,
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > label,
@@ -75,17 +77,18 @@
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div.instance-container  > input,
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div.inline > input,
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div > textarea {
-      min-width:175px !important;
-      max-width:175px !important;
+      min-width: 97% !important;
+      max-width: none !important;
+      font-size: 1.25rem !important;
    }
-   .cob-app .markdown-container,
+
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div.inline  > select {
       min-width:100% !important;
       max-width:190px !important;
+      font-size: 1.25rem !important;
    }
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(4) {
-      min-width:0px !important;
-      max-width:0px !important;
+      display: none;
    }
 
    /* selects constantes */
@@ -103,6 +106,78 @@
    .cob-app .instance-detail-container div.instance-container ol.fields > li {
       padding-left: 1px;
    }
+
+
+   /* New css for mobile instance viewing */
+   .cob-app .instance-detail-container .instance-container {
+      padding-bottom: 100px !important;
+   }
+
+   /* handles markdown boxes */
+   .cob-app .custom-comentarios .markdown-container,
+   .cob-app .markdown-container {
+      max-width: none !important;
+      min-width: 0px !important;
+      width: 100% !important;
+      font-size: 1.25rem !important;
+   }
+
+   ol>li:not(.field-group)>table>tbody>tr {
+      display: flex;
+      flex-direction: column;
+   }
+
+   ol>li:not(.field-group)>table>tbody>tr>td {
+      display: flex;
+      flex-direction: column;
+      width: 100% !important;
+   }
+
+   /* removes borders/outlines */
+   .cob-app .instance-detail-container div.instance-container ol.fields {
+      margin: none;
+      border: none;
+      -webkit-border-radius: none;
+      background-color: initial;
+   }
+
+   .cob-app .instance-detail-container div.instance-container ol.fields>li.custom-comentarios.custom-novo:before {
+      font-size: 1.25rem !important;
+   }
+
+   /** groups */
+   .cob-app .instance-container .legend {
+      padding-top: 2px !important;
+      padding-bottom: 2px !important;
+      font-size: 1.25rem !important;
+      border-radius: 0.5rem;
+   }
+
+
+   /* buttons */
+   .cob-app button.btn.btn-small {
+      font-size: 15px !important;
+      padding-top: 12px;
+      padding-bottom: 12px;
+   }
+
+   .cob-app .instance-detail-container .control-group.file .controls {
+      display: flex;
+      flex-direction: column;
+   }
+
+   /* Hide draggable handlers */
+   .cob-app .instance-detail-container div.instance-container ol.fields span.drag-handle {
+      display: none;
+      visibility: hidden;
+   }
+
+   /* Make the duplicate button bigger */
+   .cob-app .instance-detail-container div.instance-container ol.fields span.duplicate-button {
+      min-width: fit-content !important;
+      font-size: 25px !important;
+      padding: 5px !important;
+   }   
 }
 
 @media (max-width: 585px) {
