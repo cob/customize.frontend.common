@@ -154,7 +154,6 @@
       border: none;
       -webkit-border-radius: none;
       background-color: rgba(128, 128, 192, 0.1);
-      padding-left: 15px;
    }
    .cob-app .fields-container > ol.fields {
       padding-left: 0px !important;
