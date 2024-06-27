@@ -58,13 +58,23 @@
       min-width:30px !important;
       width:30px !important;
       max-width:30px !important;
+      margin-bottom: -9px;
+      margin-top: 10px;
    }
+   .references-legend,
    ol.fields table > tbody > tr > td:nth-child(2),
    ol.fields table > tbody > tr > td:nth-child(2) label {
       min-width: 100% !important;
       font-size: 1.25rem !important;
       line-height: 1.75rem !important;
+      margin-bottom: -2px;
+      margin-top: 1px;
    }
+
+   .references-legend {
+      margin-top: 10px;
+   }
+
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div > input,
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div > span > input {
       min-width: 97% !important;
@@ -122,6 +132,11 @@
       font-size: 1.25rem !important;
    }
 
+   .cob-app .instance-detail-container .instance-container .fields-container .field-group {
+      margin-bottom:-5px;
+      margin-top:15px;      
+   }
+
    ol>li:not(.field-group)>table>tbody>tr {
       display: flex;
       flex-direction: column;
@@ -138,7 +153,11 @@
       margin: none;
       border: none;
       -webkit-border-radius: none;
-      background-color: initial;
+      background-color: rgba(128, 128, 192, 0.1);
+      padding-left: 15px;
+   }
+   .cob-app .fields-container > ol.fields {
+      padding-left: 0px !important;
    }
 
    .cob-app .instance-detail-container div.instance-container ol.fields>li.custom-comentarios.custom-novo:before {
