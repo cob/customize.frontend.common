@@ -41,7 +41,7 @@ cob.custom.customize.push(function (core, utils, ui) {
             hideSidenav();
 
             // Add navbar
-            if($("#naked-navbar").length <= 0) {
+            if($("#mobile-navbar").length <= 0) {
                 buildNavbar(presenter, instance);
             }
         } else {
@@ -87,13 +87,13 @@ cob.custom.customize.push(function (core, utils, ui) {
 
         duplicateButtons.forEach(button => {
             button.addEventListener('click', () => {
-                if(isMobile() || (isNaked() && isScreenMd()) ) {
+                if(isMobile()) { // || (isNaked() && isScreenMd()) -> add for destkop debug
                     expandAll();
                     hideToggleButtons();
                     removeNavbar()
                     hideSidenav();
                     // Add navbar
-                    if($("#naked-navbar").length <= 0) {
+                    if($("#mobile-navbar").length <= 0) {
                         buildNavbar(presenter, instance);
                     }
                 }
@@ -104,19 +104,23 @@ cob.custom.customize.push(function (core, utils, ui) {
     // Expand all 
     function expandAll() {
         var a = document.getElementsByClassName("js-expand-all")
-        a[0].click()
+        if(a.length > 0) {
+            a[0].click()
+        }
     }
 
     // Collapse all 
     function collapseAll() {
         var a = document.getElementsByClassName("js-collapse-all")
-        a[0].click()
+        if(a.length > 0) {
+            a[0].click()
+        }
     }
 
     // Remove navbar
     function removeNavbar() {
-        if($("#naked-navbar").length > 0) {
-            $("#naked-navbar").remove()
+        if($("#mobile-navbar").length > 0) {
+            $("#mobile-navbar").remove()
         }
     }
 
@@ -306,8 +310,8 @@ cob.custom.customize.push(function (core, utils, ui) {
         /******** SAVE Button click handlers ********/ 
         $backBtn.click(function (e) {
             e.preventDefault();
-            if($("#naked-navbar").length > 0) {
-                $("#naked-navbar").remove()
+            if($("#mobile-navbar").length > 0) {
+                $("#mobile-navbar").remove()
             }
             core.navigateBack();
         });
@@ -380,8 +384,8 @@ cob.custom.customize.push(function (core, utils, ui) {
 
         /******** Insert main navbar holder ********/ 
         $sidenav.append(`
-        <div id="naked-navbar" class="w-full flex flex-col  justify-center items-center fixed bottom-6 z-50 pr-10" >
-            <div id="inner-naked-navbar" class="h-fit ${navbarWidth} rounded-full flex justify-evenly">
+        <div id="mobile-navbar" class="w-full flex flex-col  justify-center items-center fixed bottom-6 z-50 pr-10" >
+            <div id="inner-mobile-navbar" class="h-fit ${navbarWidth} rounded-full flex justify-evenly">
             </div>
         </div>`)
 
@@ -389,7 +393,7 @@ cob.custom.customize.push(function (core, utils, ui) {
         // (that always exists - collapse and expand)
         function prepareEllipsisMenuBaseButtons() {
             // Add elipsis button
-            $("#inner-naked-navbar").append($ellipsisBtn) 
+            $("#inner-mobile-navbar").append($ellipsisBtn) 
             // Add ellipsis menu to ellipsis button
             $("#ellipsis-navbar-btn").append($ellipsisMenu)
             $("#ellipsis-menu").append($expandBtn)
@@ -416,12 +420,12 @@ cob.custom.customize.push(function (core, utils, ui) {
         */
 
         // Back button always present
-        $("#inner-naked-navbar").append($backBtn)
+        $("#inner-mobile-navbar").append($backBtn)
 
         // If save new exists
         if(saveNewExists) {
             // Add save  new to navbar
-            $("#inner-naked-navbar").append($saveNewBtn)
+            $("#inner-mobile-navbar").append($saveNewBtn)
             $saveNewBtn.toggleClass("w-6/12")
             prepareEllipsisMenuBaseButtons()
             if(saveEditExists) {
@@ -435,7 +439,7 @@ cob.custom.customize.push(function (core, utils, ui) {
         } else {
             // If save edit exists but save new does not exist
             if (saveEditExists) {
-                $("#inner-naked-navbar").append($saveEditBtn)
+                $("#inner-mobile-navbar").append($saveEditBtn)
                 $saveEditBtn.toggleClass("w-6/12")
 
                 prepareEllipsisMenuBaseButtons()
@@ -445,7 +449,7 @@ cob.custom.customize.push(function (core, utils, ui) {
                 $saveBtn.toggleClass("w-full")
             } else {
                 // only the default save is enabled
-                $("#inner-naked-navbar").append($saveBtn)
+                $("#inner-mobile-navbar").append($saveBtn)
                 $saveBtn.toggleClass("w-6/12")
 
                 prepareEllipsisMenuBaseButtons()
