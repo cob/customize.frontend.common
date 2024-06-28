@@ -32,9 +32,7 @@ cob.custom.customize.push(function (core, utils, ui) {
         fields_show_mobile, fields_without_show_mobile, fields_hide_mobile){
 
         if(isMobile()) { // || (isNaked() && isScreenMd()) -> add for destkop debug
-            expandAll();
             handleFieldVisibility(presenter,fields_show_mobile, fields_without_show_mobile, fields_hide_mobile )
-            hideToggleButtons();
 
             removeNavbar()
 
@@ -88,8 +86,6 @@ cob.custom.customize.push(function (core, utils, ui) {
         duplicateButtons.forEach(button => {
             button.addEventListener('click', () => {
                 if(isMobile()) { // || (isNaked() && isScreenMd()) -> add for destkop debug
-                    expandAll();
-                    hideToggleButtons();
                     removeNavbar()
                     hideSidenav();
                     // Add navbar

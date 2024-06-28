@@ -42,7 +42,7 @@
    .cob-app .instance-detail-container .instance-container .fields-container {
       border-top: solid 1px;
       margin-top: -10px;
-      padding-top: 8px;
+      padding-top: 10px;
    }
 
    /* *************** Centrar input dos $ref correctamente ******************* */
@@ -58,17 +58,23 @@
       min-width:30px !important;
       width:30px !important;
       max-width:30px !important;
-      margin-bottom: -9px;
-      margin-top: 10px;
+      margin-bottom: -3px;
+      margin-top: 18px;
    }
+
+   ol.fields table > tbody > tr:not(.field-group) > td:nth-child(1) {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+  }
+
    .references-legend,
    ol.fields table > tbody > tr > td:nth-child(2),
    ol.fields table > tbody > tr > td:nth-child(2) label {
       min-width: 100% !important;
-      font-size: 1.25rem !important;
-      line-height: 1.75rem !important;
-      margin-bottom: -2px;
-      margin-top: 1px;
+      font-size: 1.1rem !important;
+      line-height: 1.1rem !important;
+      margin-top: 2px;
    }
 
    .references-legend {
@@ -79,7 +85,7 @@
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div > span > input {
       min-width: 97% !important;
       max-width: none !important;
-      font-size: 1.25rem !important;
+      font-size: 1.1rem !important;
    }
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > input,
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > label,
@@ -89,13 +95,13 @@
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div > textarea {
       min-width: 97% !important;
       max-width: none !important;
-      font-size: 1.25rem !important;
+      font-size: 1.1rem !important;
    }
 
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div.inline  > select {
       min-width:100% !important;
       max-width:190px !important;
-      font-size: 1.25rem !important;
+      font-size: 1.1rem !important;
    }
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(4) {
       display: none;
@@ -126,10 +132,11 @@
    /* handles markdown boxes */
    .cob-app .custom-comentarios .markdown-container,
    .cob-app .markdown-container {
-      max-width: none !important;
-      min-width: 0px !important;
+      max-width: 100% !important;
+      min-width: 100px !important;
       width: 100% !important;
-      font-size: 1.25rem !important;
+      font-size: 1.1rem !important;
+      overflow-x: scroll;
    }
 
    .cob-app .instance-detail-container .instance-container .fields-container .field-group {
@@ -160,15 +167,14 @@
    }
 
    .cob-app .instance-detail-container div.instance-container ol.fields>li.custom-comentarios.custom-novo:before {
-      font-size: 1.25rem !important;
+      font-size: 1.1rem !important;
    }
 
    /** groups */
    .cob-app .instance-container .legend {
       padding-top: 2px !important;
       padding-bottom: 2px !important;
-      font-size: 1.25rem !important;
-      border-radius: 0.5rem;
+      font-size: 1.1rem !important;
    }
 
 
@@ -193,9 +199,26 @@
    /* Make the duplicate button bigger */
    .cob-app .instance-detail-container div.instance-container ol.fields span.duplicate-button {
       min-width: fit-content !important;
-      font-size: 25px !important;
+      font-size: 20px !important;
       padding: 5px !important;
-   }   
+      margin: 0% !important;
+   }  
+   
+   /* Make the expand and collapse buttons bigger */
+   .cob-app .instance-detail-container div.instance-container ol.fields span.toggle-button {
+      min-width: fit-content !important;
+      font-size: 20px !important;
+      padding: 5px !important;
+      margin-right: 10px;
+   }
+
+   /* Make the remove buttons bigger */
+   .cob-app .instance-detail-container div.instance-container ol.fields span.remove-button {
+      min-width: fit-content !important;
+      font-size: 20px !important;
+      padding: 5px !important;
+      margin: 0% !important;
+   }
 }
 
 @media (max-width: 585px) {
@@ -213,6 +236,6 @@
    /* *************** Aumentar o tamanho dos botões + e - em ecrãs tácteis ******************* */
    .js-advanced-field-add,
    .js-advanced-field-remove {
-      font-size: 2em !important;
+      font-size: 1.2em !important;
    }
 }
