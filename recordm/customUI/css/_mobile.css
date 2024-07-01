@@ -138,6 +138,9 @@
       font-size: 1.1rem !important;
       overflow-x: scroll;
    }
+   .cob-app .markdown-container .CodeMirror-scroll {
+      max-width: 400px;
+   }
 
    .cob-app .instance-detail-container .instance-container .fields-container .field-group {
       margin-bottom:-5px;
