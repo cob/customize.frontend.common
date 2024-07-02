@@ -31,7 +31,7 @@ cob.custom.customize.push(function (core, utils, ui) {
     function applyMobileCustomizations(presenter, instance, 
         fields_show_mobile, fields_without_show_mobile, fields_hide_mobile){
 
-        if(isMobile()) { // || (isNaked() && isScreenMd()) -> add for destkop debug
+        if(isMobile() && isScreenMd()) { // || (isNaked() && isScreenMd()) -> add for destkop debug
             handleFieldVisibility(presenter,fields_show_mobile, fields_without_show_mobile, fields_hide_mobile )
 
             removeNavbar()
@@ -85,7 +85,7 @@ cob.custom.customize.push(function (core, utils, ui) {
 
         duplicateButtons.forEach(button => {
             button.addEventListener('click', () => {
-                if(isMobile()) { // || (isNaked() && isScreenMd()) -> add for destkop debug
+                if(isMobile() && isScreenMd()) { // || (isNaked() && isScreenMd()) -> add for destkop debug
                     removeNavbar()
                     hideSidenav();
                     // Add navbar
@@ -246,7 +246,7 @@ cob.custom.customize.push(function (core, utils, ui) {
 
         // SAVE Buttons HTML
         let $backBtn = $(`
-        <button class="pb-[3px] rounded-l-full w-4/12 content-center  !text-sm !text-white  
+        <button class="pb-[3px] rounded-l-md w-4/12 content-center  !text-sm !text-white  
         pt-1 bg-slate-400 hover:bg-slate-300">
           <i class="fa-solid fa-chevron-left"></i> <div class="text-xs">${backText}</div>
         </button>`)
@@ -276,14 +276,14 @@ cob.custom.customize.push(function (core, utils, ui) {
 
         // OTHER Buttons HTML
         let $ellipsisBtn = $(`
-        <button id="ellipsis-navbar-btn" class="rounded-r-full pb-[3px] w-4/12 content-center 
+        <button id="ellipsis-navbar-btn" class="rounded-r-md pb-[3px] w-4/12 content-center 
         flex items-center justify-center  !text-base !text-white  
         pt-1 bg-slate-500">
           <i class="fa-solid fa-ellipsis"></i>
         </button>`)
 
         let $expandBtn = $(`
-        <button id="ellipsis-expand" class="py-2 w-full px-2 rounded-t-xl bg-slate-700 flex-col items-center justify-center"> 
+        <button id="ellipsis-expand" class="py-2 w-full px-2 rounded-t-md bg-slate-700 flex-col items-center justify-center"> 
         <i class="fa-solid fa-up-right-and-down-left-from-center  !text-base !text-white  "></i> 
         <div class="text-xs">Expand</div> 
         </button>`)
@@ -373,7 +373,7 @@ cob.custom.customize.push(function (core, utils, ui) {
 
         // Create Ellipsis Menu container
         let $ellipsisMenu = `
-        <div id="ellipsis-menu" class=" py-2 rounded-full fixed flex flex-col items-center bottom-20
+        <div id="ellipsis-menu" class=" py-2 rounded-md fixed flex flex-col items-center bottom-20
         transition-all ease-in-out scale-y-0 opacity-0">
         </div>
         `
@@ -381,7 +381,7 @@ cob.custom.customize.push(function (core, utils, ui) {
         /******** Insert main navbar holder ********/ 
         $sidenav.append(`
         <div id="mobile-navbar" class="w-full flex flex-col  justify-center items-center fixed bottom-6 z-50 pr-10" >
-            <div id="inner-mobile-navbar" class="h-fit ${navbarWidth} rounded-full flex justify-evenly">
+            <div id="inner-mobile-navbar" class="h-fit ${navbarWidth} rounded-md flex justify-evenly">
             </div>
         </div>`)
 
@@ -430,7 +430,7 @@ cob.custom.customize.push(function (core, utils, ui) {
                 $saveEditBtn.toggleClass("pb-2 px-1")
             } 
             $("#ellipsis-menu").append($saveBtn)
-            $saveBtn.toggleClass("rounded-b-xl")
+            $saveBtn.toggleClass("rounded-b-md")
             $saveBtn.toggleClass("w-full")
         } else {
             // If save edit exists but save new does not exist
@@ -441,7 +441,7 @@ cob.custom.customize.push(function (core, utils, ui) {
                 prepareEllipsisMenuBaseButtons()
 
                 $("#ellipsis-menu").append($saveBtn)
-                $saveBtn.toggleClass("rounded-b-xl")
+                $saveBtn.toggleClass("rounded-b-md")
                 $saveBtn.toggleClass("w-full")
             } else {
                 // only the default save is enabled
@@ -450,9 +450,9 @@ cob.custom.customize.push(function (core, utils, ui) {
 
                 prepareEllipsisMenuBaseButtons()
 
-                if (can_show_hidden) { $showHiddenBtn.toggleClass("rounded-b-xl") }
+                if (can_show_hidden) { $showHiddenBtn.toggleClass("rounded-b-md") }
                 // else bottommost button is collapseAll
-                else {$collapseBtn.toggleClass("rounded-b-xl")}
+                else {$collapseBtn.toggleClass("rounded-b-md")}
                 
             }
         }
