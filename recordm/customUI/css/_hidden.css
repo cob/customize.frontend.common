@@ -11,3 +11,13 @@
   background-color: rgba(255,0,0,0.05) !important; /* Tom de vermelho para assinalar que estes campos estão escondidos */
   display: var(--dev-display, none);  /* pode ser ligado via botão colocado pelo js/cob/_show_hidden.js */
 }
+
+/* $style[hide-children] */
+.custom-hide-children ol.fields{
+  display: var(--dev-display, none);
+}
+
+/* $style[hide-expand-btn] */
+.custom-hide-expand-btn .toggle-button {
+  display: var(--dev-inline-display, none);
+}
