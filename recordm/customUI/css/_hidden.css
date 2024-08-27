@@ -18,6 +18,6 @@
 }
 
 /* $style[hide-expand-btn] */
-.custom-hide-expand-btn .toggle-button {
+.custom-hide-expand-btn > table > tbody > tr > td > div span.toggle-button {
   display: var(--dev-inline-display, none);
 }
