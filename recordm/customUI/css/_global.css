@@ -1,16 +1,16 @@
-/* Overall good practive - not column related but specialy relevant inside columns */
+/* Overall good practice - not column related but specially relevant inside columns */
 .cob-app .instance-detail-container div.instance-container ol.fields > li > table > tbody > tr > td:nth-child(1) {
-    min-width: 70px;
+  min-width: 70px;
 }
 .cob-app .instance-detail-container div.instance-container ol.fields > li > table > tbody > tr > td:nth-child(2) {
-    min-width: 160px;
+  min-width: 160px;
 }
 /* 
- * Removido porque estraga, pelo menos, os $radio
+* Removido porque estraga, pelo menos, os $radio
 .cob-app .instance-detail-container div.instance-container ol.fields  li > table > tbody > tr > td:nth-child(3),
 .cob-app .instance-detail-container div.instance-container ol.fields  li > table > tbody > tr > td:nth-child(3) input {
-    max-width: 230px;
-    width: -webkit-fill-available;
+  max-width: 230px;
+  width: -webkit-fill-available;
 } */
 
 /*
@@ -18,22 +18,27 @@
 Vou desactivar isto enquanto não se repensar nputra solução
 .cob-app .nav > li > a.js-menu-rm-importer-stats,
 .cob-app .nav > li > a.js-menu-reports {
-  display:none
+display:none
 }
 */
 
 /** Class to remove default style for $group **/
 .cob-app .instance-detail-container .instance-container .fields-container li.field-group.custom-no-style > ol.fields {
-    background-color: none;
-    margin:0px;
-    border: none;
-    display: unset !important;
-    visibility: unset !important;
-  }
-  .cob-app .instance-detail-container .instance-container .fields-container li.field-group.custom-no-style > ol.fields > li {
-    padding: 0;
-  }
-  
-  .cob-app .instance-detail-container .instance-container .fields-container li.field-group.custom-no-style > table {
-    display: none;
-  }
+  background-color: none;
+  margin:0px;
+  border: none;
+  display: unset !important;
+  visibility: unset !important;
+}
+.cob-app .instance-detail-container .instance-container .fields-container li.field-group.custom-no-style > ol.fields > li {
+  padding: 0;
+}
+
+.cob-app .instance-detail-container .instance-container .fields-container li.field-group.custom-no-style > table {
+  display: none;
+}
+
+/* Use $style[text1line] to start $text fields with just one line */
+.cob-app .instance-detail-container li.custom-text1line textarea.textarea.field-value {
+  height:28px !important;
+}
