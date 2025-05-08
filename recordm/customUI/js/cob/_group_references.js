@@ -4,7 +4,7 @@ cob.custom.customize.push(function (core, utils, ui) {
     core.customizeAllInstances(function(instance, presenter) {
         const update = (div) => {
             let group = $(div).parentsUntil(".field-group.custom-use-reference-count").parent().find(".group-name")
-            if(group.length !== 0){
+            if(group.length !== 0) {
                 let groupName = group[0] ? ((group[0].children.length ? group[0].children[0].innerHTML : group[0].innerHTML).trim()) : ""
                 let labelHTML = $(div).parent()[0].innerHTML
                 let labelWithCount = labelHTML.substring(0,labelHTML.indexOf("<div"))
@@ -20,6 +20,7 @@ cob.custom.customize.push(function (core, utils, ui) {
                     }
                     group[0].innerHTML = labelWithCount + (linkHTML?linkHTML.outerHTML:"")
                 }
+            }
         }
         var mo = new MutationObserver( (mutations) => mutations.forEach( m => update(m.target)) );
 
