@@ -1,0 +1,418 @@
+:root {
+	--field-width-xs: 150px;
+	--field-width-sm: 200px;
+	--field-width-md: 250px;
+	--field-width-base: 300px;
+  }
+  
+  
+  /**   Hidden in dash-gestao-concursos   **/
+  .dash-concursos-gestao .custom-hide-in-dash-concursos {
+	  display: none;
+  }
+  
+  /**   Hidden in dash-gestao-concursos   **/
+  .dash-fornecedores-proprio .custom-hide-in-dash-fornecedores {
+	display: none;
+  }
+  
+  /*** Ajustes a references em dashboards em resoluçoes pequenas ***/
+  .dash-concursos-gestao .cob-app .instance-detail-container .references-new-wrapper section .content > div {
+	flex-direction: column;
+  }
+  
+  
+  /*** Flexibilização ** */
+  
+  
+  /* ----------------------- $style[ children-always-expanded ]    -----------------------   */
+  .cob-app .instance-detail-container .instance-container .fields-container li.custom-children-always-expanded > ol.fields  {
+	  display: inherit !important;
+	  visibility: inherit;
+	} 
+	.cob-app .instance-detail-container .instance-container .fields-container li.custom-children-always-expanded > table .toggle-button {
+	  display: none;
+	}
+  
+  /* ----------------------- $style[ children-mx-0 ]               -----------------------   */
+	.cob-app .instance-detail-container .instance-container .fields-container li.custom-children-mx-0 {
+	  padding-left: 0px; 
+	  padding-right: 0px; 
+	}
+	.cob-app .instance-detail-container .instance-container .fields-container li.custom-children-mx-0 > table,
+	.cob-app .instance-detail-container .instance-container .fields-container li.custom-children-mx-0 > ol.fields {
+	  margin-left: 0px;
+	  margin-right: 0px;
+	} 
+  
+  /* @mimes please review this. did not have time :(  */
+  /* ----------------------- $style[ children-my-0 ]               -----------------------   */
+	.cob-app .instance-detail-container .instance-container .fields-container li.custom-children-my-0,
+	.cob-app .instance-detail-container .instance-container .fields-container li.custom-children-my-0 > ol.fields,
+	.cob-app .instance-detail-container .instance-container .fields-container li.custom-children-my-0 > ol.fields > li {
+	  padding-top: 0px; 
+	  padding-bottom: 0px; 
+	}
+	.cob-app .instance-detail-container .instance-container .fields-container li.custom-children-my-0 > table,
+	.cob-app .instance-detail-container .instance-container .fields-container li.custom-children-my-0 > ol.fields,
+	.cob-app .instance-detail-container .instance-container .fields-container li.custom-children-my-0 > ol.fields > li {
+	  margin-top: 0px;
+	  margin-bottom: 0px;
+	  padding-top: 2px;
+	} 
+  
+  
+  /* ----------------------- $style[ children-border-0 ]           -----------------------   */
+	.cob-app .instance-detail-container .instance-container .fields-container li.custom-children-border-0 > ol.fields {
+	  border: none;
+	} 
+  
+  /* ----------------------- $style[ children-bg-none ]            -----------------------   */
+	.cob-app .instance-detail-container .instance-container .fields-container li.custom-children-bg-none > ol.fields {
+	  background-color: unset;
+	} 
+  
+  /* ----------------------- $style[ children-animate-expand ]     -----------------------   */
+   .custom-children-animate-expand > ol {
+	  animation: fade_in_show 0.3s;
+	}
+	@keyframes fade_in_show {
+		0% {
+			transform-origin: top ;  
+			transform: scaleY(0)
+		}
+  
+		100% {
+			transform-origin: top ;  
+			transform: scaleY(1);
+		}
+	}
+  
+  /*                                                                                                                              */
+  /* ----------------------- $style[ children-sm-grid-cols-2 ]  (e lg-grid-cols-3 e xs-grid-cols-4) -----------------------   */
+	.custom-children-xs-grid-cols-2,
+	.custom-children-sm-grid-cols-2,
+	.custom-children-lg-grid-cols-3,
+	.custom-children-xl-grid-cols-4 {
+	  container-type: inline-size
+	}
+	.custom-children-xs-grid-cols-2 > .cob-fields-list,
+	.custom-children-sm-grid-cols-2 > .cob-fields-list,
+	.custom-children-lg-grid-cols-3 > .cob-fields-list,
+	.custom-children-xl-grid-cols-4 > .cob-fields-list {
+	  display: grid;
+	}
+  
+	.custom-children-xs-grid-cols-2 > .cob-fields-list {
+	  @container (min-width: 512px) {
+		grid-template-columns: repeat(2, minmax(0, 1fr))
+	  }
+	}
+  
+	.custom-children-sm-grid-cols-2 > .cob-fields-list {
+	  @container (min-width: 640px) {
+		grid-template-columns: repeat(2, minmax(0, 1fr))
+	  }
+	}
+  
+	.custom-children-lg-grid-cols-3 > .cob-fields-list {
+	  @container (min-width: 1024px) {
+		  grid-template-columns: repeat(3, minmax(0, 1fr))
+	  }
+	}
+	
+	.custom-children-xl-grid-cols-4 > .cob-fields-list {
+	  @container (min-width: 1280px) {
+		grid-template-columns: repeat(4, minmax(0, 1fr))
+	  }
+	}
+	
+	/* TODO: RE-ANALISAR, CORRIGIR E EXPANDIR*/
+	.custom-children-xs-grid-cols-2 > .cob-fields-list > li > table > tbody > tr,
+	.custom-children-sm-grid-cols-2 > .cob-fields-list > li > table > tbody > tr {
+	  display:flex;
+	  justify-content: space-evenly;
+	}
+	.custom-children-xs-grid-cols-2 > .cob-fields-list > li > table > tbody > tr > td,
+	.custom-children-sm-grid-cols-2 > .cob-fields-list > li > table > tbody > tr > td {
+	  width: -moz-available;  /* Para Firefox */
+	  width: -webkit-fill-available; /* Para Chrome/Safari */
+	  width: fill-available; /* Para padrões mais recentes */
+	}
+	.custom-children-xs-grid-cols-2 > .cob-fields-list > li > table > tbody > tr > td input,
+	.custom-children-sm-grid-cols-2 > .cob-fields-list > li > table > tbody > tr > td input {
+		max-width: unset !important;
+		width: -moz-available;  /* Para Firefox */
+		width: -webkit-fill-available; /* Para Chrome/Safari */
+		width: fill-available; /* Para padrões mais recentes */
+	}
+	
+  
+  /* ----------------------- $style[ group-hidden ] ----------------------- */
+  
+  .custom-group-hidden > table {
+	  margin-bottom: 0px;
+	  display: none
+  }
+	
+  .custom-group-hidden > .cob-fields-list {
+	  border-style: none !important;
+	  background-color: transparent !important
+  }  
+  
+  /*                                                                                                                              */
+  /* ----------------------- $style[ group-border-1 ]              -----------------------   */
+	.cob-app .instance-detail-container .instance-container .fields-container li.custom-group-border-1 {
+	  border: 1px solid #ccc ;
+	  border-radius: 3px;
+	  margin-bottom:8px;
+	  padding: 4px;
+	} 
+  
+  /* ----------------------- $style[ group-label-none ]              -----------------------   */
+	.custom-group-label-none > table .group-name {
+	  display: none
+	}
+  
+  /*                                                                                                                              */
+  /* ----------------------- $style[ dollar-group-border-b-2-red ] (also primary, secondary, blue, orange, gray and none)  -----------------------   */
+	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-border-b-2-red > table .legend {
+	  border-bottom: 2px solid red;
+	}
+	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-border-b-2-blue > table .legend {
+	  border-bottom: 2px solid blue;
+	}
+	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-border-b-2-orange > table .legend {
+	  border-bottom: 2px solid orange;
+	}
+	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-border-b-2-gray > table .legend {
+	  border-bottom: 2px solid #ccc;
+	}
+	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-border-b-2-primary > table .legend {
+	  border-bottom: 2px solid var(--primary);
+	}
+	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-border-b-2-secondary > table .legend {
+	  border-bottom: 2px solid var(--secondary);
+	}
+	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-border-b-2-none > table .legend {
+	  border-bottom: unset;
+	}
+  
+  /* ----------------------- $style[ dollar-group-bg-red ] (also primary, secondary, blue and orange)  -----------------------   */
+	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-bg-red > table .legend {
+	  background-color: red;
+	}
+	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-bg-blue > table .legend {
+	  background-color: blue;
+	}
+	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-bg-orange > table .legend {
+	  background-color: orange;
+	}
+	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-bg-primary > table .legend {
+	  background-color: var(--primary);
+	}
+	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-bg-secondary > table .legend {
+	  background-color: var(--secondary);
+	}
+  
+	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-bg-red > table .legend,
+	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-bg-blue > table .legend,
+	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-bg-orange > table .legend,
+	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-bg-primary > table .legend,
+	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-bg-secondary > table .legend {
+	  color:white;
+	  padding-left: 5px;      
+	  padding-right: 5px;      
+	  border-radius: 3px;
+	  margin-left: -1px;
+	  margin-right: -1px;
+	}
+  
+  /*                                                                                                                              */
+  /* ----------------------- $style[ field-col-span-full ]         -----------------------   */
+	.custom-field-col-span-full { 
+	  grid-column: 1 / -1
+	}    
+  
+  /* ----------------------- $style[ field-actions-hide ]  -----------------------   */
+	.custom-field-actions-hide > table .cob-field-container-actions {
+	  display: none
+	}
+  /* ----------------------- $style[ field-label-hide ] ----------------------- */
+	.custom-field-label-hide > table .cob-field-container-label {
+	  display: none
+	}
+  /* ----------------------- $style[ field-description-hide ] ----------------------- */
+	.custom-field-description-hide > table td.cob-field-container-description  {
+	  display: none;
+	}
+  
+  /* ----------------------- $style[ field-label-in-placeholder ] ----------------------- */
+	.custom-field-description-hide > table input::placeholder {
+	  opacity: 0.7 !important;
+	}    
+	
+  /* ----------------------- $style[ field-w-WIDTH_LENGTH-MEDIA_QUERY ]         -----------------------   */
+  
+  /* Setup to use @container */
+  .custom-xxs\:field-w-full
+  .custom-xs\:field-w-full,
+  .custom-sm\:field-w-full,
+  .custom-xxs\:field-w-base
+  .custom-xs\:field-w-base,
+  .custom-sm\:field-w-base,
+  .custom-xxs\:field-w-xs,
+  .custom-xs\:field-w-xs,
+  .custom-sm\:field-w-xs,
+  .custom-xxs\:field-w-sm,
+  .custom-xs\:field-w-sm,
+  .custom-sm\:field-w-sm {
+	container-type: inline-size;
+  }
+  
+  /* Without Media Query */
+  .custom-field-w-base > table :is(input[type="text"], select, textarea, div.radiogroup),
+  .custom-field-w-base .markdown-container .CodeMirror,
+  .custom-field-w-base .markdown-container .editor-toolbar {
+	width: var(--field-width-base);
+  }
+  
+  .custom-field-w-xs > table :is(input[type="text"], select, textarea, div.radiogroup),
+  .custom-field-w-xs .markdown-container .CodeMirror,
+  .custom-field-w-xs .markdown-container .editor-toolbar {
+	width: var(--field-width-xs);
+  }
+  
+  .custom-field-w-sm > table :is(input[type="text"], select, textarea, div.radiogroup),
+  .custom-field-w-sm .markdown-container .CodeMirror,
+  .custom-field-w-sm .markdown-container .editor-toolbar {
+	width: var(--field-width-sm);
+  }
+  
+  .custom-field-w-full > table td:nth-of-type(3) {
+	width: 100%;
+  }
+  
+  @container (max-width: 400px) {
+	.custom-xxs\:field-w-base > table :is(input[type="text"], select, textarea, div.radiogroup),
+	.custom-xxs\:field-w-base .markdown-container .CodeMirror,
+	.custom-xxs\:field-w-base .markdown-container .editor-toolbar {
+		width: 300px;
+	}
+  
+	.custom-xxs\:field-w-xs > table :is(input[type="text"], select, textarea, div.radiogroup),
+	.custom-xxs\:field-w-xs .markdown-container .CodeMirror,
+	.custom-xxs\:field-w-xs .markdown-container .editor-toolbar {
+		width: var(--field-width-xs);
+	}
+  
+	.custom-xxs\:field-w-sm > table :is(input[type="text"], select, textarea, div.radiogroup),
+	.custom-xxs\:field-w-sm  .markdown-container .CodeMirror,
+	.custom-xxs\:field-w-sm .markdown-container .editor-toolbar {
+		width: var(--field-width-sm);
+	}
+  
+	.custom-xxs\:field-w-full > table td:nth-of-type(3) {
+	  width: 100%;
+	}
+  }
+  
+  /* Media Query XS */
+  @container (max-width: 512px) {
+	.custom-xs\:field-w-base > table :is(input[type="text"], select, textarea, div.radiogroup),
+	.custom-xs\:field-w-base .markdown-container .CodeMirror,
+	.custom-xs\:field-w-base .markdown-container .editor-toolbar {
+		width: 300px;
+	}
+  
+	.custom-xs\:field-w-xs > table :is(input[type="text"], select, textarea, div.radiogroup),
+	.custom-xs\:field-w-xs .markdown-container .CodeMirror,
+	.custom-xs\:field-w-xs .markdown-container .editor-toolbar  {
+		width: var(--field-width-xs);
+	}
+  
+	.custom-xs\:field-w-sm > table :is(input[type="text"], select, textarea, div.radiogroup),
+	.custom-xs\:field-w-sm  .markdown-container .CodeMirror,
+	.custom-xs\:field-w-sm .markdown-container .editor-toolbar {
+		width: var(--field-width-sm);
+	}
+  
+	.custom-xs\:field-w-full > table td:nth-of-type(3) {
+	  width: 100%;
+	}
+  }
+  
+  /* Media Query SM */
+  @container (max-width: 640px) {
+	.custom-sm\:field-w-base > table :is(input[type="text"], select, textarea, div.radiogroup),
+	.custom-sm\:field-w-base .markdown-container .CodeMirror,
+	.custom-sm\:field-w-base .markdown-container .editor-toolbar  {
+	  width: var(--field-width-base);
+	}
+	
+	
+	.custom-sm\:field-w-xs > table :is(input[type="text"], select, textarea, div.radiogroup),
+	.custom-sm\:field-w-xs .markdown-container .CodeMirror,
+	.custom-sm\:field-w-xs .markdown-container .editor-toolbar  {
+	  width: var(--field-width-xs);
+	}
+	
+	.custom-sm\:field-w-sm > table :is(input[type="text"], select, textarea, div.radiogroup),
+	.custom-sm\:field-w-sm .markdown-container .CodeMirror,
+	.custom-sm\:field-w-sm .markdown-container .editor-toolbar {
+	  width: var(--field-width-sm);
+	}
+  
+	.custom-sm\:field-w-full > table td:nth-of-type(3) {
+	  width: 100%;
+	}
+  }
+  
+	/* ----------------------- $style[ field-direction-column ] ----------------------- */
+	.custom-field-direction-column > table > tbody > tr {
+	  display: flex;
+	  flex-direction: column;
+	}
+  
+	.custom-field-direction-column-xxs,
+	.custom-field-direction-column-xs,
+	.custom-field-direction-column-sm,
+	.custom-field-direction-column-lg,
+	.custom-field-direction-column-xl {
+	  container-type: inline-size;
+	}
+  
+	.custom-field-direction-column-xxs > table > tbody > tr {
+	  @container (max-width: 400px) {
+		display: flex;
+		flex-direction: column;
+	  }
+	}
+  
+	.custom-field-direction-column-xs > table > tbody > tr {
+	  @container (max-width: 512px) {
+		display: flex;
+		flex-direction: column;
+	  }
+	}
+  
+	.custom-field-direction-column-sm > table > tbody > tr {
+	  @container (max-width: 640px) {
+		display: flex;
+		flex-direction: column;
+	  }
+	}
+  
+	.custom-field-direction-column-lg > table > tbody > tr {
+	  @container (max-width: 1024px) {
+		display: flex;
+		flex-direction: column;
+	  }
+	}
+  
+	.custom-field-direction-column-xl > table > tbody > tr {
+	  @container (max-width: 1280px) {
+		display: flex;
+		flex-direction: column;
+	  }
+	}
