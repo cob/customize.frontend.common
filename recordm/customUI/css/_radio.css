@@ -1,3 +1,13 @@
+:root {
+	--radio-width-xs: 5px;
+	--radio-width-sm: 10px;
+	--radio-width-md: 20px;
+	--radio-width-base: 30px;
+    --radio-width-lg: 40px;
+    --radio-width-xl: 50px;
+  }
+
+
 /* For  $style[radio-1line] in addition to $radio */
 ol.fields>li.custom-radio-1line>table label {
     min-width: 100%
@@ -6,7 +16,43 @@ ol.fields>li.custom-radio-1line>table label {
 /* For  $style[radio-compact] in addition to $radio */
 .cob-app .instance-detail-container div.instance-container ol.fields>li.custom-radio-compact>table td:nth-child(3) label {
     margin-right: 10px;
-    width: 30px;
+    width: var(--radio-width-base);
+    display: inline-flex;
+}
+
+/* For  $style[radio-compact-xl] in addition to $radio */
+.cob-app .instance-detail-container div.instance-container ol.fields>li.custom-radio-compact-xl>table td:nth-child(3) label {
+    margin-right: 10px;
+    width: var(--radio-width-xl);
+    display: inline-flex;
+}
+
+/* For  $style[radio-compact-lg] in addition to $radio */
+.cob-app .instance-detail-container div.instance-container ol.fields>li.custom-radio-compact-lg>table td:nth-child(3) label {
+    margin-right: 10px;
+    width: var(--radio-width-lg);
+    display: inline-flex;
+}
+
+
+/* For  $style[radio-compact-md] in addition to $radio */
+.cob-app .instance-detail-container div.instance-container ol.fields>li.custom-radio-compact-md>table td:nth-child(3) label {
+    margin-right: 10px;
+    width: var(--radio-width-md);
+    display: inline-flex;
+}
+
+/* For  $style[radio-compact-sm] in addition to $radio */
+.cob-app .instance-detail-container div.instance-container ol.fields>li.custom-radio-compact-sm>table td:nth-child(3) label {
+    margin-right: 10px;
+    width: var(--radio-width-sm);
+    display: inline-flex;
+}
+
+/* For  $style[radio-compact-xs] in addition to $radio */
+.cob-app .instance-detail-container div.instance-container ol.fields>li.custom-radio-compact-xs>table td:nth-child(3) label {
+    margin-right: 10px;
+    width: var(--radio-width-xs);
     display: inline-flex;
 }
 
