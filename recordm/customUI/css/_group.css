@@ -1,10 +1,11 @@
 *{
-	--cob-color-red: #CC1747
-	--cob-orange: #FE7700  
-	--cob-purple: #502499  
-	--cob-blue: #00B7E4 
-	--cob-color-black: black 
-	--cob-color-main: var(--cob-color-red)
+	--cob-color-red: #CC1747;
+	--cob-orange: #FE7700;
+	--cob-purple: #502499; 
+	--cob-blue: #00B7E4;
+	--cob-color-black: black; 
+	--cob-color-main: var(--cob-color-red);
+  
 }
 
 
