@@ -1,4 +1,5 @@
 :root {
+	--field-width-xxs: 115px;
 	--field-width-xs: 150px;
 	--field-width-sm: 200px;
 	--field-width-md: 250px;
@@ -282,6 +283,12 @@
   .custom-field-w-xs .markdown-container .editor-toolbar {
 	width: var(--field-width-xs);
   }
+
+	.custom-field-w-xxs > table :is(input[type="text"], select, textarea, div.radiogroup),
+	.custom-field-w-xxs .markdown-container .CodeMirror,
+	.custom-field-w-xxs .markdown-container .editor-toolbar {
+		width: var(--field-width-xxs);
+	}
 
   .custom-field-w-sm > table :is(input[type="text"], select, textarea, div.radiogroup),
   .custom-field-w-sm .markdown-container .CodeMirror,

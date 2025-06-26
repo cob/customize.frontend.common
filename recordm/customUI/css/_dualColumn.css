@@ -8,7 +8,6 @@ li.custom-dualColumn ol.fields > li > table > tbody > tr > td:nth-child(2) {
 li.custom-dualColumn ol.fields  li > table > tbody > tr > td:nth-child(3),
 li.custom-dualColumn ol.fields  li > table > tbody > tr > td:nth-child(3) input:not([type='radio']) {
   max-width: 230px;
-  width: -webkit-fill-available;
 }
 
 /* $style[dualColumn] */
