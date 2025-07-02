@@ -16,6 +16,8 @@ cob.custom.customize.push(function(core, utils, ui) {
             }
 
         });
-        mo.observe(document.querySelector('div.instance-container'), {childList: true, subtree: true});
+        if(document.querySelector('div.instance-container')) {
+            mo.observe(document.querySelector('div.instance-container'), {childList: true, subtree: true});
+        } 
     })
 })
