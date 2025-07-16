@@ -12,9 +12,9 @@
 	--cob-fg-color-subgrupo: var(--cob-color-red);
 
   --cob-color-grupo-placeholder: var(--cob-color-lighter-orange);
-  --cob-color-grupo-placeholder-unset:  var(--cob-color-even-lighter-orange);
   --cob-color-subgrupo-placeholder: var(--cob-color-orange);
-  --cob-color-subgrupo-placeholder-unset:  #b5a994;
+  --cob-color-grupo-placeholder-unset:  #b5a994;
+  --cob-color-subgrupo-placeholder-unset: var(--cob-color-grupo-placeholder-unset);
 }
 
 /* *************** $style[grupo,subgrupo]  generic  ******************* */
@@ -69,8 +69,11 @@
   .custom-subgrupo .group-placeholder {
     color: var(--cob-color-subgrupo-placeholder);
   }
-  .custom-grupo .group-placeholder-unset,
+  .custom-grupo .group-placeholder-unset{
+    color: var(--cob-color-grupo-placeholder-unset);
+    font-weight: unset;
+  }
   .custom-subgrupo .group-placeholder-unset {
-      color: var(--cob-color-even-lighter-orange);
-      font-weight: unset;
+    color: var(--cob-color-subgrupo-placeholder-unset);
+    font-weight: unset;
   }
