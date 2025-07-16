@@ -1,92 +1,77 @@
 *{
 	--cob-color-red: #CC1747;
-	--cob-orange: #FE7700;
-	--cob-purple: #502499; 
-	--cob-blue: #00B7E4;
+	--cob-color-orange: #FE7700;
+  --cob-color-lighter-orange: #ffb62f;  
+  --cob-color-even-lighter-orange: #eacf9c;  
+	--cob-color-purple: #502499; 
+	--cob-color-blue: #00B7E4;
 	--cob-color-black: black; 
-	--cob-color-main: var(--cob-color-red);
-  
+
+	--cob-bg-color-grupo: var(--cob-color-red);
+	--cob-fg-color-grupo: white;
+	--cob-bg-color-subgrupo: var(transparent);
+	--cob-fg-color-subgrupo: var(--cob-color-red);
+
+  --cob-color-grupo-placeholder: var(--cob-color-lighter-orange);
+  --cob-color-grupo-placeholder-unset:  var(--cob-color-even-lighter-orange);
+  --cob-color-subgrupo-placeholder: var(--cob-color-orange);
+  --cob-color-subgrupo-placeholder-unset:  var(--cob-color-even-lighter-orange);
 }
 
-
-/* *************** $style[grupo] ******************* */
-.custom-grupo > table .legend{
-    background-color: var(--cob-color-main);
-    color:white;
+/* *************** $style[grupo,subgrupo]  generic  ******************* */
+  .custom-grupo > table .legend{
+    background-color: var(--cob-bg-color-grupo);
+    color:var(--cob-fg-color-grupo);
     padding-left:5px;
   }
   
   .cob-app .custom-subgrupo > table .legend {
-    color: var(--cob-color-main);
-    background-color: transparent;
+    color: var(--cob-fg-color-subgrupo);
+    background-color: var(--cob-bg-color-subgrupo);
     border-bottom: solid 2px !important;
   }
    
-
-  /* *************** $style[grupo-red] ******************* */
-.custom-grupo-red > table .legend{
+/* *************** other colors (example for red: $style[grupo-red,grupo,subgrupo-red] ) ******************* */
+  .custom-grupo-red > table .legend{
     background-color: var(--cob-color-red);
-    color:white;
-    padding-left:5px;
   }
-  
+  .custom-grupo-orange > table .legend{
+    background-color: var(--cob-color-orange);
+  }
+  .custom-grupo-purple > table .legend{
+    background-color: var(--cob-color-purple);
+  }
+  .custom-grupo-blue > table .legend{
+    background-color: var(--cob-color-blue);
+  }
+  .custom-grupo-black > table .legend{
+    background-color: var(--cob-color-black);
+  }  
   .cob-app .custom-subgrupo-red > table .legend {
     color: var(--cob-color-red);
-    background-color: transparent;
-    border-bottom: solid 2px !important;
-  }
-   
-  /* *************** $style[grupo-orange] ******************* */
-  .custom-grupo-orange > table .legend{
-    background-color: var(--cob-orange);
-    color:white;
-    padding-left:5px;
-  }
-  
+  }   
   .cob-app .custom-subgrupo-orange > table .legend {
-    color: var(--cob-orange);
-    background-color: transparent;
-    border-bottom: solid 2px !important;
+    color: var(--cob-color-orange);
   }
-   
-
-    /* *************** $style[grupo-purple] ******************* */
-.custom-grupo-purple > table .legend{
-    background-color: var(--cob-purple);
-    color:white;
-    padding-left:5px;
-  }
-  
   .cob-app .custom-subgrupo-purple > table .legend {
-    color: var(--cob-purple);
-    background-color: transparent;
-    border-bottom: solid 2px !important;
+    color: var(--cob-color-purple);
   }
-   
-
-    /* *************** $style[grupo-blue] ******************* */
-.custom-grupo-blue > table .legend{
-    background-color: var(--cob-blue);
-    color:white;
-    padding-left:5px;
-  }
-  
   .cob-app .custom-subgrupo-blue > table .legend {
-    color: var(--cob-blue);
-    background-color: transparent;
-    border-bottom: solid 2px !important;
+    color: var(--cob-color-blue);
   }
-
-  /* *************** $style[grupo-black] ******************* */
-.custom-grupo-black > table .legend{
-    background-color: var(--cob-color-black);
-    color:white;
-    padding-left:5px;
-  }
-  
   .cob-app .custom-subgrupo-black > table .legend {
     color: var(--cob-color-black);
-    background-color: transparent;
-    border-bottom: solid 2px !important;
   }
    
+/* *************** Placeholders em $style[grupo] $style[subgrupo]  ******************* */
+  .custom-grupo .group-placeholder {
+    color: var(--cob-color-grupo-placeholder);
+  }
+  .custom-subgrupo .group-placeholder {
+    color: var(--cob-color-subgrupo-placeholder);
+  }
+  .custom-grupo .group-placeholder-unset,
+  .custom-subgrupo .group-placeholder-unset {
+      color: var(--cob-color-even-lighter-orange);
+      font-weight: unset;
+  }
