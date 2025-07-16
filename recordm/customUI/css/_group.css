@@ -2,7 +2,6 @@
 	--cob-color-red: #CC1747;
 	--cob-color-orange: #FE7700;
   --cob-color-lighter-orange: #ffb62f;  
-  --cob-color-even-lighter-orange: #eacf9c;  
 	--cob-color-purple: #502499; 
 	--cob-color-blue: #00B7E4;
 	--cob-color-black: black; 
@@ -15,7 +14,7 @@
   --cob-color-grupo-placeholder: var(--cob-color-lighter-orange);
   --cob-color-grupo-placeholder-unset:  var(--cob-color-even-lighter-orange);
   --cob-color-subgrupo-placeholder: var(--cob-color-orange);
-  --cob-color-subgrupo-placeholder-unset:  var(--cob-color-even-lighter-orange);
+  --cob-color-subgrupo-placeholder-unset:  #b5a994;
 }
 
 /* *************** $style[grupo,subgrupo]  generic  ******************* */
