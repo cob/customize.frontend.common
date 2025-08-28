@@ -45,6 +45,9 @@
 	  margin-left: 0px;
 	  margin-right: 0px;
 	}
+	.cob-app .instance-detail-container .instance-container .fields-container li.custom-children-mx-0 > ol.fields > li {
+	  padding:0px
+	}
 
   /* @mimes please review this. did not have time :(  */
   /* ----------------------- $style[ children-my-0 ]               -----------------------   */
