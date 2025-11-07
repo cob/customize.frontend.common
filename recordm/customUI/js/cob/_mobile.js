@@ -252,7 +252,7 @@ cob.custom.customize.push(function (core, utils, ui) {
         </button>`)
 
         let $saveBtn = $(`
-        <button class="pb-[3px] content-center  !text-sm !text-white  
+        <button class="js-save-instance pb-[3px] content-center  !text-sm !text-white  
         pt-1 bg-green-400 hover:bg-green-300">
             <i class="fa-solid fa-floppy-disk"></i> <div class="text-xs">${saveText}</div>
         </button>
