@@ -199,7 +199,7 @@
 	  border-bottom: 2px solid var(--secondary);
 	}
 	.cob-app .instance-detail-container .instance-container .fields-container .field-group.custom-dollar-group-border-b-2-none > table .legend {
-	  border-bottom: unset;
+	  border-bottom: unset !important;
 	}
 
   /* ----------------------- $style[ dollar-group-bg-red ] (also primary, secondary, blue and orange)  -----------------------   */
