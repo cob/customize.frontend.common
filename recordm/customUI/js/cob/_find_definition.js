@@ -1,29 +1,50 @@
 cob.custom.customize.push(async function(core, utils, ui) {
 
-    const regex = /\$definitions/
+    const definitionsRegex = /\$definitions/
+    const definitionIdRegex = /\$definitionId/
 
     core.customizeAllInstances(async (instance, presenter) => {
-        const definitionsSelectContainer = await loadDefinitions()
-            .then(definitions => definitions.map(def => `<option value="${def.name}">${def.name}</option>`).join(""))
-            .then(options => $(`<div><select class="js-select-definition"><option></option>${options}</select></div>`))
-
-        presenter.findFieldPs(fp => regex.test(fp.field.fieldDefinition.description))
+        const definitions = await loadDefinitions()
+        const options = definitions.map(def => `<option value="${def.name}" data-id="${def.id}">${def.name}</option>`).join("")
+        
+        presenter.findFieldPs(fp => definitionsRegex.test(fp.field.fieldDefinition.description))
             .forEach(fp => {
-                const $fieldTable = fp.content().find("> table.instance\\.service\\.field");
-                const $input = $fieldTable.find(".field-value");
+                const $fieldTable = fp.content().find("> table.instance\\.service\\.field")
+                const $input = $fieldTable.find(".field-value")
 
                 if ($fieldTable.find(".js-select-definition").length > 0) {
-                    return;
+                    return
                 }
 
-                $input.css('display', 'none');
-                $input.after(definitionsSelectContainer.html());
+                $input.css('display', 'none')
+                $input.after(`<select class="js-select-definition"><option></option>${options}</select>`)
 
-                $fieldTable.find(".js-select-definition")
-                    .val(fp.getValue())
-                    .on('change', function() {
-                        $input.val(this.value).trigger('change');
-                    });
+                const parentContent = fp.content()
+                
+                const allDefinitionIdFields = presenter.findFieldPs(childFp => 
+                    definitionIdRegex.test(childFp.field.fieldDefinition.description)
+                )
+
+                const childFieldP = allDefinitionIdFields.find(childFp => {
+                    const childContentId = childFp.content().attr('id')
+                    return parentContent.find(`#${childContentId}`).length > 0
+                })
+
+                const $select = $fieldTable.find(".js-select-definition")
+                
+                $select.val(fp.getValue())
+
+                $select.on('change', function() {
+                    const selectedName = this.value
+                    const selectedId = $(this).find(':selected').data('id')
+                    
+                    $input.val(selectedName).trigger('change')
+                    
+                    if (childFieldP) {
+                        const $childFieldInput = childFieldP.content().find("> table.instance\\.service\\.field .field-value")
+                        $childFieldInput.val(selectedId).trigger('change')
+                    }
+                })
             })
     })
 
