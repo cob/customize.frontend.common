@@ -1,7 +1,7 @@
 cob.custom.customize.push(async function(core, utils, ui) {
 
     const definitionsRegex = /\$definitions/
-    const definitionIdRegex = /\$definitionId/
+    const definitionIdRegex = /\$auto\.definitions\.id/
 
     core.customizeAllInstances(async (instance, presenter) => {
         const definitions = await loadDefinitions()
