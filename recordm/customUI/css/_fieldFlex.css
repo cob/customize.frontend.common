@@ -250,6 +250,11 @@
 	.custom-field-description-hide > table td.cob-field-container-description  {
 	  display: none;
 	}
+	/* Special case for $markdown fields to avoid removing value field */
+	.custom-field-description-hide>table tr.cob-field.field-textarea>td.cob-field-container-description {
+		display: table-cell;
+		width: 100% !important;
+	}
 
   /* ----------------------- $style[ field-label-in-placeholder ] ----------------------- */
 	.custom-field-description-hide > table input::placeholder {
