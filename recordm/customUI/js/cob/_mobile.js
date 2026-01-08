@@ -259,14 +259,14 @@ cob.custom.customize.push(function (core, utils, ui) {
         `)
 
         let $saveEditBtn = $(`
-        <button class="pb-[3px] content-center  !text-sm !text-white  
+        <button class="js-save-edit-instance pb-[3px] content-center !text-sm !text-white  
         pt-1 bg-green-500 hover:bg-green-400">
             <i class="fa-solid fa-floppy-disk"></i> <div class="text-xs">${saveEditText}</div>
         </button>
         `)
 
         let $saveNewBtn = $(`
-        <button class="pb-[3px] content-center  !text-sm !text-white  
+        <button class="js-save-create-new-instance pb-[3px] content-center  !text-sm !text-white  
         pt-1 bg-green-600 hover:bg-green-500">
             <i class="fa-solid fa-floppy-disk"></i> 
             <div class="text-xs">${saveNewText}</div> 
@@ -303,7 +303,7 @@ cob.custom.customize.push(function (core, utils, ui) {
         </button>
         `)
 
-        /******** SAVE Button click handlers ********/ 
+        /******** SAVE Button click handlers ********/
         $backBtn.click(function (e) {
             e.preventDefault();
             if($("#mobile-navbar").length > 0) {
@@ -312,30 +312,7 @@ cob.custom.customize.push(function (core, utils, ui) {
             core.navigateBack();
         });
 
-
-        $saveBtn.click(function (e) {
-            e.preventDefault();
-            presenter.saveInstance(() => {
-                core.navigateBack();
-            });
-        });
-
-
-        $saveEditBtn.click(function (e) {
-            e.preventDefault();
-            presenter.saveInstance(() => { });
-        });
-
-
-        $saveNewBtn.click(function (e) {
-            e.preventDefault();
-            presenter.saveInstance(() => {
-                core.navigateTo(`/instance/create/${instance.data.jsonDefinition.id}`);
-            });
-        });
-
-
-        /******** OTHER Button click handlers ********/ 
+        /******** OTHER Button click handlers ********/
         $ellipsisBtn.click(function (e) {
             e.preventDefault();
             const hiddenButtons = document.querySelector('#ellipsis-menu');
