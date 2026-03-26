@@ -5,50 +5,67 @@ cob.custom.customize.push(async function(core, utils, ui) {
 
     const getExtension = (fp, extension) => fp.field.fieldDefinition.configuration.extensions[extension]
 
+    const normalize = str => str?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") ?? "";
+
     core.customizeAllInstances( function(instance, presenter) {
 
-        loadDefinitions().then(definitions => {
+        const fieldsToInjectId = presenter.findFieldPs( fp => getExtension(fp, keywordDefinitionId))
 
-            const options = definitions.map(def => `<option value="${def.name}" data-id="${def.id}">${def.name}</option>`).join("")
-            const fieldsToInjectId = presenter.findFieldPs( fp => getExtension(fp, keywordDefinitionId))
+        if(fieldsToInjectId.length > 0){
 
-            if(fieldsToInjectId.length > 0){
+            //for each field with $auto_definitionId keyword
+            fieldsToInjectId.forEach( async fieldToInject => {
 
-                //for each field with $auto_definitionId keyword
-                fieldsToInjectId.forEach( async fieldToInject => {
+                fieldToInject.disable() //prevent user from changing it manually
 
-                    fieldToInject.disable() //prevent user from changing it manually
+                //get the argument of the keyword - field with the name of the definition
+                const extension = getExtension(fieldToInject, keywordDefinitionId)
+                const field_name = extension && extension.args ? extension.args[0] : ""
 
-                    //get the argument of the keyword - field with the name of the definition
-                    const extension = getExtension(fieldToInject, keywordDefinitionId)
-                    const field_name = extension && extension.args ? extension.args[0] : ""
+                if(field_name){
 
-                    if(field_name){
+                    //wait for the select to be in the DOM (it is created in the $definitions keyword)
+                    waitForElement(`.js-select-definition[data-field-name="${field_name}"]`, (select) => {
 
-                        //wait for the select to be in the DOM (it is created in the $definitions keyword)
-                        waitForElement(`.js-select-definition[data-field-name="${field_name}"]`, (select) => {
-
-                            const initialOption = select.selectedOptions[0]
-                            const initialId = initialOption?.dataset.id
-                            fieldToInject.setValue(initialId)
-                            
-                            select.addEventListener("change", (e) => {
-                                const id = e.target.selectedOptions[0]?.dataset.id
-                                fieldToInject.setValue(id)
-                            })
-
+                        const initialOption = select.selectedOptions[0]
+                        const initialId = initialOption?.dataset.id
+                        fieldToInject.setValue(initialId)
+                        
+                        select.addEventListener("change", (e) => {
+                            const id = e.target.selectedOptions[0]?.dataset.id
+                            fieldToInject.setValue(id)
                         })
-                    }
-                })
-            }
+
+                    })
+                }
+            })
+        }
 
 
-            const fieldsToInjectName = presenter.findFieldPs( fp => getExtension(fp, keywordDefinitions))
+        const fieldsToInjectName = presenter.findFieldPs( fp => getExtension(fp, keywordDefinitions))
 
-            if(fieldsToInjectName.length > 0){
+        if(fieldsToInjectName.length > 0){
+
+
+            loadDefinitions().then(definitions => {
+
+                let options = ""  //depens on the argument of the keyword
 
                 //for each field with $definitions keyword
                 fieldsToInjectName.forEach( async fieldToInjectName => {
+
+                    //get the argument of the keyword - field with the name of the definition
+                    const extension = getExtension(fieldToInjectName, keywordDefinitions)
+                    const definition_search = extension && extension.args ? extension.args[0] : ""
+
+                    if (definition_search) { // if given use argument to search definitions, if not get all
+                        options = definitions.filter(def => 
+                            normalize(def.name).includes(normalize(definition_search)) || 
+                            normalize(def.description).includes(normalize(definition_search))
+                        ).map(def => `<option value="${def.name}" data-id="${def.id}">${def.name}</option>`).join("");
+                    } else {
+                        options = definitions.map(def => `<option value="${def.name}" data-id="${def.id}">${def.name}</option>`).join("")
+                    }
 
                     const $fieldTable = fieldToInjectName.content().find("> table.instance\\.service\\.field")
                     const $input = $fieldTable.find(".field-value")
@@ -70,8 +87,8 @@ cob.custom.customize.push(async function(core, utils, ui) {
                         })
                     }
                 })
-            }
-        })
+            })
+        }
     })
 
     async function loadDefinitions() {
