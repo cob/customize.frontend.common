@@ -20,12 +20,12 @@ cob.custom.customize.push(async function(core, utils, ui) {
 
                 //get the argument of the keyword - field with the name of the definition
                 const extension = getExtension(fieldToInject, keywordDefinitionId)
-                const field_name = extension && extension.args ? extension.args[0] : ""
+                const fieldName = extension && extension.args ? extension.args[0] : ""
 
-                if(field_name){
+                if(fieldName){
 
                     //wait for the select to be in the DOM (it is created in the $definitions keyword)
-                    waitForElement(`.js-select-definition[data-field-name="${field_name}"]`, (select) => {
+                    waitForElement(`.js-select-definition[data-field-name="${fieldName}"]`, (select) => {
 
                         const initialOption = select.selectedOptions[0]
                         const initialId = initialOption?.dataset.id
