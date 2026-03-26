@@ -5,7 +5,7 @@ cob.custom.customize.push(async function(core, utils, ui) {
 
     const getExtension = (fp, extension) => fp.field.fieldDefinition.configuration.extensions[extension]
 
-    const normalize = str => str?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") ?? "";
+    const normalize = (str) => str?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") ?? "";
 
     core.customizeAllInstances( function(instance, presenter) {
 
