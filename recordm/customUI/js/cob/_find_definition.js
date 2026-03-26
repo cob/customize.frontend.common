@@ -41,27 +41,24 @@ cob.custom.customize.push(async function(core, utils, ui) {
             })
         }
 
-
         const fieldsToInjectName = presenter.findFieldPs( fp => getExtension(fp, keywordDefinitions))
 
         if(fieldsToInjectName.length > 0){
 
-
             loadDefinitions().then(definitions => {
-
-                let options = ""  //depens on the argument of the keyword
+                let options = ""  //depends on the argument of the keyword
 
                 //for each field with $definitions keyword
                 fieldsToInjectName.forEach( async fieldToInjectName => {
 
                     //get the argument of the keyword - field with the name of the definition
                     const extension = getExtension(fieldToInjectName, keywordDefinitions)
-                    const definition_search = extension && extension.args ? extension.args[0] : ""
+                    const definitionSearchQuery = extension && extension.args ? extension.args[0] : ""
 
-                    if (definition_search) { // if given use argument to search definitions, if not get all
+                    if (definitionSearchQuery) { // if given use argument to search definitions, if not get all
                         options = definitions.filter(def => 
-                            normalize(def.name).includes(normalize(definition_search)) || 
-                            normalize(def.description).includes(normalize(definition_search))
+                            normalize(def.name).includes(normalize(definitionSearchQuery)) || 
+                            normalize(def.description).includes(normalize(definitionSearchQuery))
                         ).map(def => `<option value="${def.name}" data-id="${def.id}">${def.name}</option>`).join("");
                     } else {
                         options = definitions.map(def => `<option value="${def.name}" data-id="${def.id}">${def.name}</option>`).join("")
