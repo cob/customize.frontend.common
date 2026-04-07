@@ -23,6 +23,11 @@
   }
 
 
+  /* Sigre w-full para o input */
+  .cob-app .instance-detail-container div.instance-container ol.fields > li.custom-w-full > table td:nth-child(3) {
+	 width: unset;
+  }
+
   /*** Flexibilização ** */
 
 
