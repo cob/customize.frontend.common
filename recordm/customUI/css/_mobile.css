@@ -1,4 +1,18 @@
-@media screen and (max-width:767px) {
+/* Limite do modo compacto: 949px. O formulário do produto quer ~950px de
+   largura, por isso daqui para baixo manda o layout empilhado. O tamanho de
+   letra de dedo é reposto para o de rato no _global.css, quando o dispositivo
+   diz ter ponteiro fino. */
+@media screen and (max-width:949px) {
+   /* *************** Nada se arrasta na horizontal ******************* */
+   /* não há nada para ver ao lado: sem isto o dedo arrasta o ecrã inteiro,
+      quer por uns pixels a mais de conteúdo, quer pelo efeito elástico */
+   html, body, .cob-app {
+      overscroll-behavior-x: none;
+   }
+   .cob-app {
+      overflow-x: hidden !important;
+   }
+
    /* *************** Para impedir o resize dos inputs nos telemóveis ******************* */
    input, select,textarea {
       font-size: 16px !important;
@@ -40,9 +54,16 @@
    }
 
    .cob-app .instance-detail-container .instance-container .fields-container {
-      border-top: solid 1px;
+      /* acima dos 480px quem separa os campos é a barra do registo, que tem a
+         sua própria borda; esta seria um segundo traço. Abaixo, onde não há
+         barra, o separador faz falta. */
       margin-top: -10px;
       padding-top: 10px;
+   }
+   @media (max-width: 479px) {
+      .cob-app .instance-detail-container .instance-container .fields-container {
+         border-top: solid 1px;
+      }
    }
 
    /* *************** Centrar input dos $ref correctamente ******************* */
@@ -103,8 +124,105 @@
       max-width:190px !important;
       font-size: 1.1rem !important;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(4) {
+   /* Da 4ª coluna só interessa o link "Details" das referências, sem o qual não
+      há como saltar para o registo referenciado: mostra-se esse, como botão, e
+      escondem-se os restantes addons. */
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-description:not(.cob-field-container-value) > .field-addons > *:not(a[href*="/instance/"]) {
+      display: none !important;
+   }
+   /* Atenção: nos campos $text o produto junta as duas classes na mesma célula
+      (value + description). Só se esconde a célula que é apenas descrição. */
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-description:not(.cob-field-container-value):not(:has(a[href*="/instance/"])) {
       display: none;
+   }
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-description a[href*="/instance/"] {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      min-height: 32px;
+      margin-top: 0;
+      padding: 0 8px;
+      border: 1px solid #d9d9e3;
+      border-radius: 6px;
+      background: #fff;
+      font-size: 0.85rem;
+      text-decoration: none;
+      white-space: nowrap;
+   }
+   /* já na linha do campo, o botão fica só com o chevron: o texto ("Detalhes")
+      vai para o title/aria-label e a largura sobra toda para o input */
+   .cob-app .instance-detail-container ol.fields a.cob-ref-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      min-width: 34px;
+      /* mesma altura do input (44px), para a linha ficar alinhada */
+      height: 44px;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      border: 1px solid #d9d9e3;
+      border-radius: 6px;
+      background: #fff;
+      font-size: 0 !important;
+      line-height: 0;
+      text-decoration: none;
+      overflow: hidden;
+   }
+   /* Campo + lupa + DETAILS na mesma linha. O critério é ser um $ref (tem
+      typeahead) e não a presença do DETAILS: esse link só existe com o campo
+      preenchido, e um $ref vazio ficaria de fora destas regras. */
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 6px;
+   }
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) > div,
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) > input {
+      flex: 1 1 auto;
+      min-width: 0;
+   }
+   .cob-app .instance-detail-container ol.fields a.cob-ref-link { flex: none; }
+   /* o campo tem largura mínima do produto (97%); aqui tem de poder encolher
+      para caber ao lado da lupa e do DETAILS sem empurrar a linha para fora */
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) {
+      width: auto !important;
+      max-width: 100% !important;
+   }
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) input,
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) .tt-wrapper,
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) .tt-query,
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) .tt-hint,
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) .twitter-typeahead {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      width: 100% !important;
+   }
+   /* o typeahead embrulha o input num span inline-block de largura fixa */
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) .twitter-typeahead {
+      display: block !important;
+   }
+   /* o input-append tem de dividir a linha entre campo e lupa */
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) > .input-append {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center;
+      flex-wrap: nowrap;
+   }
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-description a[href*="/instance/"]::after {
+      content: "\203A";
+      font-size: 1.1rem;
+      line-height: 1;
+      opacity: .6;
+   }
+   .cob-app .instance-detail-container ol.fields a.cob-ref-link::after {
+      content: "\203A";
+      font-size: 1.35rem;
+      line-height: 1;
+      opacity: .75;
    }
 
    /* selects constantes */
@@ -194,10 +312,17 @@
       flex-direction: column;
    }
 
-   /* Hide draggable handlers */
+   /* A pega de arrastar fica à vista, ao lado do duplicar/remover: o produto já
+      só a mostra quando o campo é duplicável, não é preciso contar nada aqui.
+      Ao dedo o arrasto funciona por causa do _arrastar_toque.js — o jQuery UI
+      draggable, sozinho, só ouve eventos de rato. */
    .cob-app .instance-detail-container div.instance-container ol.fields span.drag-handle {
-      display: none;
-      visibility: hidden;
+      display: inline-block;
+      visibility: visible;
+      width: 14px;
+      min-height: 24px;
+      background-position: 0 center;
+      opacity: .6;
    }
 
    /* Make the duplicate button bigger */
@@ -216,6 +341,284 @@
       margin-right: 10px;
    }
 
+   /* ================= Melhorias de mobile (CoB) ================= */
+
+   /* --- Cabeçalho de contexto: definição, id e copiar --- */
+   #mobile-context {
+      position: fixed;
+      top: 62px;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 34px;
+      padding: 0 12px;
+      background: #f7f7f9;
+      border-bottom: 1px solid #e0e0e6;
+      font-size: 0.85rem;
+      color: #444;
+   }
+   #mobile-context .mc-def {
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+   }
+   #mobile-context .mc-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      white-space: nowrap;
+      color: #777;
+   }
+   #mobile-context .mc-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 30px;
+      color: #666;
+   }
+   #mobile-context .mc-btn svg { width: 15px; height: 15px; }
+   /* :has() em vez de uma classe: o desvio acompanha a presença do cabeçalho,
+      que agora vive dentro da secção e morre com ela */
+   .cob-app:has(#mobile-context) section { top: 96px !important; }
+
+   /* --- Referências em cartões, em vez da grelha de 8 colunas --- */
+   /* A grelha não pode levar display:none — o SlickGrid precisa de dimensões
+      para se redesenhar. Sai de vista mas continua a ser medida. */
+   .cob-grid-escondida {
+      position: absolute !important;
+      left: -10000px !important;
+      width: 800px !important;
+      visibility: hidden;
+      pointer-events: none;
+   }
+   .cob-cards { display: flex; flex-direction: column; gap: 6px; margin: 4px 0 8px; }
+   .cob-card {
+      position: relative;
+      display: block;
+      padding: 10px 30px 10px 12px;
+      min-height: 52px;
+      border: 1px solid #e0e0e6;
+      border-radius: 8px;
+      background: #fff;
+      text-decoration: none !important;
+      color: #222;
+   }
+   .cob-card:active { background: #f2f4ee; }
+   .cob-card-titulo { font-size: 1rem; font-weight: 600; line-height: 1.25; }
+   .cob-card-meta { margin-top: 3px; display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 0.82rem; color: #666; }
+   .cob-card-meta b { font-weight: 600; color: #999; text-transform: uppercase; font-size: 0.72rem; letter-spacing: .03em; }
+   .cob-card-seta { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); opacity: .45; }
+   .cob-cards-vazio { padding: 10px 12px; border: 1px dashed #e0e0e6; border-radius: 8px; color: #999; font-size: 0.9rem; }
+
+   /* --- Histórico dentro do menu, em vez de flutuar sobre a barra --- */
+   .cob-menu-historico,
+   .cob-menu-historico.btn,
+   a.cob-menu-historico {
+      background: #64748b !important;
+      border: none !important;
+      border-radius: 0 !important;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 10px 8px;
+      background: #64748b;
+      color: #fff !important;
+      font-size: 0.75rem;
+      text-decoration: none !important;
+   }
+   .cob-app .instance-detail-container > .js-logs-button:not(.cob-menu-historico) { display: none !important; }
+
+   /* --- A barra inferior reserva o seu próprio espaço --- */
+   .cob-app .instance-detail-container .instance-container {
+      padding-bottom: calc(var(--cob-navbar-h, 100px) + 16px) !important;
+   }
+   #inner-mobile-navbar button { min-height: 48px; }
+
+   /* --- Linhas mais compactas e alvos de toque maiores --- */
+   .cob-app .instance-detail-container ol.fields > li:not(.field-group) {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+   }
+   /* As três células vazias do fim de cada linha (e a de erros, quando vazia)
+      só acrescentam altura: 2px cada, mais 18px de margem numa delas. */
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td:not([class]) {
+      display: none !important;
+   }
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-actions {
+      margin-top: 6px !important;
+      margin-bottom: 0 !important;
+   }
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-actions:not(:has(span:not(.hidden))) {
+      display: none !important;
+   }
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-errors:empty { display: none !important; }
+
+   /* --- Campo duplicável: as acções antes do nome, na mesma linha ---
+      Em mobile as células empilham, e a das acções (duplicar, remover,
+      arrastar) ocuparia uma linha inteira só para si, com os ícones soltos por
+      cima do nome. Quando tem alguma acção à mostra, a linha corre na
+      horizontal: acções e nome lado a lado, valor por baixo. O :has() distingue
+      este caso do campo normal, cuja célula vazia continua escondida. */
+   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field:has(> td.cob-field-container-actions > span:not(.hidden)) {
+      flex-direction: row !important;
+      flex-wrap: wrap;
+      align-items: center;
+      column-gap: 6px;
+   }
+   /* Os ícones — seta, duplicar/remover e pega — ficam todos do mesmo tamanho e
+      com o mesmo espaço entre si. A célula ocupa só o que eles precisarem:
+      reservar espaço para os que podiam lá estar empurraria o nome dos campos
+      que os não têm para o meio da linha. */
+   .cob-app .instance-detail-container ol.fields {
+      --cob-icone: 22px;
+      --cob-icone-gap: 4px;
+   }
+   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field:has(> td.cob-field-container-actions > span:not(.hidden)) > td.cob-field-container-actions {
+      order: -1;
+      flex: none;
+      /* o produto dá-lhe 30px fixos, que chegam para um ícone e não para três */
+      width: auto !important;
+      min-width: 0 !important;
+      max-width: none !important;
+      gap: var(--cob-icone-gap);
+      margin: 0 !important;
+   }
+   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field > td.cob-field-container-actions > span.toggle-button,
+   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field > td.cob-field-container-actions > span.duplicate-button,
+   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field > td.cob-field-container-actions > span.remove-button,
+   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field > td.cob-field-container-actions > span.drag-handle {
+      box-sizing: border-box;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: none;
+      width: var(--cob-icone) !important;
+      min-width: var(--cob-icone) !important;
+      max-width: var(--cob-icone) !important;
+      height: var(--cob-icone);
+      margin: 0 !important;
+      padding: 0 !important;
+      font-size: 15px !important;
+      line-height: 1 !important;
+      background-position: center !important;
+   }
+   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field:has(> td.cob-field-container-actions > span:not(.hidden)) > td.cob-field-container-label,
+   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field:has(> td.cob-field-container-actions > span:not(.hidden)) > td.cob-field-container-label > label {
+      /* base 0 e não auto: a célula da etiqueta tem largura de 100% (é assim que
+         os campos normais empilham), e com base automática seria esse o tamanho
+         pedido — não caberia ao lado das acções. Com base 0 ocupa o que sobrar. */
+      flex: 1 1 0;
+      min-width: 0 !important;
+      margin-top: 0 !important;
+   }
+   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field:has(> td.cob-field-container-actions > span:not(.hidden)) > td.cob-field-container-value,
+   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field:has(> td.cob-field-container-actions > span:not(.hidden)) > td.cob-field-container-description {
+      flex: 0 0 100%;
+   }
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-label { margin-top: 7px !important; }
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value { padding-bottom: 2px !important; }
+
+   /* 44px é o mínimo confortável para o dedo; com border-box a altura é exacta
+      e não cresce com o padding do produto. */
+   .cob-app .instance-detail-container input[type="text"],
+   .cob-app .instance-detail-container input[type="number"],
+   .cob-app .instance-detail-container input[type="password"],
+   .cob-app .instance-detail-container input[type="datetime-local"],
+   .cob-app .instance-detail-container input[type="date"],
+   .cob-app .instance-detail-container select {
+      box-sizing: border-box !important;
+      height: 44px !important;
+      min-height: 44px !important;
+      padding-top: 2px !important;
+      padding-bottom: 2px !important;
+   }
+   .cob-app .instance-detail-container textarea {
+      box-sizing: border-box !important;
+      min-height: 44px !important;
+   }
+   .cob-app .instance-detail-container input[type="radio"],
+   .cob-app .instance-detail-container input[type="checkbox"] {
+      width: 20px !important;
+      height: 20px !important;
+      margin-right: 4px;
+   }
+   .cob-app .instance-detail-container .js-typeahead-btn { min-height: 44px; min-width: 44px; }
+
+   /* Os checks de selecção da grelha não são campos do formulário: vivem numa
+      coluna que o SlickGrid dimensiona — 29px de largura numa linha de 25px —
+      onde o alvo de dedo de 20px não cabe com folga. O alvo não se perde: no
+      SlickGrid o clique em qualquer ponto da célula selecciona a linha. */
+   .cob-app .instance-detail-container .slick-cell input[type="checkbox"],
+   .cob-app .instance-detail-container .slick-header-column input[type="checkbox"] {
+      width: 16px !important;
+      height: 16px !important;
+      margin: 0 !important;
+   }
+   /* o produto dá à célula um padding assimétrico (1px 4px 2px), que sozinho já
+      descentrava o check; aqui o centro é o da célula, não o que sobra dele */
+   .cob-app .instance-detail-container .slick-cell.slick-cell-checkboxsel,
+   .cob-app .instance-detail-container .slick-header-column:has(> input[type="checkbox"]) {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      /* o padding do produto é assimétrico nos dois eixos e é ele que desloca o
+         centro; sem ele, o centro da célula é mesmo o centro */
+      padding: 0 !important;
+   }
+
+   /* com rato, o tamanho de dedo (20px nos radios, 1.1rem nas opções) ficaria
+      ao lado de etiquetas e campos a 12px */
+   html:not(.cob-mobile) .cob-app .instance-detail-container input[type="radio"],
+   html:not(.cob-mobile) .cob-app .instance-detail-container input[type="checkbox"] {
+      width: 13px !important;
+      height: 13px !important;
+      margin-right: 3px;
+   }
+   html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields td.cob-field-container-value label.radio-inline,
+   html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields td.cob-field-container-value label.checkbox-inline,
+   html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields td.cob-field-container-value .radiogroup label,
+   html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields td.cob-field-container-value .checkboxgroup label {
+      font-size: 12px !important;
+   }
+
+   /* As opções de um $radio/$checkbox vivem num <label> dentro da célula do
+      valor, fora do alcance das regras de letra grande, que apanham a etiqueta
+      do campo e os inputs. Sem isto ficariam a 12px ao lado de um nome de campo
+      a 17,6px. O alinhamento vertical delas está no _global.css, que vale em
+      todas as larguras. */
+   .cob-app .instance-detail-container ol.fields td.cob-field-container-value label.radio-inline,
+   .cob-app .instance-detail-container ol.fields td.cob-field-container-value label.checkbox-inline,
+   .cob-app .instance-detail-container ol.fields td.cob-field-container-value .radiogroup label,
+   .cob-app .instance-detail-container ol.fields td.cob-field-container-value .checkboxgroup label {
+      font-size: 1.1rem !important;
+      line-height: 1.3 !important;
+   }
+
+   /* Botões das listagens (Export, Edit in group, Delete, New Record): ~38px de
+      alvo, que é confortável sem dominar o bloco ao lado das linhas da grelha,
+      bem mais baixas. */
+   .cob-app .mass-options button.btn,
+   .cob-app .js-def-search-result-container button.btn {
+      font-size: 13px !important;
+      padding: 9px 10px !important;
+      line-height: 1.15 !important;
+   }
+   .cob-app .mass-options .js-batch-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+   }
+   .cob-app .mass-options .js-batch-actions button.btn { margin: 0 !important; }
+   .cob-app .mass-options .right-container .pull-right { margin-top: 6px; }
+
    /* Make the remove buttons bigger */
    .cob-app .instance-detail-container div.instance-container ol.fields span.remove-button {
       min-width: fit-content !important;
@@ -223,6 +626,148 @@
       padding: 5px !important;
       margin: 0% !important;
    }
+
+   /* ============ Grupos: encaixe mínimo + cabeçalho colado ================
+      Dois casos no produto: o $group (li.field-group, com cabeçalho próprio em
+      <table>) e o campo com filhos (li normal com > ol.fields). Ambos ganham
+      calha à esquerda dos filhos (~12px por nível, contra 22px de um cartão) e
+      só os $group levam cabeçalho colado ao topo.
+      data-nivel e --cob-grupo-nivel são postos pelo _mobile.js. */
+   .cob-app .instance-detail-container li.cob-grupo[data-nivel]:not([data-nivel="0"]) > ol.fields,
+   .cob-app .instance-detail-container li.cob-subcampos > ol.fields {
+      border-left: 3px solid var(--cob-grupo-cor, #c3c3d4) !important;
+      border-radius: 0 4px 4px 0;
+      margin-left: 3px !important;
+      padding-left: 6px !important;
+      background: rgba(0, 0, 0, 0.015);
+   }
+   /* escada de cor: a profundidade lê-se sem precisar de moldura */
+   .cob-app .instance-detail-container li[data-nivel="0"] { --cob-grupo-cor: #b3004c; }
+   .cob-app .instance-detail-container li[data-nivel="1"] { --cob-grupo-cor: #c2622a; }
+   .cob-app .instance-detail-container li[data-nivel="2"] { --cob-grupo-cor: #b39000; }
+   .cob-app .instance-detail-container li[data-nivel="3"] { --cob-grupo-cor: #3f8f46; }
+   .cob-app .instance-detail-container li[data-nivel="4"] { --cob-grupo-cor: #2a7ab0; }
+   .cob-app .instance-detail-container li[data-nivel="5"] { --cob-grupo-cor: #6b4fa8; }
+
+   /* a caixa do grupo alinha exactamente com a coluna dos campos e do DETAILS,
+      e leva o mesmo arredondamento (6px) que esses botões */
+   .cob-app .instance-detail-container li.cob-grupo {
+      margin-left: 4px !important;
+      margin-right: 4px !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      border-radius: 6px;
+   }
+   .cob-app .instance-detail-container li.cob-grupo > table {
+      margin: 0 !important;
+      width: 100% !important;
+      border-radius: 6px 6px 0 0;
+   }
+   /* o produto usa padding 1px/3px em cada <li>, que empilhado deixava o
+      conteúdo 3px da esquerda e 9px da direita: aqui fica igual dos dois lados */
+   .cob-app .instance-detail-container li.cob-grupo > ol.fields {
+      margin: 0 !important;
+   }
+   .cob-app .instance-detail-container li.cob-grupo > ol.fields > li {
+      padding-left: 6px !important;
+      padding-right: 6px !important;
+   }
+   /* a indentação dos grupos encaixados é só à esquerda: à direita os campos
+      mantêm a mesma margem dos de fora, senão iam encolhendo a cada nível */
+   .cob-app .instance-detail-container li.cob-grupo:not([data-nivel="0"]) {
+      margin-right: 2px !important;
+   }
+   .cob-app .instance-detail-container li.cob-grupo:not([data-nivel="0"]) > ol.fields > li {
+      padding-right: 0 !important;
+   }
+   .cob-app .instance-detail-container li.cob-subcampos > ol.fields > li {
+      padding-right: 2px !important;
+   }
+   /* e os campos ocupam a largura toda da sua célula, para que a única diferença
+      entre níveis seja a indentação da esquerda */
+   .cob-app .instance-detail-container ol.fields td.cob-field-container-value input[type="text"],
+   .cob-app .instance-detail-container ol.fields td.cob-field-container-value input[type="number"],
+   .cob-app .instance-detail-container ol.fields td.cob-field-container-value textarea {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      box-sizing: border-box !important;
+   }
+
+   /* cabeçalho do $group cola 34px abaixo do nível de cima, para empilharem */
+   /* o .fields-container tem overflow:auto e, por ser o scrollport mais próximo,
+      anulava o sticky (o elemento colava a um contentor que nunca rola) */
+   .cob-app .instance-detail-container .fields-container { overflow: visible !important; }
+
+   /* o scroll é o do .cob-app e o topo já está ocupado pela barra da app (61px)
+      e pelo cabeçalho de contexto (34px): o sticky começa por baixo deles */
+   .cob-app { --cob-topo: 62px; }
+   .cob-app:has(#mobile-context) { --cob-topo: 96px; }
+   /* o sticky dos $group passou para o _global.css: vale em todas as larguras */
+
+
+   /* seta pequena em vez do quadrado de 30px, em qualquer dos dois casos */
+   .cob-app .instance-detail-container div.instance-container ol.fields li.cob-grupo > table span.toggle-button,
+   .cob-app .instance-detail-container div.instance-container ol.fields li.cob-subcampos > table span.toggle-button {
+      font-size: 13px !important;
+      min-width: 16px !important;
+      padding: 6px 4px !important;
+      margin: 0 2px 0 0 !important;
+      background: none !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      /* a cor vem da .legend, que é quem pinta o cabeçalho do grupo: branco sobre
+         o vermelho do $group, vermelho no subgrupo */
+      color: inherit !important;
+   }
+   /* o campo com filhos deixa de ter a célula de acções a ocupar uma linha:
+      a seta passa para junto da etiqueta (movida no _mobile.js) */
+   .cob-app .instance-detail-container li.cob-subcampos > table > tbody > tr > td.cob-field-container-actions:not(:has(span:not(.hidden))) {
+      display: none !important;
+   }
+   .cob-app .instance-detail-container li.cob-subcampos > table > tbody > tr > td.cob-field-container-label {
+      display: flex !important;
+      /* o produto põe flex-direction:column nestas células em mobile — sem isto
+         a seta ficava centrada numa linha só dela */
+      flex-direction: row !important;
+      align-items: center;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      text-align: left;
+      gap: 4px;
+   }
+   .cob-app .instance-detail-container li.cob-subcampos > table > tbody > tr > td.cob-field-container-label > label {
+      /* o produto dá largura fixa à etiqueta; ao lado da seta isso transbordava
+         uns pixels e tornava a página arrastável na horizontal */
+      flex: 1 1 0;
+      width: auto !important;
+      min-width: 0 !important;
+      margin: 0 !important;
+   }
+   .cob-app .instance-detail-container li.cob-subcampos > table > tbody > tr > td.cob-field-container-label > span.toggle-button {
+      flex: none;
+   }
+
+   /* a legenda do $group é uma linha: seta e nome lado a lado, mesmo quando o
+      nome parte em duas.
+      O :has(> .group-name) é preciso porque nos $group com
+      $style[use-reference-count] o _group_references.js clona o link de
+      pesquisa para dentro do nome e dá-lhe também a classe "legend"; sem o
+      :has(), esse <a> apanhava o display:flex e o ">>" caía para outra linha. */
+   .cob-app .instance-detail-container li.cob-grupo > table .legend:has(> .group-name) {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 2px;
+   }
+   .cob-app .instance-detail-container li.cob-grupo > table .legend > .group-name {
+      flex: 1 1 auto;
+      min-width: 0;
+   }
+   /* a linha do cabeçalho inteira abre/fecha (o clique é delegado no JS) */
+   .cob-app .instance-detail-container li.cob-grupo > table td:first-child { cursor: pointer; }
+
 }
 
 @media (max-width: 585px) {

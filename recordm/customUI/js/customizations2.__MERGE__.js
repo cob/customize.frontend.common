@@ -4,3 +4,7 @@ import "./cob/_group_references.js";
 import "./cob/_group_placeholder.js";
 import "./cob/_mobile.js";
 import "./cob/_find_definition.js";
+import "./cob/_nested_instances.js";
+import "./cob/_grelhas.js";
+import "./cob/_arrastar_toque.js";
+import "./cob/_big_decimal.js";

@@ -42,3 +42,642 @@ display:none
 .cob-app .instance-detail-container li.custom-text1line textarea.textarea.field-value {
   height:28px !important;
 }
+/* O painel de campos tem largura fixa (950px) vinda do produto. Quando uma
+   instância é aberta por referência dentro de outra (o "Details" de um $ref),
+   o espaço disponível é menor e o conteúdo — Notes, grelhas de items — ficava
+   cortado à direita, sem forma de lá chegar. Passa a caber no que existe. */
+.cob-app .instance-detail-container .fields-container {
+  /* é um item flex ao lado da sidenav: sem poder encolher, mantinha os 950px
+     e saía para fora do espaço disponível. A base continua a ser 950px, por
+     isso o ecrã inteiro não muda; só encolhe quando não cabe. */
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+}
+/* as grelhas de referências trazem largura própria das colunas: dentro do
+   espaço menor rolam na horizontal em vez de transbordar */
+.cob-app .instance-detail-container .fields-container .slick-viewport {
+  max-width: 100%;
+}
+
+/* Dentro de uma instância aberta por referência sobra menos largura: as
+   larguras mínimas das duas primeiras colunas (70px e 160px, acima) e a do
+   campo deixam de fazer sentido e empurravam a linha para fora. */
+.cob-app .instance-detail-container .instance-detail-container div.instance-container ol.fields > li > table > tbody > tr > td:nth-child(1),
+.cob-app .instance-detail-container .instance-detail-container div.instance-container ol.fields > li > table > tbody > tr > td:nth-child(2) {
+  min-width: 0;
+}
+.cob-app .instance-detail-container .instance-detail-container div.instance-container ol.fields td.cob-field-container-value input,
+.cob-app .instance-detail-container .instance-detail-container div.instance-container ol.fields td.cob-field-container-value textarea {
+  max-width: 100%;
+}
+
+
+
+
+/* Numa instância aberta por referência, a lista de campos leva margem só do
+   lado direito (10px), o que deixava a linha vermelha das secções a acabar
+   bem antes da borda da caixa — o lado esquerdo não tem essa folga. */
+@media screen and (min-width: 950px) {
+  .cob-app .instance-detail-container .instance-detail-container .instance-container ol.fields {
+    margin-right: 0;
+  }
+}
+
+/* ====================== Instâncias aninhadas ==============================
+   Os detalhes abertos por reference formam uma ÁRVORE: do mesmo registo podem
+   sair dois irmãos (de references diferentes), cada um com filhos seus. Por
+   isso cada caixa traz o seu próprio cabeçalho, com nome, id e os seus
+   Cancel/Save (_nested_instances.js), em vez de haver um "nível activo".
+   A coluna lateral das aninhadas é escondida aqui, por CSS, para não se ver a
+   aparecer e a desaparecer. As cores vêm da profundidade, sem esperar pelo JS:
+   verde do produto no 1.º detalhe, neutros a partir daí. */
+@media screen {
+  .cob-app .instance-detail-container .instance-detail-container .sidenav { display: none !important; }
+  /* sem coluna lateral, os campos ocupam o que ela deixou livre */
+  .cob-app .instance-detail-container .instance-detail-container .instance-container > .content > div > .fields-container {
+    flex: 1 1 auto;
+    margin-left: 0;
+  }
+
+  /* --- cores por profundidade: a caixa e, um tom acima, o seu cabeçalho --- */
+  .cob-app .instance-detail-container .instance-detail-container {
+    --cob-nivel-fundo: #f6fbf4; --cob-nivel-borda: #c6f4a6; --cob-nivel-cab: #eaf6e2;  /* 1.º detalhe */
+  }
+  .cob-app .instance-detail-container .instance-detail-container .instance-detail-container {
+    --cob-nivel-fundo: #f2f0ea; --cob-nivel-borda: #d9cfb3; --cob-nivel-cab: #eae6da;  /* 2.º — areia */
+  }
+  .cob-app .instance-detail-container .instance-detail-container .instance-detail-container .instance-detail-container {
+    --cob-nivel-fundo: #eceff1; --cob-nivel-borda: #bcc7ce; --cob-nivel-cab: #e1e6e9;  /* 3.º — cinza-azulado */
+  }
+  .cob-app .instance-detail-container .instance-detail-container .instance-detail-container .instance-detail-container .instance-detail-container {
+    --cob-nivel-fundo: #efedf2; --cob-nivel-borda: #c7c0d4; --cob-nivel-cab: #e6e2ec;  /* 4.º e seguintes */
+  }
+  .cob-app .instance-detail-container .instance-detail-container {
+    background: var(--cob-nivel-fundo) !important;
+    border: 1px solid var(--cob-nivel-borda) !important;
+    border-radius: 6px;
+  }
+
+  /* --- o cabeçalho de cada caixa ---
+     O scrollport é o .fields-container do registo de topo, o único com
+     overflow:auto — as aninhadas são position:relative/overflow:visible. O
+     sticky cola-se ao topo da área de campos, e os níveis encaixados empilham-se
+     uns abaixo dos outros. */
+  /* Valor de recurso para o primeiro paint: quem manda é o posicionarColados()
+     do _nested_instances.js, que mede a cadeia real e escreve o top inline. */
+  .cob-app .cob-cabecalho { --cob-cab-topo: var(--cob-colagem, 0px); }
+  .cob-app .cob-cabecalho {
+    position: sticky;
+    /* --cob-cab-topo: onde começa o scrollport (0 aqui, porque o .fields-container
+       já está abaixo da barra da app; ver o modo compacto mais abaixo).
+       --cob-cab-desnivel: o degrau de cada nível encaixado. */
+    top: calc(var(--cob-cab-topo, 0px) + var(--cob-cab-desnivel, 0px));
+    /* Planos: #header 9, barra do registo 8, cabeçalho de $group 7, estas
+       daqui para baixo. Cada nível fica abaixo do seu pai, para as de dentro
+       deslizarem por baixo das de fora. */
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 30px;
+    /* a caixa tem padding 10px/10px/5px e 1px de borda: as margens negativas
+       levam a barra até às bordas dela, em vez de a deixarem encaixada */
+    margin: -10px -10px 10px;
+    padding: 5px 10px;
+    border-bottom: 1px solid var(--cob-nivel-borda, #d8d8de);
+    border-radius: 5px 5px 0 0;
+    background: var(--cob-nivel-cab, #f0f0f3);
+    font-size: 12px;
+  }
+  /* o degrau é a altura de uma barra (37px), para os níveis encaixarem */
+  .cob-app .cob-cabecalho[data-cob-nivel="2"] { --cob-cab-desnivel: 37px; z-index: 5; }
+  .cob-app .cob-cabecalho[data-cob-nivel="3"] { --cob-cab-desnivel: 74px; z-index: 4; }
+  .cob-app .cob-cabecalho[data-cob-nivel="4"] { --cob-cab-desnivel: 111px; z-index: 3; }
+
+  /* Nome, id e ícones ficam todos centrados na mesma linha. O id e os ícones
+     são uma flex-row à parte: em inline-block, o line-height do .btn e o
+     baseline do svg punham cada um a uma altura diferente. */
+  /* Quem encolhe é o nome, e só ele: o resto é flex:none, senão o id e os
+     atalhos encolheriam abaixo do seu conteúdo (que é nowrap) e os ícones
+     sobrepunham-se. O nome trunca até um mínimo legível; abaixo disso o
+     cabeçalho transborda, e é esse o sinal que o ajustarLargura() lê. */
+  .cob-app .cob-cabecalho .cob-cab-nome {
+    flex: 0 1 auto;
+    min-width: 5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    line-height: 18px;
+    white-space: nowrap;
+  }
+  .cob-app .cob-cabecalho .cob-cab-id {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: none;
+    color: #8a8a93;
+    font-size: 11.5px;
+    line-height: 18px;
+    white-space: nowrap;
+  }
+  /* fora da coluna lateral estes botões apanham o .btn do Bootstrap (caixa
+     cinzenta com borda); aqui ficam só com o ícone. A borda é 0 e não
+     transparente: uma borda transparente ainda ocupa 1px de cada lado e põe as
+     contas do centrar em meios pixels. */
+  .cob-app .cob-cabecalho .cob-cab-id .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    box-sizing: border-box;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    border: 0;
+    background: none;
+    box-shadow: none;
+  }
+  /* O copiar-id é um <svg> e o copiar-link um glifo de FontAwesome, e alinhá-los
+     exige duas coisas:
+     1) Geometria: tamanhos PARES em caixa par — (18-12)/2 = 3, inteiro. Com
+        tamanhos ímpares o centrar cai em meios pixels e o ícone sai esborratado.
+     2) Métricas: a tinta do glifo não está centrada na sua própria caixa (a
+        FontAwesome desenha-o alto no em box). O top: 1px abaixo é essa
+        diferença, medida para esta fonte e este tamanho, ambos fixados aqui. */
+  .cob-app .cob-cabecalho .cob-cab-id .btn svg { display: block; width: 12px; height: 12px; }
+  .cob-app .cob-cabecalho .cob-cab-id .btn i {
+    display: block;
+    width: 12px;
+    height: 12px;
+    font-size: 12px;
+    line-height: 12px;
+    position: relative;
+    top: 1px;
+  }
+  .cob-app .cob-cabecalho .cob-cab-links { display: flex; gap: 9px; flex: none; }
+  .cob-app .cob-cabecalho .cob-cab-links a { font-size: 11px; cursor: pointer; white-space: nowrap; }
+  /* o que vier primeiro depois do id encosta tudo à direita */
+  .cob-app .cob-cabecalho .cob-cab-links,
+  .cob-app .cob-cabecalho .cob-cab-accoes { margin-left: auto; }
+  .cob-app .cob-cabecalho .cob-cab-links + .cob-cab-accoes { margin-left: 0; }
+  .cob-app .cob-cabecalho .cob-cab-accoes { display: flex; align-items: center; gap: 6px; }
+  /* Os botões são clones dos do produto e trazem ícone + rótulo. Sem isto, numa
+     linha apertada o conteúdo quebrava DENTRO do botão — o ícone por cima do
+     rótulo — e o botão crescia em altura, empurrando o cabeçalho todo. */
+  .cob-app .cob-cabecalho .cob-cab-accoes > * {
+    flex: none;
+    white-space: nowrap;
+  }
+
+  /* Linha apertada (classe posta por medição no _nested_instances.js): os
+     atalhos ficam só com o ícone. O markup do produto é
+     <a><i class="icon-resize-small"></i><span>&nbsp;</span><span>Collapse All</span></a>,
+     por isso basta esconder os <span>; o rótulo sobrevive no title, posto no JS. */
+  .cob-app .cob-cabecalho.cob-cab-apertado .cob-cab-links { gap: 10px; margin-right: 6px; }
+  .cob-app .cob-cabecalho.cob-cab-apertado .cob-cab-links a > span { display: none; }
+  /* Último recurso: se nem sem rótulos couber, quebra para uma segunda linha em
+     vez de sair da caixa. Só aqui: o cabeçalho tem de se medir sem wrap, senão
+     nunca acusaria aperto. */
+  .cob-app .cob-cabecalho.cob-cab-apertado { flex-wrap: wrap; row-gap: 6px; }
+}
+
+/* --- A coluna lateral sobe ANTES de os campos empilharem ------------------
+   O painel de campos quer ~950px e a coluna lateral ocupa 220px à esquerda
+   (o produto posiciona a .fields-container em absolute, left:220px). Os campos
+   ficam portanto com «largura da janela − 225»: para lhes sobrarem 950px é
+   preciso uma janela de ~1175.
+   Abaixo dos 1175 a coluna passa para cima e devolve os 220px ao formulário,
+   que assim só precisa de empilhar quando a janela for menor que 950. */
+@media screen and (max-width: 1174px) {
+  .cob-app .instance-detail-container .instance-container .fields-container {
+    position: static;
+    /* o produto risca uma linha escura por cima dos campos, para separar a
+       coluna lateral quando ela fica em bloco acima. A barra já tem a sua
+       borda inferior, e as duas juntas liam-se como um traço preto solto. */
+    border-top: 0;
+    /* com a coluna em cima já não é ela o scrollport, e deixá-la em overflow:auto
+       tornava-a o scrollport mais próximo dos cabeçalhos aninhados — um que
+       nunca rola, anulando o sticky deles */
+    overflow: visible;
+  }
+}
+
+/* Com a coluna em cima o scrollport passa a ser o .cob-app, cujo topo está
+   tapado pela barra da app — daí ser preciso descontá-la. E como a coluna de
+   topo é ela própria uma barra colada, os cabeçalhos das aninhadas encaixam por
+   baixo dela; a altura é medida no _nested_instances.js (--cob-barra-h). */
+@media screen and (max-width: 1174px) {
+  /* --cob-colagem: onde começa a zona colada. Acima dos 1174 o scrollport é a
+     própria .fields-container, que já arranca abaixo do #header, logo é zero;
+     abaixo, o scrollport é o .cob-app e há que descontar o #header e a barra do
+     registo. Tudo o que cola parte daqui. */
+  .cob-app { --cob-colagem: calc(var(--cob-topo, 62px) + var(--cob-barra-h, 0px)); }
+
+  /* --- a coluna do registo de topo vira barra, igual à das aninhadas ------
+     O produto monta-a como uma pilha de .row > .span4 com 170px de largura.
+     Com display:contents nas linhas, os .span4 passam a ser itens directos da
+     barra e alinham-se numa só linha, sem tocar no HTML. */
+  /* o produto deixa a secção a começar aos 100px, com o #header a acabar aos
+     62: sobravam 38px de vazio antes da barra. Passa a ficar à mesma distância
+     que o primeiro grupo tem dela (10px). */
+  .cob-app > .instance-detail-container { top: var(--cob-topo, 62px); }
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav {
+    position: sticky;
+    top: var(--cob-topo, 62px);
+    /* abaixo do #header (z-index 9), para nunca lhe passar por cima */
+    z-index: 8;
+    width: auto !important;
+    /* até às bordas: a secção tem padding lateral de 10px */
+    margin: 0 -10px 10px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    min-height: 30px;
+    padding: 5px 10px;
+    /* A folga para o menu é uma borda da própria barra, não espaço vazio: em
+       vazio via-se o formulário a rolar entre o menu e a barra. Da cor do fundo
+       da app, para se ler como respiro. */
+    border-top: 10px solid #f7f6f3;
+    border-bottom: 1px solid #d8d8de;
+    border-radius: 5px 5px 0 0;
+    background: #f0f0f3;
+    font-size: 12px;
+  }
+  /* Em vez de esconder caso a caso (o slot do logótipo tem espaços, por isso
+     :empty não o apanha), esconde-se tudo e reactiva-se só o que a barra leva. */
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav > .row { display: none; }
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav > .row:has(> .definition-name),
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav > .row.js-single-instance { display: contents; }
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav > div:not(.row):not(:has(.js-sidenav-btn-container)):not(.js-instance-errors) { display: none; }
+  /* os .span4 do Bootstrap trazem largura de grelha (170px, 300px): numa linha
+     têm de ser do tamanho do que lá está */
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .span4 { width: auto; }
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .definition-name {
+    flex: 0 1 auto;
+    min-width: 5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .js-single-instance .span4 {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    /* o produto dá-lhe margin-top:10px, que numa linha centrada o empurrava
+       4,5px abaixo do centro */
+    margin: 0;
+    color: #8a8a93;
+    font-size: 11.5px;
+    line-height: 18px;
+    white-space: nowrap;
+  }
+  /* Os botões de copiar da barra de topo vêm com alturas e tamanhos de letra
+     diferentes entre si (12px/11,2px o de id, 22px/9px o de link). Levam o
+     mesmo tratamento que os do cabeçalho das aninhadas: caixa par de 18px,
+     ícone de 12px, e o desvio de 1px que corrige a tinta alta da FontAwesome. */
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .js-single-instance .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    box-sizing: border-box;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    border: 0;
+    background: none;
+    box-shadow: none;
+  }
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .js-single-instance .btn svg { display: block; width: 12px; height: 12px; }
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .js-single-instance .btn i {
+    display: block;
+    width: 12px;
+    height: 12px;
+    font-size: 12px;
+    line-height: 12px;
+    position: relative;
+    top: 1px;
+  }
+  /* o produto dá margin-bottom:10px a cada botão, o que os deixava 5,5px acima
+     do centro da linha */
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .js-sidenav-btn-container > * { margin-bottom: 0; }
+  /* os botões e os atalhos encostam à direita, numa linha só */
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav > div:has(> .js-sidenav-btn-container) {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-left: auto;
+  }
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav > div:has(> .js-sidenav-btn-container) > .space { display: none; }
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .js-sidenav-btn-container { display: flex; gap: 6px; }
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .js-sidenav-btn-container > * { white-space: nowrap; }
+  /* collapse/expand antes dos botões, como no cabeçalho das aninhadas
+     (no HTML do produto vêm depois) */
+  /* o produto dá-lhe position:absolute, o que a tirava do fluxo do flex e a
+     fazia aterrar fora da barra, por cima do conteúdo */
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .left-aligned {
+    display: flex;
+    position: static;
+    gap: 9px;
+    padding: 0 !important;
+    order: -1;
+  }
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .left-aligned > div { display: flex; }
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .left-aligned a { white-space: nowrap; font-size: 11px; }
+}
+
+/* --- Modo compacto (480–949px) ------------------------------------------
+   Nem com a coluna em cima o formulário cabe em duas colunas: os campos
+   empilham (é o _mobile.css que manda). O cabeçalho é o mesmo, só com o nome a
+   poder encolher e os rótulos de collapse/expand escondidos. O layout de dedo
+   só entra abaixo dos 480px. */
+@media screen and (max-width: 949px) {
+  .cob-app .cob-cabecalho { gap: 6px; padding: 5px 8px; }
+  .cob-app .cob-cabecalho .cob-cab-nome { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  /* como na barra de topo: os atalhos ficam, só com o ícone, com espaço entre
+     eles e uma folga antes dos botões */
+  .cob-app .cob-cabecalho .cob-cab-links a > span { display: none; }
+  .cob-app .cob-cabecalho .cob-cab-links { gap: 10px; margin-right: 6px; }
+  /* na barra de topo os atalhos ficam, mas só com o ícone — com o rótulo a
+     linha partia em duas. Os botões continuam encostados à direita. */
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .left-aligned a > span { display: none; }
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .left-aligned { gap: 10px; margin-right: 6px; }
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .definition-name { min-width: 0; }
+
+  /* --- os botões das barras não levam o alvo de dedo dos campos ---
+     Estes botões são os do produto (barra de topo) ou clones deles (aninhadas),
+     por isso apanhariam o alvo de dedo que o _mobile.css dá a todos os
+     .btn-small — 15px de letra e 46px de altura, de mais para uma barra de 30px
+     e largo de mais para caberem quatro num telemóvel. Aqui manda a medida da
+     barra: 34px de altura, que continua a ser um alvo confortável. */
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .js-sidenav-btn-container > .btn,
+  .cob-app .cob-cabecalho .cob-cab-accoes > .btn {
+    font-size: 12px !important;
+    min-height: 34px;
+    padding: 6px 10px;
+    line-height: 20px;
+  }
+  /* E se nem assim couberem — mais botões, ecrã mais estreito — quebram para a
+     linha seguinte em vez de saírem do ecrã. O min-width:0 é o que deixa o
+     bloco dos botões encolher abaixo do seu conteúdo: sem ele o flex-wrap de
+     dentro nunca chega a ser exercido, porque o bloco nunca é apertado. */
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav > div:has(> .js-sidenav-btn-container) { min-width: 0; }
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .js-sidenav-btn-container,
+  .cob-app .cob-cabecalho .cob-cab-accoes {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    row-gap: 6px;
+  }
+}
+
+/* --- Num telemóvel, os botões de gravar dispensam o ícone ----------------
+   Save, Save & Create New e Save & Edit têm todos o mesmo ✔: quem os distingue
+   é o rótulo, e cada ícone custa ~18px numa linha que não os tem. Sem eles, os
+   quatro botões do caso comum cabem numa linha só num ecrã de 393px. O Back
+   mantém a seta: é o único cujo ícone diz algo que o rótulo não diz. */
+@media screen and (max-width: 479px) {
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .js-sidenav-btn-container > .btn:not(.js-back) > i,
+  .cob-app .cob-cabecalho .cob-cab-accoes > .btn:not(.js-back) > i { display: none; }
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .js-sidenav-btn-container > .btn,
+  .cob-app .cob-cabecalho .cob-cab-accoes > .btn { padding-left: 8px; padding-right: 8px; }
+
+  /* Num telemóvel o cabeçalho das aninhadas quebra. Com um mínimo para o nome,
+     quem desce para a linha de baixo são os botões, e não o nome que encolheria
+     até às reticências. A decisão é medida no _nested_instances.js, que só põe
+     a classe quando vê os botões partidos em duas filas. */
+  .cob-app .cob-cabecalho { flex-wrap: wrap; row-gap: 6px; }
+  .cob-app .cob-cabecalho .cob-cab-nome { min-width: 5em; }
+  .cob-app .cob-cabecalho.cob-cab-linha-accoes .cob-cab-accoes { flex: 0 0 100%; }
+}
+
+/* --- Modo compacto com rato: o tamanho de letra é o do desktop -----------
+   O _mobile.css é regido por largura, por isso entre 480 e 949px também
+   aumentava a letra (16px nos campos, 1.1rem nas etiquetas, ícones a 20px).
+   Isso faz sentido com o dedo, não com o rato: aqui repõem-se os tamanhos do
+   desktop.
+
+   O rato é perguntado ao dispositivo e não deduzido da ausência da classe
+   .cob-mobile: essa é posta pelo _mobile.js dentro do customizeAllInstances,
+   ou seja só na página de uma instância. No login, numa pesquisa ou num
+   dashboard não existe, e num telemóvel estas regras desfariam lá os 16px que
+   o _mobile.css põe nos campos — abaixo de 16px o iOS dá zoom ao tocar. */
+@media screen and (max-width: 949px) and (hover: hover) and (pointer: fine) {
+  html:not(.cob-mobile) .cob-app input,
+  html:not(.cob-mobile) .cob-app select,
+  html:not(.cob-mobile) .cob-app textarea,
+  html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields table > tbody > tr > td label,
+  html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(2),
+  html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(2) label,
+  html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div > input,
+  html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div > span > input,
+  html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div > textarea,
+  html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div.inline > select,
+  html:not(.cob-mobile) .cob-app .references-legend,
+  html:not(.cob-mobile) .cob-app .markdown-container {
+    font-size: 12px !important;
+    line-height: normal !important;
+  }
+  /* a célula do valor tem várias formas (input directo, dentro de div, de span
+     do typeahead, textarea, select): apanha-se tudo o que lá viva */
+  html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) input,
+  html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) textarea,
+  html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) select,
+  html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value input,
+  html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value textarea {
+    font-size: 12px !important;
+  }
+  html:not(.cob-mobile) .cob-app .instance-container .legend,
+  html:not(.cob-mobile) .cob-app .instance-container .legend .group-name { font-size: 15px !important; }
+  html:not(.cob-mobile) .cob-app button.btn.btn-small { font-size: 11.2px !important; padding-top: 4px; padding-bottom: 4px; }
+  html:not(.cob-mobile) .cob-app .instance-detail-container div.instance-container ol.fields span.toggle-button,
+  html:not(.cob-mobile) .cob-app .instance-detail-container div.instance-container ol.fields span.duplicate-button,
+  html:not(.cob-mobile) .cob-app .instance-detail-container div.instance-container ol.fields span.remove-button {
+    font-size: 10px !important;
+    padding: 2px !important;
+  }
+}
+
+
+/* --- $group colado, em todas as larguras ---------------------------------
+   O comportamento é o mesmo em qualquer largura; só o aspecto (calha, cores,
+   encaixe) é que é de mobile, e esse fica no _mobile.css. */
+.cob-app .instance-detail-container li.cob-grupo > table {
+  position: sticky;
+  top: calc(var(--cob-colagem, 0px) + var(--cob-grupo-nivel, 0) * 35px);
+  /* acima das barras das aninhadas (6 e abaixo) e abaixo da do registo (8) */
+  z-index: 7;
+  margin: 0 !important;
+  background: #ececf2;
+  box-shadow: 0 1px 0 #d8d8e2;
+}
+/* só o $group mais de fora cola */
+.cob-app .instance-detail-container li.cob-grupo li.cob-grupo > table { position: static; }
+
+/* A legenda do $image é um position:absolute sem z-index, ancorado ao fundo da
+   imagem, e sem isto o cabeçalho de $group colado (z-index 7) desenha-se por
+   cima dela. Com o mesmo z-index decide a ordem no documento, e o campo vem
+   sempre depois do cabeçalho do seu grupo. Não sobe mais, para não tapar a
+   barra do registo (8) nem o menu (9). */
+.cob-app .instance-detail-container div.dollarImgDiv > span { z-index: 7; }
+
+/* --- Editor de markdown preso à largura da célula -------------------------
+   Uma linha de markdown sem quebra (um link longo, por exemplo) fazia o campo
+   sair do grupo: o .markdown-container é inline-block, logo dimensiona-se ao
+   conteúdo; a célula cresce com ele e a <table> do campo cresce com a célula —
+   uma tabela dimensiona-se ao conteúdo, e o max-width:100% não a trava porque
+   é a largura MÍNIMA do conteúdo que manda.
+   A saída é tornar o contentor do editor uma área de scroll: um scroll
+   container contribui com zero para a largura mínima e a cadeia deixa de ser
+   circular. As linhas longas alcançam-se por scroll horizontal. */
+.cob-app .instance-detail-container ol.fields td.cob-field-container-value .markdown-container {
+  display: block;
+  overflow-x: auto;
+  /* width:0 + min-width:100% é o que quebra a circularidade numa tabela: com
+     width:0 o editor deixa de contribuir para a largura preferida da célula
+     (que por isso deixa de crescer), e o min-width estica-o depois para a
+     largura que a célula acabou por ter. Só o max-width:100% não servia —
+     100% resolve contra a própria célula, que estava a ser dimensionada pelo
+     conteúdo. */
+  width: 0;
+  min-width: 100%;
+}
+.cob-app .instance-detail-container ol.fields td.cob-field-container-value .markdown-container .CodeMirror {
+  max-width: 100%;
+}
+
+/* --- Grelhas: scroll horizontal dentro da própria grelha -----------------
+   O produto cria a grelha e, logo a seguir, põe-lhe overflow:visible no
+   contentor e no .slick-viewport (recordm.view.searchresult.definition.js).
+   Quando as colunas deixam de caber — o forceFitColumns não as encolhe abaixo
+   do mínimo (ver _grelhas.js) — o canvas fica mais largo do que o contentor e
+   sai dele: nas referências a página inteira ganha barra horizontal, na
+   pesquisa de definição o excesso é cortado mais acima e as colunas da direita
+   ficam inalcançáveis. E a renderização virtual das colunas segue o scrollLeft
+   do viewport, que assim nunca se mexe.
+
+   Com overflow-x no viewport a grelha fica contida, a barra é a dela e o
+   cabeçalho acompanha-a (o SlickGrid sincroniza o $headerScroller). O eixo
+   vertical passa a auto por consequência, mas a altura do viewport é a do
+   conteúdo (autoHeight vem a true do presenter), por isso não aparece barra
+   vertical. Em ecrã largo, onde as colunas cabem, a regra não faz nada. */
+.cob-app .grid .slick-viewport {
+  overflow-x: auto !important;
+}
+
+/* --- As caixas de diálogo cabem no ecrã ----------------------------------
+   O .cob-dialog do produto é desenhado para um ecrã largo: left:50% com
+   width:30% e margin-left:-15%, que se centram um ao outro. Em pequeno o
+   Bootstrap troca o left por uma margem fixa (20px até 767, 10px até 480) e
+   põe width:auto — mas as regras do .cob-dialog vêm depois na folha e a
+   largura e a margem sobrevivem, deixando metade da mensagem fora do ecrã.
+   Aqui desfaz-se só isso e deixa-se o left/right responsivo do produto a
+   mandar. A centragem vertical passa a transform, para não depender de a caixa
+   ter os 200px que o margin-top de -100px assume. */
+@media screen and (max-width: 767px) {
+  .cob-app .modal.cob-dialog {
+    width: auto;
+    margin-left: 0;
+    margin-top: 0;
+    transform: translateY(-50%);
+  }
+}
+
+/* --- A página de 403 cabe no ecrã ----------------------------------------
+   O .forbidden-container do produto tem width:600px fixo e padding-left:150px
+   (o espaço da bruxa, que é um background-image). Num ecrã estreito a caixa
+   sai fora: a mensagem fica cortada e o link para entrar com outro utilizador
+   fica inalcançável — e o overflow-x:hidden que o _mobile.css põe no .cob-app
+   nem deixa rolar até lá. Numa página cuja única saída é esse link, é um beco
+   sem saída.
+
+   Abaixo dos 767 a largura passa a fluida e a altura ao conteúdo. O .top passa
+   a flex para o link poder descer para baixo do título quando não couber ao
+   lado: com float não desceria, e a ordem do HTML (link antes do título)
+   punha-o por cima. Os tamanhos de letra descem para caberem na largura que
+   sobra. */
+@media screen and (max-width: 767px) {
+  .cob-app .forbidden-container {
+    top: 8%;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    /* A bruxa sai: o recuo de 150px que lhe abre espaço desequilibra o bloco
+       para a direita, e numa página de erro estreita o desenho vale menos do
+       que a mensagem estar centrada. */
+    padding: 10px 15px 20px;
+    background-image: none;
+  }
+  .cob-app .forbidden-container .top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 6px 12px;
+  }
+  .cob-app .forbidden-container .title { order: -1; margin-top: 0; font-size: 2.4em; }
+  .cob-app .forbidden-container .logout-link:link,
+  .cob-app .forbidden-container .logout-link:visited,
+  .cob-app .forbidden-container .logout-link:active {
+    float: none;
+    margin-top: 0;
+    font-size: 1.2em;
+  }
+  .cob-app .forbidden-container .small-text { font-size: 1.2em; }
+  .cob-app .forbidden-container .error-msg { font-size: 2em; }
+}
+
+/* --- As opções de $radio/$checkbox alinham-se com o seu quadrado ----------
+   O produto encosta o quadrado com vertical-align:middle, que o põe a meio da
+   linha de base e não a meio do texto, e deixa a opção a flutuar dentro da
+   moldura do campo. O desvio muda com o tamanho da letra e com o tamanho do
+   quadrado, que não são os mesmos em mobile (17,6px / 20px) e no desktop
+   (12px / 13px) — por isso é estrutura e não um acerto em pixéis:
+     - a moldura centra a opção (align-items no .radiogroup);
+     - a opção centra o quadrado com o texto (align-items no <label>).
+   As duas relações ficam certas em qualquer combinação de tamanhos, e em
+   qualquer largura. */
+.cob-app .instance-detail-container ol.fields td.cob-field-container-value .radiogroup,
+.cob-app .instance-detail-container ol.fields td.cob-field-container-value .checkboxgroup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.cob-app .instance-detail-container ol.fields td.cob-field-container-value label.radio-inline,
+.cob-app .instance-detail-container ol.fields td.cob-field-container-value label.checkbox-inline,
+.cob-app .instance-detail-container ol.fields td.cob-field-container-value .radiogroup label,
+.cob-app .instance-detail-container ol.fields td.cob-field-container-value .checkboxgroup label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+/* o recuo da opção era feito com margin-left:20px na etiqueta e -20px no
+   quadrado (um hanging indent); com o flex e o gap deixa de fazer falta e só
+   desalinhava */
+.cob-app .instance-detail-container ol.fields td.cob-field-container-value .radiogroup label,
+.cob-app .instance-detail-container ol.fields td.cob-field-container-value .checkboxgroup label {
+  margin-left: 0 !important;
+}
+.cob-app .instance-detail-container ol.fields td.cob-field-container-value .radiogroup label > input,
+.cob-app .instance-detail-container ol.fields td.cob-field-container-value .checkboxgroup label > input,
+.cob-app .instance-detail-container ol.fields td.cob-field-container-value label.radio-inline > input,
+.cob-app .instance-detail-container ol.fields td.cob-field-container-value label.checkbox-inline > input {
+  flex: none;
+  margin: 0 !important;
+  /* Sobra um desvio que a estrutura não resolve: o flex centra CAIXAS, e a caixa
+     do texto inclui o espaço dos descendentes, por isso o meio que o olho lê (a
+     banda das maiúsculas) fica acima do meio da caixa — 0,92px em 17,6 nesta
+     fonte. O quadrado não pode estar ao mesmo tempo no centro da moldura e no
+     centro óptico do texto; com metade do desvio, nenhuma das duas relações
+     passa de meio pixel. */
+  transform: translateY(-0.025em);
+}
