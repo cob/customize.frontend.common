@@ -14,31 +14,40 @@ ol.fields>li.custom-radio-1line>table label {
     min-width: 100%
 }
 
+/* O <label> de cada opção é a caixa inteira da opção: o quadrado, o espaço e o
+   texto. Nem sempre foi assim — o produto punha um hanging indent (margin-left
+   de 20px na etiqueta e -20px no quadrado) e estas larguras contavam só o que
+   vinha a seguir a esse recuo, ou seja a opção ocupava mais 20px do que aqui se
+   lê. O alinhamento por flex (ver _global.css) tirou o recuo, e sem o +20px
+   todas as variantes encolheram esses 20px de uma vez: no -sm e no -xs o texto
+   passou a cair por baixo do quadrado seguinte. O valor das variáveis mantém-se
+   para não mudar o significado de quem já as usa. */
+
 /* For  $style[radio-compact] in addition to $radio */
 .cob-app .instance-detail-container div.instance-container ol.fields>li.custom-radio-compact>table td:nth-child(3) label {
     margin-right: 10px;
-    width: var(--radio-width-base);
+    width: calc(var(--radio-width-base) + 20px);
     display: inline-flex;
 }
 
 /* For  $style[radio-compact-2xl] in addition to $radio */
 .cob-app .instance-detail-container div.instance-container ol.fields>li.custom-radio-compact-2xl>table td:nth-child(3) label {
     margin-right: 10px;
-    width: var(--radio-width-2xl);
+    width: calc(var(--radio-width-2xl) + 20px);
     display: inline-flex;
 }
 
 /* For  $style[radio-compact-xl] in addition to $radio */
 .cob-app .instance-detail-container div.instance-container ol.fields>li.custom-radio-compact-xl>table td:nth-child(3) label {
     margin-right: 10px;
-    width: var(--radio-width-xl);
+    width: calc(var(--radio-width-xl) + 20px);
     display: inline-flex;
 }
 
 /* For  $style[radio-compact-lg] in addition to $radio */
 .cob-app .instance-detail-container div.instance-container ol.fields>li.custom-radio-compact-lg>table td:nth-child(3) label {
     margin-right: 10px;
-    width: var(--radio-width-lg);
+    width: calc(var(--radio-width-lg) + 20px);
     display: inline-flex;
 }
 
@@ -46,21 +55,21 @@ ol.fields>li.custom-radio-1line>table label {
 /* For  $style[radio-compact-md] in addition to $radio */
 .cob-app .instance-detail-container div.instance-container ol.fields>li.custom-radio-compact-md>table td:nth-child(3) label {
     margin-right: 10px;
-    width: var(--radio-width-md);
+    width: calc(var(--radio-width-md) + 20px);
     display: inline-flex;
 }
 
 /* For  $style[radio-compact-sm] in addition to $radio */
 .cob-app .instance-detail-container div.instance-container ol.fields>li.custom-radio-compact-sm>table td:nth-child(3) label {
     margin-right: 10px;
-    width: var(--radio-width-sm);
+    width: calc(var(--radio-width-sm) + 20px);
     display: inline-flex;
 }
 
 /* For  $style[radio-compact-xs] in addition to $radio */
 .cob-app .instance-detail-container div.instance-container ol.fields>li.custom-radio-compact-xs>table td:nth-child(3) label {
     margin-right: 10px;
-    width: var(--radio-width-xs);
+    width: calc(var(--radio-width-xs) + 20px);
     display: inline-flex;
 }
 
