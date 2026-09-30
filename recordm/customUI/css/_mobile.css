@@ -661,7 +661,11 @@
    .cob-app .instance-detail-container li.cob-grupo > table {
       margin: 0 !important;
       width: 100% !important;
-      border-radius: 6px 6px 0 0;
+      /* Os mesmos 3px da caixa dos filhos, e nos quatro cantos: entre as duas
+         há agora o espaço do produto, por isso a barra é uma peça inteira e não
+         o topo de um bloco só. Quem pinta é a .legend, que cobre a <table> ao
+         pixel — sem o raio lá também, o canto quadrado dela tapava o da chapa. */
+      border-radius: 3px;
    }
    /* o produto usa padding 1px/3px em cada <li>, que empilhado deixava o
       conteúdo 3px da esquerda e 9px da direita: aqui fica igual dos dois lados */
@@ -760,6 +764,7 @@
       align-items: center;
       flex-wrap: nowrap;
       gap: 2px;
+      border-radius: 3px;
    }
    .cob-app .instance-detail-container li.cob-grupo > table .legend > .group-name {
       flex: 1 1 auto;

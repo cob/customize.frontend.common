@@ -557,6 +557,16 @@ display:none
   background: #ececf2;
   box-shadow: 0 1px 0 #d8d8e2;
 }
+/* Os cantos da barra são os mesmos 3px da caixa dos campos que vem por baixo —
+   o valor que o produto dá a essa caixa. Nos quatro cantos: entre as duas há o
+   espaço do produto, por isso a barra é uma peça inteira e não o topo de um
+   bloco. Quem pinta é a .legend, que cobre a <table> ao pixel, e por isso o
+   raio tem de estar nas duas: sem ele na legenda, o canto quadrado dela tapava
+   o da chapa. Isto valia só para mobile; passa a valer em todas as larguras. */
+.cob-app .instance-detail-container li.field-group > table,
+.cob-app .instance-detail-container li.field-group > table .legend:has(> .group-name) {
+  border-radius: 3px;
+}
 /* só o $group mais de fora cola */
 .cob-app .instance-detail-container li.cob-grupo li.cob-grupo > table { position: static; }
 
