@@ -456,7 +456,7 @@
       margin-top: 6px !important;
       margin-bottom: 0 !important;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-actions:not(:has(span:not(.hidden))) {
+   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field:not(.cob-field-with-actions) > td.cob-field-container-actions {
       display: none !important;
    }
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-errors:empty { display: none !important; }
@@ -465,9 +465,13 @@
       Em mobile as células empilham, e a das acções (duplicar, remover,
       arrastar) ocuparia uma linha inteira só para si, com os ícones soltos por
       cima do nome. Quando tem alguma acção à mostra, a linha corre na
-      horizontal: acções e nome lado a lado, valor por baixo. O :has() distingue
-      este caso do campo normal, cuja célula vazia continua escondida. */
-   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field:has(> td.cob-field-container-actions > span:not(.hidden)) {
+      horizontal: acções e nome lado a lado, valor por baixo. Quem distingue
+      este caso do campo normal — cuja célula vazia continua escondida — é a
+      classe cob-field-with-actions, que o produto põe na linha enquanto alguma
+      acção está à mostra.
+      O :not(.field-group) deixa de fora os $group: os botões deles vivem dentro
+      do div.legend, e por isso nunca entraram neste tratamento. */
+   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field.cob-field-with-actions:not(.field-group) {
       flex-direction: row !important;
       flex-wrap: wrap;
       align-items: center;
@@ -481,7 +485,7 @@
       --cob-icone: 22px;
       --cob-icone-gap: 4px;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field:has(> td.cob-field-container-actions > span:not(.hidden)) > td.cob-field-container-actions {
+   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field.cob-field-with-actions:not(.field-group) > td.cob-field-container-actions {
       order: -1;
       flex: none;
       /* o produto dá-lhe 30px fixos, que chegam para um ícone e não para três */
@@ -510,8 +514,8 @@
       line-height: 1 !important;
       background-position: center !important;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field:has(> td.cob-field-container-actions > span:not(.hidden)) > td.cob-field-container-label,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field:has(> td.cob-field-container-actions > span:not(.hidden)) > td.cob-field-container-label > label {
+   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field.cob-field-with-actions:not(.field-group) > td.cob-field-container-label,
+   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field.cob-field-with-actions:not(.field-group) > td.cob-field-container-label > label {
       /* base 0 e não auto: a célula da etiqueta tem largura de 100% (é assim que
          os campos normais empilham), e com base automática seria esse o tamanho
          pedido — não caberia ao lado das acções. Com base 0 ocupa o que sobrar. */
@@ -526,8 +530,8 @@
       max-width: none !important;
       margin-top: 0 !important;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field:has(> td.cob-field-container-actions > span:not(.hidden)) > td.cob-field-container-value,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field:has(> td.cob-field-container-actions > span:not(.hidden)) > td.cob-field-container-description {
+   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field.cob-field-with-actions:not(.field-group) > td.cob-field-container-value,
+   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field.cob-field-with-actions:not(.field-group) > td.cob-field-container-description {
       flex: 0 0 100%;
    }
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-label { margin-top: 7px !important; }
@@ -733,7 +737,7 @@
    }
    /* o campo com filhos deixa de ter a célula de acções a ocupar uma linha:
       a seta passa para junto da etiqueta (movida no _mobile.js) */
-   .cob-app .instance-detail-container li.cob-subcampos > table > tbody > tr > td.cob-field-container-actions:not(:has(span:not(.hidden))) {
+   .cob-app .instance-detail-container li.cob-subcampos > table > tbody > tr.cob-field:not(.cob-field-with-actions) > td.cob-field-container-actions {
       display: none !important;
    }
    .cob-app .instance-detail-container li.cob-subcampos > table > tbody > tr > td.cob-field-container-label {
