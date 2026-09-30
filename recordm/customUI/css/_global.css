@@ -342,6 +342,13 @@ display:none
     /* o produto dá-lhe margin-top:10px, que numa linha centrada o empurrava
        4,5px abaixo do centro */
     margin: 0;
+    /* Abaixo dos 768px o produto dá `min-width: 270px` ao .details (a par do
+       .definition-name, que aqui já tem o seu). Era para a coluna lateral, onde
+       o bloco ficava sozinho na sua linha; na barra são 270px para ~110px de
+       conteúdo, que empurravam os botões e o collapse/expand para uma segunda
+       linha muito antes de faltar espaço. Numa linha o bloco vale o que lá
+       está. */
+    min-width: 0;
     color: #8a8a93;
     font-size: 11.5px;
     line-height: 18px;
@@ -400,7 +407,29 @@ display:none
     padding: 0 !important;
     order: -1;
   }
-  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .left-aligned > div { display: flex; }
+  /* O produto agrupa isto de forma desigual: o collapse vem sozinho num <div>
+     e o expand vem noutro, com o Show Hidden colado a seguir. O gap da
+     .left-aligned só separa os dois <div>, por isso entre o collapse e o expand
+     havia 9px e entre o expand e o check nenhum. O mesmo gap aqui dentro põe os
+     três à mesma distância, sem mexer no agrupamento. */
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .left-aligned > div {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  /* O check do Show Hidden vem com 20px de alvo de dedo (o _mobile.css dá-os a
+     todos os checkboxes) e com margin-left:-4px em style inline, que é uma
+     correcção da coluna lateral. Na barra, ao lado de ícones de 11px e de um
+     rótulo de 12px, era uma bola — e os -4px punham-na por cima da seta do
+     expand. Aqui fica à escala da barra, e o alvo não se perde: o <label> tem
+     for="checkHidden", por isso é o nome inteiro que liga o check.
+     Os !important são para ganhar ao !important do _mobile.css (tamanho) e ao
+     style inline do produto (margens); sem eles a regra não pega. */
+  .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .left-aligned input[type="checkbox"] {
+    width: 14px !important;
+    height: 14px !important;
+    margin: 0 4px 0 0 !important;
+  }
   .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav .left-aligned a { white-space: nowrap; font-size: 11px; }
 }
 
