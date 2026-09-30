@@ -281,9 +281,17 @@ display:none
      Com display:contents nas linhas, os .span4 passam a ser itens directos da
      barra e alinham-se numa só linha, sem tocar no HTML. */
   /* o produto deixa a secção a começar aos 100px, com o #header a acabar aos
-     62: sobravam 38px de vazio antes da barra. Passa a ficar à mesma distância
-     que o primeiro grupo tem dela (10px). */
+     62: sobravam 38px de vazio antes da barra. A secção passa a começar onde o
+     #header acaba. */
   .cob-app > .instance-detail-container { top: var(--cob-topo, 62px); }
+  /* E a barra é a primeira coisa lá dentro, sem nada por cima: o produto dá
+     10px de margem ao .instance-container, mas a barra cola-se ao topo da
+     secção, por isso esses 10px são espaço que existe parada e desaparece ao
+     primeiro scroll — a barra saltava para cima e ficava mais encostada ao
+     menu do que estava. Sem eles a barra não se mexe: a posição parada é a
+     mesma em que ela cola. Os campos não perdem o respiro, que vem da margem
+     inferior da própria barra. */
+  .cob-app > .instance-detail-container > .instance-container { margin-top: 0; }
   .cob-app > .instance-detail-container > .instance-container > .content > div > .sidenav {
     position: sticky;
     top: var(--cob-topo, 62px);
