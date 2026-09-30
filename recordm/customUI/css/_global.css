@@ -557,6 +557,33 @@ display:none
   background: #ececf2;
   box-shadow: 0 1px 0 #d8d8e2;
 }
+/* A seta do cabeçalho de $group ficava 1,5px acima do meio da barra, por duas
+   razões que se somam: traz do produto um margin-bottom:3px sem margem de cima,
+   e fica alinhada pela baseline do nome do grupo, que não é o meio da linha.
+   Com a margem a zero e o alinhamento ao centro, o meio da seta é o meio da
+   barra (medido: -1,5px → -0,08px). O padding assimétrico do produto fica como
+   está: é ele que centra o glifo dentro da caixa, e não mexe no resto.
+   O selector tem de ser pelo menos tão específico como o do produto
+   (`… div.instance-container ol.fields span.toggle-button`), senão não pega. */
+.cob-app .instance-detail-container div.instance-container ol.fields li.field-group > table span.toggle-button {
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+/* E a legenda centra o que lá está, em vez de o pousar na linha de texto. Com
+   os filhos em linha, a seta assentava na baseline do nome e a altura da barra
+   ficava ímpar (21px para uma seta de 18): o pixel que sobrava caía todo de um
+   lado — 2px de vermelho por cima da seta e 1px por baixo. Em flex, a barra
+   passa a ter a altura do nome e a seta fica ao meio (medido nos pixéis:
+   1px/1px). É o que o _mobile.css já fazia abaixo dos 949px; aqui vale para
+   todas as larguras.
+   O :has(> .group-name) é preciso porque nos $group com
+   $style[use-reference-count] o _group_references.js clona o link de pesquisa
+   para dentro do nome e dá-lhe também a classe "legend"; sem o :has(), esse <a>
+   apanhava o display:flex e o ">>" caía para outra linha. */
+.cob-app .instance-detail-container li.field-group > table .legend:has(> .group-name) {
+  display: flex;
+  align-items: center;
+}
 /* Os cantos da barra são os mesmos 3px da caixa dos campos que vem por baixo —
    o valor que o produto dá a essa caixa. Nos quatro cantos: entre as duas há o
    espaço do produto, por isso a barra é uma peça inteira e não o topo de um
@@ -567,6 +594,42 @@ display:none
 .cob-app .instance-detail-container li.field-group > table .legend:has(> .group-name) {
   border-radius: 3px;
 }
+/* --- acertos de layout de rato (o modo compacto tem os seus, no _mobile.css) */
+@media screen and (min-width: 950px) {
+  /* A seta ocupava 18px numa barra de 20: encostada em cima e em baixo, lia-se
+     como sendo a própria barra. Com 16px sobra vermelho dos dois lados e ela
+     volta a ser um botão dentro dela. O glifo mantém o tamanho (10px), só a
+     caixa é que encolhe — e encolhe nos dois eixos: o padding do produto é
+     assimétrico (3px 4px 1px 3px) e dava uma caixa mais larga que alta. Aqui a
+     caixa é quadrada por medida e o glifo centra-se nela sozinho, em vez de ser
+     o padding a tentar pô-lo no meio. */
+  .cob-app .instance-detail-container div.instance-container ol.fields li.field-group > table span.toggle-button {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 16px;
+    min-width: 0;
+    height: 16px;
+    padding: 0;
+    line-height: 1;
+  }
+  /* Nota, para quem vier a seguir: a tinta do chevron fica meio pixel abaixo do
+     meio da caixa, e o browser arredonda-o para um pixel inteiro. Não se
+     corrige com um top:-1px — as duas setas são glifos diferentes (`>` é o
+     chevron direito, `⌄` é o mesmo com icon-rotate-90) e o erro delas não é
+     igual: medido, sem correcção o centro da tinta fica 0,36px (fechado) e
+     0,59px (aberto) abaixo do meio; com -1px passa a 0,64px e 0,41px acima, o
+     que piora o fechado. Meios pixéis não servem: o glifo é pintado em pixéis
+     inteiros e um top:-0,5px não lhe mexe. Fica como o produto o desenha. */
+  /* e a seta encosta-se mais à esquerda: os 5px que o _group.css dá à legenda
+     eram folga a mais à frente de um botão mais pequeno */
+  .cob-app .instance-detail-container li.field-group > table .legend:has(> .group-name) {
+    padding-left: 3px;
+  }
+}
+
 /* só o $group mais de fora cola */
 .cob-app .instance-detail-container li.cob-grupo li.cob-grupo > table { position: static; }
 
