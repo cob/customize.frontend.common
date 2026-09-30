@@ -654,8 +654,7 @@ cob.custom.customize.push(function (core, utils, ui) {
     const COB_NIVEL_MAX = 5
 
     function arrumarGrupos() {
-        // o produto põe um <ol class="fields"> vazio em todas as linhas; só conta
-        // como grupo quem lá tem mesmo campos
+        // o produto põe um <ol class="fields"> vazio em todas as linhas
         const filhosDe = li => {
             const ol = li.querySelector(":scope > ol.fields")
             if (!ol) return null
@@ -663,11 +662,19 @@ cob.custom.customize.push(function (core, utils, ui) {
             return lis.length ? { ol, lis } : null
         }
         document.querySelectorAll(".instance-detail-container ol.fields li").forEach(li => {
-            const filhos = filhosDe(li)
             const cabecalho = li.querySelector(":scope > table")
-            if (!filhos || !cabecalho) return
+            if (!cabecalho) return
 
+            // Um $group é um grupo por ser um $group, tenha ou não campos lá
+            // dentro: há definições que o usam só como título de secção, com os
+            // campos a seguir a ele e não dentro dele. Sem isto, um registo com
+            // os dois feitios mostrava dois cabeçalhos de $group diferentes —
+            // um com barra, o outro em texto solto.
+            // Já um campo normal só conta como caixa de subcampos se lá tiver
+            // mesmo alguma coisa: é o <ol> vazio acima que obriga à verificação.
             const ehGrupo = li.classList.contains("field-group")
+            if (!ehGrupo && !filhosDe(li)) return
+
             li.classList.add(ehGrupo ? "cob-grupo" : "cob-subcampos")
 
             // dois contadores: o visual (cor e calha, conta tudo o que tem filhos)
@@ -696,6 +703,9 @@ cob.custom.customize.push(function (core, utils, ui) {
             if (!cabecalho.dataset.cobClicavel) {
                 cabecalho.dataset.cobClicavel = "1"
                 if (ehGrupo) cabecalho.addEventListener("click", ev => {
+                    // num $group sem campos o produto esconde a seta: não há
+                    // nada para abrir nem fechar
+                    if (toggle.classList.contains("hidden")) return
                     if (ev.target.closest("input, select, textarea, a, button, label, .toggle-button, .duplicate-button, .remove-button, .drag-handle")) return
                     toggle.click()
                 })
