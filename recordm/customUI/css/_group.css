@@ -29,6 +29,19 @@
     background-color: var(--cob-bg-color-subgrupo);
     border-bottom: solid 2px !important;
   }
+
+  /* O ">>" dos $group com $style[use-reference-count] é um clone do link de
+     pesquisa a que o _group_references.js dá a classe "legend", para ele apanhar
+     a cor e o tamanho do título. Com a classe vinha também a linha de baixo da
+     legenda, que aqui não separa nada: é um traço solto debaixo de duas setas,
+     dentro de um título que essa mesma linha já sublinha por inteiro.
+     A classe cob-ref-count é posta pelo mesmo script só para isto: marca o
+     clone, para a regra não depender de ser ele o único <a class="legend"> a
+     viver dentro de um .group-name.
+     O !important é para ganhar ao da regra do subgrupo, aqui em cima. */
+  .cob-app .group-name a.cob-ref-count {
+    border-bottom: 0 !important;
+  }
    
 /* *************** other colors (example for red: $style[grupo-red,grupo,subgrupo-red] ) ******************* */
   .custom-grupo-red > table .legend{

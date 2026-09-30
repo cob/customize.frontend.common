@@ -15,7 +15,10 @@ cob.custom.customize.push(function (core, utils, ui) {
                     let linkHTML
                     if(linkHTMLsource.length != 0) {
                         linkHTML = linkHTMLsource[0].cloneNode(true)
-                        linkHTML.classList.add("legend")
+                        // "legend" para apanhar a cor e o tamanho do título;
+                        // "cob-ref-count" para o CSS poder distinguir este clone
+                        // da legenda verdadeira (ver _group.css)
+                        linkHTML.classList.add("legend", "cob-ref-count")
                         linkHTML.innerHTML = " >> "
                     }
                     group[0].innerHTML = labelWithCount + (linkHTML?linkHTML.outerHTML:"")
