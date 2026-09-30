@@ -517,6 +517,13 @@
          pedido — não caberia ao lado das acções. Com base 0 ocupa o que sobrar. */
       flex: 1 1 0;
       min-width: 0 !important;
+      /* O produto limita as etiquetas a 100px (`ol.fields > li > table label`).
+         Nos campos empilhados isso não se nota porque o min-width:100% lá de
+         cima o anula — em CSS o min-width ganha ao max-width. Aqui o min-width
+         tem de sair, para a etiqueta caber ao lado dos ícones, e ao sair
+         devolvia o limite de 100px: uma etiqueta um pouco mais longa partia em
+         duas linhas com a linha meio vazia à frente. Os dois andam juntos. */
+      max-width: none !important;
       margin-top: 0 !important;
    }
    .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field:has(> td.cob-field-container-actions > span:not(.hidden)) > td.cob-field-container-value,
