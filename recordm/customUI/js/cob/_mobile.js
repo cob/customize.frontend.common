@@ -17,19 +17,21 @@ cob.custom.customize.push(function (core, utils, ui) {
             1 - fields WITHOUT $ShowOnMobile (we will want to hide them)
             2 - fields with $HideOnMobile
         */
-        applyMobileCustomizations(presenter,instance,
+        const reaplicar = () => applyMobileCustomizations(presenter, instance,
             found_fields[0], found_fields[1], found_fields[2]
-        );
+        )
+
+        reaplicar()
 
         // Reapply changes on resize
-        window.addEventListener('resize', function() {
-            applyMobileCustomizations(presenter, instance,
-                found_fields[0], found_fields[1], found_fields[2]
-            );
-        });
-        
-        // Make sure to apply some visual changes on duplicate
-        reapplyOnDuplicate(presenter)
+        window.addEventListener('resize', reaplicar)
+
+        // e quando nascem campos novos: as listas acima são de quando o registo
+        // abriu, e um duplicado traz FieldPresenters que não estão lá
+        observarCamposNovos(() => {
+            found_fields = getRelevantFields(presenter)
+            reaplicar()
+        })
     })
 
     function applyMobileCustomizations(presenter, instance, 
@@ -99,18 +101,58 @@ cob.custom.customize.push(function (core, utils, ui) {
         return [fields_show_mobile, fields_without_show_keyword, fields_hide_mobile]
     }
 
-    // Update customization on duplication
-    function reapplyOnDuplicate(presenter, instance ){
-        const duplicateButtons = document.querySelectorAll('span.duplicate-button');
+    // --- Um campo duplicado nasce sem passar por aqui ----------------------
+    //
+    // As customizações correm uma vez, quando o registo abre (o
+    // applyCustomizations do produto). Ao duplicar, o produto monta um
+    // FieldPresenter novo e insere-o na vista, e nada volta a chamar-nos: o que
+    // nascia depois ficava sem o tratamento de mobile e só um resize — que
+    // reaplica tudo — o punha direito.
+    //
+    // Escutar o botão de duplicar não chegava, e era o que estava feito: o
+    // clique dispara antes de o markup do clone existir, e o botão do próprio
+    // clone não existia quando os escutadores foram ligados. Observa-se antes o
+    // DOM — o que aparecer volta a passar pelo mesmo tratamento.
+    //
+    // Um observador só para todas as instâncias (uma aninhada aberta regista o
+    // seu), e o próprio tratamento mexe no DOM: desliga-se enquanto corre, para
+    // não se acordar a si mesmo.
 
-        duplicateButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                if(isMobile() && isScreenMd()) { // || (isNaked() && isScreenMd()) -> add for destkop debug
-                    // as acções vivem na barra de cada instância
-                    removeNavbar()
-                }
-            });
-        });
+    const reaplicadores = new Set()
+    let observadorCampos = null
+    let temporizadorCampos = null
+
+    const ALVO = { childList: true, subtree: true }
+
+    function eCampo(no) {
+        return no.nodeType === 1 &&
+            (no.matches("li[id^='instance-field-']") || !!no.querySelector("li[id^='instance-field-']"))
+    }
+
+    function correrReaplicadores() {
+        observadorCampos.disconnect()
+        try {
+            reaplicadores.forEach(f => {
+                // um registo entretanto fechado deixa para trás o seu
+                // reaplicador; o primeiro erro tira-o da lista
+                try { f() } catch (e) { reaplicadores.delete(f) }
+            })
+        } finally {
+            observadorCampos.observe(document.body, ALVO)
+        }
+    }
+
+    function observarCamposNovos(reaplicar) {
+        reaplicadores.add(reaplicar)
+        if (observadorCampos) return
+
+        observadorCampos = new MutationObserver(mutacoes => {
+            if (!mutacoes.some(m => [...m.addedNodes].some(eCampo))) return
+            // uma vez só por rajada: o clone insere vários nós de seguida
+            clearTimeout(temporizadorCampos)
+            temporizadorCampos = setTimeout(correrReaplicadores, 100)
+        })
+        observadorCampos.observe(document.body, ALVO)
     }
 
     // Expand all 
