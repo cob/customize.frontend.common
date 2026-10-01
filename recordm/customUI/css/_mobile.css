@@ -276,15 +276,17 @@
       width: 100% !important;
    }
 
-   /* removes borders/outlines */
-   .cob-app .instance-detail-container div.instance-container ol.fields {
-      margin: none;
-      border: none;
-      -webkit-border-radius: none;
-      background-color: rgba(128, 128, 192, 0.1);
-   }
-   .cob-app .fields-container > ol.fields {
+   /* A lista de campos da raiz do registo não leva caixa: em mobile o ecrã
+      inteiro É o registo, e uma moldura à volta de tudo não diz nada que já não
+      se veja — só gasta largura. O fundo é o que aqui estava desde sempre.
+      (Isto era antes uma regra sobre TODOS os ol.fields, que apagava a caixa do
+      produto a toda a gente para depois a reconstruir grupo a grupo. Agora
+      herda-se o produto e tira-se só onde o ecrã estreito obriga: aqui, e na
+      regra da calha lá abaixo.) */
+   .cob-app .instance-detail-container div.instance-container .fields-container > ol.fields {
       padding-left: 0px !important;
+      border: none;
+      background-color: rgba(128, 128, 192, 0.1);
    }
 
    .cob-app .instance-detail-container div.instance-container ol.fields>li.custom-comentarios.custom-novo:before {
@@ -646,6 +648,10 @@
       data-nivel e --cob-grupo-nivel são postos pelo _mobile.js. */
    .cob-app .instance-detail-container li.cob-grupo[data-nivel]:not([data-nivel="0"]) > ol.fields,
    .cob-app .instance-detail-container li.cob-subcampos > ol.fields {
+      /* a calha é que diz a profundidade: a caixa do produto aqui seria um
+         segundo separador no mesmo sítio, e uma moldura por nível come largura
+         a cada encaixe */
+      border: none;
       border-left: 3px solid var(--cob-grupo-cor, #c3c3d4) !important;
       border-radius: 0 4px 4px 0;
       margin-left: 3px !important;
@@ -696,6 +702,14 @@
       conteúdo 3px da esquerda e 9px da direita: aqui fica igual dos dois lados */
    .cob-app .instance-detail-container li.cob-grupo > ol.fields {
       margin: 0 !important;
+   }
+   /* O $group de topo fica com a caixa do produto — a mesma que tem em
+      secretária. Só as margens laterais é que não servem: os 10px de cada lado
+      são largura que num ecrã estreito faz falta aos campos, por isso a caixa
+      continua colada às bordas do cartão. Em cima e em baixo ficam os 3px que
+      separam a caixa da legenda. */
+   .cob-app .instance-detail-container li.cob-grupo[data-nivel="0"] > ol.fields {
+      margin: 3px 0 !important;
    }
    .cob-app .instance-detail-container li.cob-grupo > ol.fields > li {
       padding-left: 6px !important;
