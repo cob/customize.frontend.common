@@ -554,9 +554,31 @@ display:none
   /* acima das barras das aninhadas (6 e abaixo) e abaixo da do registo (8) */
   z-index: 7;
   margin: 0 !important;
-  background: #ececf2;
-  box-shadow: 0 1px 0 #d8d8e2;
+  /* A chapa tem de ser opaca — sem ela via-se o conteúdo a passar por baixo do
+     cabeçalho colado — mas não tem de se VER. Leva a cor de quem está por trás:
+     a do nível, quando o $group vive dentro de uma instância aninhada, e a do
+     registo quando está na raiz. Assim parece transparente parada, e continua a
+     tapar quando cola. A cinza que aqui estava (#ececf2) é do desenho de mobile
+     — destoava do creme do registo — e ficou só no _mobile.css, com a linha que
+     a acompanha; a separar o cabeçalho do conteúdo basta a borda que o produto
+     já dá à .legend.
+     --cob-nivel-fundo é a cor da caixa da aninhada, definida em CSS aqui ao
+     lado. --cob-fundo-registo é a do fundo da aplicação, que não é a mesma em
+     todos os clientes: vem medida do _nested_instances.js. A constante só entra
+     se nada na cadeia pintar. */
+  background: var(--cob-nivel-fundo, var(--cob-fundo-registo, #f7f6f3));
 }
+/* Quem manda na COR do cabeçalho é a .legend, uma <div> dentro da <td> que o
+   $style[grupo] pinta (ver _group.css). Entre ela e a chapa acima
+   ficavam 4px de chapa à vista: a <td> tem o padding de 1px que o browser dá por
+   omissão, e a tabela leva ainda uma segunda linha — a dos erros do campo —
+   vazia mas com esse mesmo 1px em cima e em baixo. Daí a moldura cinzenta à
+   volta da barra e a faixa por baixo dela.
+   Num $group sem cor própria isto nunca se viu, porque aí a chapa É o
+   cabeçalho; só aparece onde a legenda é pintada. Com as células sem padding a
+   legenda cobre a chapa ao pixel, e a chapa continua a fazer o seu trabalho. */
+.cob-app .instance-detail-container li.cob-grupo > table > tbody > tr > td { padding: 0; }
+
 /* A seta do cabeçalho de $group ficava 1,5px acima do meio da barra, por duas
    razões que se somam: traz do produto um margin-bottom:3px sem margem de cima,
    e fica alinhada pela baseline do nome do grupo, que não é o meio da linha.
@@ -594,6 +616,7 @@ display:none
 .cob-app .instance-detail-container li.field-group > table .legend:has(> .group-name) {
   border-radius: 3px;
 }
+
 /* --- acertos de layout de rato (o modo compacto tem os seus, no _mobile.css) */
 @media screen and (min-width: 950px) {
   /* A seta ocupava 18px numa barra de 20: encostada em cima e em baixo, lia-se

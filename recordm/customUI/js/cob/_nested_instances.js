@@ -94,6 +94,7 @@ cob.custom.customize.push(function (core, utils, ui) {
             if (seccao !== topo) garantirCabecalho(seccao)   // o de topo fica com a goteira
         })
         // só depois de todos montados: a medição precisa do layout final
+        medirFundoDoRegisto()
         medirBarraDeTopo()
         posicionarColados()
         document.querySelectorAll(".cob-cabecalho").forEach(ajustarLargura)
@@ -133,6 +134,34 @@ cob.custom.customize.push(function (core, utils, ui) {
             const novo = Math.round(desvio) + "px"
             if (el.style.top !== novo) el.style.top = novo
         })
+    }
+
+    // A chapa do cabeçalho de $group colado tem de ser da cor de quem está por
+    // trás, para se ver como se não estivesse lá (ver _global.css). Dentro de
+    // uma aninhada essa cor é a do nível, que é nossa e está em CSS; na raiz do
+    // registo é a do fundo da aplicação, que NÃO é a mesma em todos os clientes
+    // — há quem mude o background do .cob-app.
+    //
+    // Por isso mede-se em vez de se assumir: sobe-se a partir da secção de topo
+    // até ao primeiro elemento que pinte mesmo alguma coisa, seja ele o
+    // .cob-app, o body ou outro qualquer, e escreve-se a cor numa variável. O
+    // valor de recurso no CSS só entra se nada nesta cadeia pintar (um fundo
+    // feito só de imagem ou de gradiente, por exemplo).
+    const TRANSPARENTE = /^(transparent$|rgba\(0, 0, 0, 0\)$)/
+
+    function medirFundoDoRegisto() {
+        const topo = document.querySelector(".instance-detail-container")
+        if (!topo) return
+
+        for (let el = topo; el; el = el.parentElement) {
+            const cor = getComputedStyle(el).backgroundColor
+            if (!cor || TRANSPARENTE.test(cor)) continue
+            const raiz = document.documentElement
+            if (raiz.style.getPropertyValue("--cob-fundo-registo") !== cor) {
+                raiz.style.setProperty("--cob-fundo-registo", cor)
+            }
+            return
+        }
     }
 
     // Abaixo dos 1175px a coluna do registo de topo vira barra colada (ver

@@ -678,6 +678,20 @@
          pixel — sem o raio lá também, o canto quadrado dela tapava o da chapa. */
       border-radius: 3px;
    }
+   /* A chapa só trabalha enquanto a barra está colada: é ela que tapa os campos
+      que lhe passam por baixo. Cola só o $group mais de fora (ver _global.css),
+      por isso num encaixado não há nada a tapar — e num grupo sem cor própria,
+      onde a legenda não pinta nada, a chapa era a única coisa a dar cor à
+      barra: um cinzento que não é o de ninguém, dentro da caixa do pai. Aqui
+      fica mesmo transparente.
+      A do grupo de topo continua opaca, com a cor de quem está por trás, que é
+      o que o _global.css já lhe dá — parece transparente parada e tapa quando
+      cola. O cinzento que aqui estava era o topo do cartão de mobile, do tempo
+      em que a barra e os campos eram um bloco só; agora quem os separa é o
+      espaço e a moldura da caixa dos filhos. */
+   .cob-app .instance-detail-container li.cob-grupo:not([data-nivel="0"]) > table {
+      background: transparent;
+   }
    /* o produto usa padding 1px/3px em cada <li>, que empilhado deixava o
       conteúdo 3px da esquerda e 9px da direita: aqui fica igual dos dois lados */
    .cob-app .instance-detail-container li.cob-grupo > ol.fields {
