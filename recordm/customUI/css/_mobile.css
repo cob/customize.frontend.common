@@ -276,9 +276,10 @@
       width: 100% !important;
    }
 
-   /* A lista de campos da raiz do registo não leva caixa: em mobile o ecrã
-      inteiro É o registo, e uma moldura à volta de tudo não diz nada que já não
-      se veja — só gasta largura. O fundo é o que aqui estava desde sempre.
+   /* A lista de campos da raiz do registo não leva caixa nem fundo próprio: em
+      mobile o ecrã inteiro É o registo, e nem uma moldura à volta de tudo nem
+      um tom diferente do da página distinguem o que quer que seja — a moldura
+      gasta largura, o tom faz o modo estreito parecer outra aplicação.
       (Isto era antes uma regra sobre TODOS os ol.fields, que apagava a caixa do
       produto a toda a gente para depois a reconstruir grupo a grupo. Agora
       herda-se o produto e tira-se só onde o ecrã estreito obriga: aqui, e na
@@ -286,7 +287,6 @@
    .cob-app .instance-detail-container div.instance-container .fields-container > ol.fields {
       padding-left: 0px !important;
       border: none;
-      background-color: rgba(128, 128, 192, 0.1);
    }
 
    .cob-app .instance-detail-container div.instance-container ol.fields>li.custom-comentarios.custom-novo:before {
