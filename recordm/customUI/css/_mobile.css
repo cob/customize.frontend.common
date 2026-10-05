@@ -227,6 +227,22 @@
       opacity: .75;
    }
 
+   /* O link de criar que algumas definições embutem na descrição do $ref
+      (<a href='…#/instance/create/N'>Criar</a>) sobe para a linha como o
+      Details, pelo mesmo _mobile.js; sem isto eram dois chevrons iguais.
+      Fica a seguir ao Details, com um "+" e borda tracejada: cria, não navega. */
+   .cob-app .instance-detail-container ol.fields a.cob-ref-link[href*="/instance/create/"] {
+      order: 1;
+      border-style: dashed;
+   }
+
+   .cob-app .instance-detail-container ol.fields a.cob-ref-link[href*="/instance/create/"]::after {
+      content: "+";
+      font-size: 1.5rem;
+      line-height: 1;
+      opacity: .75;
+   }
+
    /* selects constantes */
    .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div.inline > select,
    .cob-app .instance-detail-container select {
