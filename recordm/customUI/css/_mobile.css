@@ -3,33 +3,41 @@
    letra de dedo é reposto para o de rato no _global.css, quando o dispositivo
    diz ter ponteiro fino. */
 @media screen and (max-width:949px) {
+
    /* *************** Nada se arrasta na horizontal ******************* */
    /* não há nada para ver ao lado: sem isto o dedo arrasta o ecrã inteiro,
       quer por uns pixels a mais de conteúdo, quer pelo efeito elástico */
-   html, body, .cob-app {
+   html,
+   body,
+   .cob-app {
       overscroll-behavior-x: none;
    }
+
    .cob-app {
       overflow-x: hidden !important;
    }
 
    /* *************** Para impedir o resize dos inputs nos telemóveis ******************* */
-   input, select,textarea {
+   input,
+   select,
+   textarea {
       font-size: 16px !important;
    }
+
    .dashboard .board {
       min-height: 20px !important;
    }
 
-   .cob-app .row, .cob-app .thumbnails {
-       margin-left: 1px;
-       margin-top: -5px;
+   .cob-app .row,
+   .cob-app .thumbnails {
+      margin-left: 1px;
+      margin-top: -5px;
    }
 
    /* *************** Melhores Buttons ******************* */
    .cob-app .search-definition .results-container .mass-options button {
-       display: inline;
-       margin-bottom: 2px;
+      display: inline;
+      margin-bottom: 2px;
    }
 
    /* *************** Melhor sidenav ******************* */
@@ -50,7 +58,7 @@
    }
 
    .sidenav .space {
-      height:5px !important;
+      height: 5px !important;
    }
 
    .cob-app .instance-detail-container .instance-container .fields-container {
@@ -60,6 +68,7 @@
       margin-top: -10px;
       padding-top: 10px;
    }
+
    @media (max-width: 479px) {
       .cob-app .instance-detail-container .instance-container .fields-container {
          border-top: solid 1px;
@@ -67,31 +76,33 @@
    }
 
    /* *************** Centrar input dos $ref correctamente ******************* */
-   .cob-app .input-append, .cob-app .input-prepend {
+   .cob-app .input-append,
+   .cob-app .input-prepend {
       margin-bottom: 0px;
    }
 
    /* *************** Para ter uma tabela melhor nos telemóveis ******************* */
    .cob-app .instance-detail-container div.instance-container ol.fields {
-      width:98%;
+      width: 98%;
    }
-   ol.fields table > tbody > tr > td:nth-child(1) {
-      min-width:30px !important;
-      width:30px !important;
-      max-width:30px !important;
+
+   ol.fields table>tbody>tr>td:nth-child(1) {
+      min-width: 30px !important;
+      width: 30px !important;
+      max-width: 30px !important;
       margin-bottom: -3px;
       margin-top: 18px;
    }
 
-   ol.fields table > tbody > tr:not(.field-group) > td:nth-child(1) {
+   ol.fields table>tbody>tr:not(.field-group)>td:nth-child(1) {
       display: flex;
       flex-direction: row;
       align-items: center;
-  }
+   }
 
    .references-legend,
-   ol.fields table > tbody > tr > td:nth-child(2),
-   ol.fields table > tbody > tr > td:nth-child(2) label {
+   ol.fields table>tbody>tr>td:nth-child(2),
+   ol.fields table>tbody>tr>td:nth-child(2) label {
       min-width: 100% !important;
       font-size: 1.1rem !important;
       line-height: 1.1rem !important;
@@ -102,40 +113,44 @@
       margin-top: 10px;
    }
 
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div > input,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div > span > input {
-      min-width: 97% !important;
-      max-width: none !important;
-      font-size: 1.1rem !important;
-   }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > input,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > label,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div.instance-container > span,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div.instance-container  > input,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div.inline > input,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div > textarea {
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td:nth-child(3)>div>input,
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td:nth-child(3)>div>span>input {
       min-width: 97% !important;
       max-width: none !important;
       font-size: 1.1rem !important;
    }
 
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div.inline  > select {
-      min-width:100% !important;
-      max-width:190px !important;
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td:nth-child(3)>input,
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td:nth-child(3)>label,
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td:nth-child(3)>div.instance-container>span,
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td:nth-child(3)>div.instance-container>input,
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td:nth-child(3)>div.inline>input,
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td:nth-child(3)>div>textarea {
+      min-width: 97% !important;
+      max-width: none !important;
       font-size: 1.1rem !important;
    }
+
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td:nth-child(3)>div.inline>select {
+      min-width: 100% !important;
+      max-width: 190px !important;
+      font-size: 1.1rem !important;
+   }
+
    /* Da 4ª coluna só interessa o link "Details" das referências, sem o qual não
       há como saltar para o registo referenciado: mostra-se esse, como botão, e
       escondem-se os restantes addons. */
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-description:not(.cob-field-container-value) > .field-addons > *:not(a[href*="/instance/"]) {
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-description:not(.cob-field-container-value)>.field-addons>*:not(a[href*="/instance/"]) {
       display: none !important;
    }
+
    /* Atenção: nos campos $text o produto junta as duas classes na mesma célula
       (value + description). Só se esconde a célula que é apenas descrição. */
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-description:not(.cob-field-container-value):not(:has(a[href*="/instance/"])) {
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-description:not(.cob-field-container-value):not(:has(a[href*="/instance/"])) {
       display: none;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-description a[href*="/instance/"] {
+
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-description a[href*="/instance/"] {
       display: inline-flex;
       align-items: center;
       gap: 4px;
@@ -149,6 +164,7 @@
       text-decoration: none;
       white-space: nowrap;
    }
+
    /* já na linha do campo, o botão fica só com o chevron: o texto ("Detalhes")
       vai para o title/aria-label e a largura sobra toda para o input */
    .cob-app .instance-detail-container ol.fields a.cob-ref-link {
@@ -170,54 +186,67 @@
       text-decoration: none;
       overflow: hidden;
    }
-   /* Campo + lupa + DETAILS na mesma linha. O critério é ser um $ref (tem
-      typeahead) e não a presença do DETAILS: esse link só existe com o campo
-      preenchido, e um $ref vazio ficaria de fora destas regras. */
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) {
+
+   /* Campo + lupa + DETAILS na mesma linha. O critério é ser um $ref (tem o
+      botão da lupa) e não a presença do DETAILS: esse link só existe com o campo
+      preenchido, e um $ref vazio ficaria de fora destas regras. Também não serve
+      o .twitter-typeahead: num $ref $readonly o produto não inicializa o
+      typeahead e esse span não existe, mas a lupa está lá na mesma. */
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-value:has(.js-typeahead-btn) {
       display: flex !important;
       flex-direction: row !important;
       align-items: center;
       flex-wrap: nowrap;
       gap: 6px;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) > div,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) > input {
+
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-value:has(.js-typeahead-btn)>div,
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-value:has(.js-typeahead-btn)>input {
       flex: 1 1 auto;
       min-width: 0;
    }
-   .cob-app .instance-detail-container ol.fields a.cob-ref-link { flex: none; }
+
+   .cob-app .instance-detail-container ol.fields a.cob-ref-link {
+      flex: none;
+   }
+
    /* o campo tem largura mínima do produto (97%); aqui tem de poder encolher
       para caber ao lado da lupa e do DETAILS sem empurrar a linha para fora */
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) {
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-value:has(.js-typeahead-btn) {
       width: auto !important;
       max-width: 100% !important;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) input,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) .tt-wrapper,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) .tt-query,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) .tt-hint,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) .twitter-typeahead {
+
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-value:has(.js-typeahead-btn) input,
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-value:has(.js-typeahead-btn) .tt-wrapper,
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-value:has(.js-typeahead-btn) .tt-query,
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-value:has(.js-typeahead-btn) .tt-hint,
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-value:has(.js-typeahead-btn) .twitter-typeahead {
       min-width: 0 !important;
       max-width: 100% !important;
       width: 100% !important;
    }
+
    /* o typeahead embrulha o input num span inline-block de largura fixa */
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) .twitter-typeahead {
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-value:has(.js-typeahead-btn) .twitter-typeahead {
       display: block !important;
    }
+
    /* o input-append tem de dividir a linha entre campo e lupa */
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) > .input-append {
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-value:has(.js-typeahead-btn)>.input-append {
       display: flex !important;
       flex-direction: row !important;
       align-items: center;
       flex-wrap: nowrap;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-description a[href*="/instance/"]::after {
+
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-description a[href*="/instance/"]::after {
       content: "\203A";
       font-size: 1.1rem;
       line-height: 1;
       opacity: .6;
    }
+
    .cob-app .instance-detail-container ol.fields a.cob-ref-link::after {
       content: "\203A";
       font-size: 1.35rem;
@@ -226,18 +255,20 @@
    }
 
    /* selects constantes */
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td:nth-child(3) > div.inline > select,
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td:nth-child(3)>div.inline>select,
    .cob-app .instance-detail-container select {
       min-width: 188px !important;
       max-width: 188px !important;
    }
+
    /* identação nas hierarquias mínimas */
    .cob-app .instance-detail-container div.instance-container ol.fields {
       margin-left: -1px;
-      margin-right:0px;
+      margin-right: 0px;
       width: 100%
    }
-   .cob-app .instance-detail-container div.instance-container ol.fields > li {
+
+   .cob-app .instance-detail-container div.instance-container ol.fields>li {
       padding-left: 1px;
    }
 
@@ -256,13 +287,14 @@
       font-size: 1.1rem !important;
       overflow-x: scroll;
    }
+
    .cob-app .markdown-container .CodeMirror-scroll {
       max-width: 400px;
    }
 
    .cob-app .instance-detail-container .instance-container .fields-container .field-group {
-      margin-bottom:-5px;
-      margin-top:15px;      
+      margin-bottom: -5px;
+      margin-top: 15px;
    }
 
    ol>li:not(.field-group)>table>tbody>tr {
@@ -284,7 +316,7 @@
       produto a toda a gente para depois a reconstruir grupo a grupo. Agora
       herda-se o produto e tira-se só onde o ecrã estreito obriga: aqui, e na
       regra da calha lá abaixo.) */
-   .cob-app .instance-detail-container div.instance-container .fields-container > ol.fields {
+   .cob-app .instance-detail-container div.instance-container .fields-container>ol.fields {
       padding-left: 0px !important;
       border: none;
    }
@@ -333,8 +365,8 @@
       font-size: 20px !important;
       padding: 5px !important;
       margin: 0% !important;
-   }  
-   
+   }
+
    /* Make the expand and collapse buttons bigger */
    .cob-app .instance-detail-container div.instance-container ol.fields span.toggle-button {
       min-width: fit-content !important;
@@ -362,12 +394,14 @@
       font-size: 0.85rem;
       color: #444;
    }
+
    #mobile-context .mc-def {
       font-weight: 600;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
    }
+
    #mobile-context .mc-right {
       margin-left: auto;
       display: flex;
@@ -376,6 +410,7 @@
       white-space: nowrap;
       color: #777;
    }
+
    #mobile-context .mc-btn {
       display: inline-flex;
       align-items: center;
@@ -384,10 +419,17 @@
       height: 30px;
       color: #666;
    }
-   #mobile-context .mc-btn svg { width: 15px; height: 15px; }
+
+   #mobile-context .mc-btn svg {
+      width: 15px;
+      height: 15px;
+   }
+
    /* :has() em vez de uma classe: o desvio acompanha a presença do cabeçalho,
       que agora vive dentro da secção e morre com ela */
-   .cob-app:has(#mobile-context) section { top: 96px !important; }
+   .cob-app:has(#mobile-context) section {
+      top: 96px !important;
+   }
 
    /* --- Referências em cartões, em vez da grelha de 8 colunas --- */
    /* A grelha não pode levar display:none — o SlickGrid precisa de dimensões
@@ -399,7 +441,14 @@
       visibility: hidden;
       pointer-events: none;
    }
-   .cob-cards { display: flex; flex-direction: column; gap: 6px; margin: 4px 0 8px; }
+
+   .cob-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: 4px 0 8px;
+   }
+
    .cob-card {
       position: relative;
       display: block;
@@ -411,12 +460,49 @@
       text-decoration: none !important;
       color: #222;
    }
-   .cob-card:active { background: #f2f4ee; }
-   .cob-card-titulo { font-size: 1rem; font-weight: 600; line-height: 1.25; }
-   .cob-card-meta { margin-top: 3px; display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 0.82rem; color: #666; }
-   .cob-card-meta b { font-weight: 600; color: #999; text-transform: uppercase; font-size: 0.72rem; letter-spacing: .03em; }
-   .cob-card-seta { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); opacity: .45; }
-   .cob-cards-vazio { padding: 10px 12px; border: 1px dashed #e0e0e6; border-radius: 8px; color: #999; font-size: 0.9rem; }
+
+   .cob-card:active {
+      background: #f2f4ee;
+   }
+
+   .cob-card-titulo {
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.25;
+   }
+
+   .cob-card-meta {
+      margin-top: 3px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 12px;
+      font-size: 0.82rem;
+      color: #666;
+   }
+
+   .cob-card-meta b {
+      font-weight: 600;
+      color: #999;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      letter-spacing: .03em;
+   }
+
+   .cob-card-seta {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: .45;
+   }
+
+   .cob-cards-vazio {
+      padding: 10px 12px;
+      border: 1px dashed #e0e0e6;
+      border-radius: 8px;
+      color: #999;
+      font-size: 0.9rem;
+   }
 
    /* --- Histórico dentro do menu, em vez de flutuar sobre a barra --- */
    .cob-menu-historico,
@@ -436,32 +522,44 @@
       font-size: 0.75rem;
       text-decoration: none !important;
    }
-   .cob-app .instance-detail-container > .js-logs-button:not(.cob-menu-historico) { display: none !important; }
+
+   .cob-app .instance-detail-container>.js-logs-button:not(.cob-menu-historico) {
+      display: none !important;
+   }
 
    /* --- A barra inferior reserva o seu próprio espaço --- */
    .cob-app .instance-detail-container .instance-container {
       padding-bottom: calc(var(--cob-navbar-h, 100px) + 16px) !important;
    }
-   #inner-mobile-navbar button { min-height: 48px; }
+
+   #inner-mobile-navbar button {
+      min-height: 48px;
+   }
 
    /* --- Linhas mais compactas e alvos de toque maiores --- */
-   .cob-app .instance-detail-container ol.fields > li:not(.field-group) {
+   .cob-app .instance-detail-container ol.fields>li:not(.field-group) {
       padding-top: 0 !important;
       padding-bottom: 0 !important;
    }
+
    /* As três células vazias do fim de cada linha (e a de erros, quando vazia)
       só acrescentam altura: 2px cada, mais 18px de margem numa delas. */
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td:not([class]) {
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td:not([class]) {
       display: none !important;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-actions {
+
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-actions {
       margin-top: 6px !important;
       margin-bottom: 0 !important;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field:not(.cob-field-with-actions) > td.cob-field-container-actions {
+
+   .cob-app .instance-detail-container ol.fields table>tbody>tr.cob-field:not(.cob-field-with-actions)>td.cob-field-container-actions {
       display: none !important;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-errors:empty { display: none !important; }
+
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-errors:empty {
+      display: none !important;
+   }
 
    /* --- Campo duplicável: as acções antes do nome, na mesma linha ---
       Em mobile as células empilham, e a das acções (duplicar, remover,
@@ -473,12 +571,13 @@
       acção está à mostra.
       O :not(.field-group) deixa de fora os $group: os botões deles vivem dentro
       do div.legend, e por isso nunca entraram neste tratamento. */
-   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field.cob-field-with-actions:not(.field-group) {
+   .cob-app .instance-detail-container ol.fields table>tbody>tr.cob-field.cob-field-with-actions:not(.field-group) {
       flex-direction: row !important;
       flex-wrap: wrap;
       align-items: center;
       column-gap: 6px;
    }
+
    /* Os ícones — seta, duplicar/remover e pega — ficam todos do mesmo tamanho e
       com o mesmo espaço entre si. A célula ocupa só o que eles precisarem:
       reservar espaço para os que podiam lá estar empurraria o nome dos campos
@@ -487,7 +586,8 @@
       --cob-icone: 22px;
       --cob-icone-gap: 4px;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field.cob-field-with-actions:not(.field-group) > td.cob-field-container-actions {
+
+   .cob-app .instance-detail-container ol.fields table>tbody>tr.cob-field.cob-field-with-actions:not(.field-group)>td.cob-field-container-actions {
       order: -1;
       flex: none;
       /* o produto dá-lhe 30px fixos, que chegam para um ícone e não para três */
@@ -497,10 +597,11 @@
       gap: var(--cob-icone-gap);
       margin: 0 !important;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field > td.cob-field-container-actions > span.toggle-button,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field > td.cob-field-container-actions > span.duplicate-button,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field > td.cob-field-container-actions > span.remove-button,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field > td.cob-field-container-actions > span.drag-handle {
+
+   .cob-app .instance-detail-container ol.fields table>tbody>tr.cob-field>td.cob-field-container-actions>span.toggle-button,
+   .cob-app .instance-detail-container ol.fields table>tbody>tr.cob-field>td.cob-field-container-actions>span.duplicate-button,
+   .cob-app .instance-detail-container ol.fields table>tbody>tr.cob-field>td.cob-field-container-actions>span.remove-button,
+   .cob-app .instance-detail-container ol.fields table>tbody>tr.cob-field>td.cob-field-container-actions>span.drag-handle {
       box-sizing: border-box;
       display: inline-flex;
       align-items: center;
@@ -516,8 +617,9 @@
       line-height: 1 !important;
       background-position: center !important;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field.cob-field-with-actions:not(.field-group) > td.cob-field-container-label,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field.cob-field-with-actions:not(.field-group) > td.cob-field-container-label > label {
+
+   .cob-app .instance-detail-container ol.fields table>tbody>tr.cob-field.cob-field-with-actions:not(.field-group)>td.cob-field-container-label,
+   .cob-app .instance-detail-container ol.fields table>tbody>tr.cob-field.cob-field-with-actions:not(.field-group)>td.cob-field-container-label>label {
       /* base 0 e não auto: a célula da etiqueta tem largura de 100% (é assim que
          os campos normais empilham), e com base automática seria esse o tamanho
          pedido — não caberia ao lado das acções. Com base 0 ocupa o que sobrar. */
@@ -532,12 +634,19 @@
       max-width: none !important;
       margin-top: 0 !important;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field.cob-field-with-actions:not(.field-group) > td.cob-field-container-value,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr.cob-field.cob-field-with-actions:not(.field-group) > td.cob-field-container-description {
+
+   .cob-app .instance-detail-container ol.fields table>tbody>tr.cob-field.cob-field-with-actions:not(.field-group)>td.cob-field-container-value,
+   .cob-app .instance-detail-container ol.fields table>tbody>tr.cob-field.cob-field-with-actions:not(.field-group)>td.cob-field-container-description {
       flex: 0 0 100%;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-label { margin-top: 7px !important; }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value { padding-bottom: 2px !important; }
+
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-label {
+      margin-top: 7px !important;
+   }
+
+   .cob-app .instance-detail-container ol.fields table>tbody>tr>td.cob-field-container-value {
+      padding-bottom: 2px !important;
+   }
 
    /* 44px é o mínimo confortável para o dedo; com border-box a altura é exacta
       e não cresce com o padding do produto. */
@@ -553,17 +662,23 @@
       padding-top: 2px !important;
       padding-bottom: 2px !important;
    }
+
    .cob-app .instance-detail-container textarea {
       box-sizing: border-box !important;
       min-height: 44px !important;
    }
+
    .cob-app .instance-detail-container input[type="radio"],
    .cob-app .instance-detail-container input[type="checkbox"] {
       width: 20px !important;
       height: 20px !important;
       margin-right: 4px;
    }
-   .cob-app .instance-detail-container .js-typeahead-btn { min-height: 44px; min-width: 44px; }
+
+   .cob-app .instance-detail-container .js-typeahead-btn {
+      min-height: 44px;
+      min-width: 44px;
+   }
 
    /* Os checks de selecção da grelha não são campos do formulário: vivem numa
       coluna que o SlickGrid dimensiona — 29px de largura numa linha de 25px —
@@ -575,6 +690,7 @@
       height: 16px !important;
       margin: 0 !important;
    }
+
    /* o produto dá à célula um padding assimétrico (1px 4px 2px), que sozinho já
       descentrava o check; aqui o centro é o da célula, não o que sobra dele */
    .cob-app .instance-detail-container .slick-cell.slick-cell-checkboxsel,
@@ -595,6 +711,7 @@
       height: 13px !important;
       margin-right: 3px;
    }
+
    html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields td.cob-field-container-value label.radio-inline,
    html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields td.cob-field-container-value label.checkbox-inline,
    html:not(.cob-mobile) .cob-app .instance-detail-container ol.fields td.cob-field-container-value .radiogroup label,
@@ -624,13 +741,20 @@
       padding: 9px 10px !important;
       line-height: 1.15 !important;
    }
+
    .cob-app .mass-options .js-batch-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
    }
-   .cob-app .mass-options .js-batch-actions button.btn { margin: 0 !important; }
-   .cob-app .mass-options .right-container .pull-right { margin-top: 6px; }
+
+   .cob-app .mass-options .js-batch-actions button.btn {
+      margin: 0 !important;
+   }
+
+   .cob-app .mass-options .right-container .pull-right {
+      margin-top: 6px;
+   }
 
    /* Make the remove buttons bigger */
    .cob-app .instance-detail-container div.instance-container ol.fields span.remove-button {
@@ -646,8 +770,8 @@
       calha à esquerda dos filhos (~12px por nível, contra 22px de um cartão) e
       só os $group levam cabeçalho colado ao topo.
       data-nivel e --cob-grupo-nivel são postos pelo _mobile.js. */
-   .cob-app .instance-detail-container li.cob-grupo[data-nivel]:not([data-nivel="0"]) > ol.fields,
-   .cob-app .instance-detail-container li.cob-subcampos > ol.fields {
+   .cob-app .instance-detail-container li.cob-grupo[data-nivel]:not([data-nivel="0"])>ol.fields,
+   .cob-app .instance-detail-container li.cob-subcampos>ol.fields {
       /* a calha é que diz a profundidade: a caixa do produto aqui seria um
          segundo separador no mesmo sítio, e uma moldura por nível come largura
          a cada encaixe */
@@ -658,13 +782,31 @@
       padding-left: 6px !important;
       background: rgba(0, 0, 0, 0.015);
    }
+
    /* escada de cor: a profundidade lê-se sem precisar de moldura */
-   .cob-app .instance-detail-container li[data-nivel="0"] { --cob-grupo-cor: #b3004c; }
-   .cob-app .instance-detail-container li[data-nivel="1"] { --cob-grupo-cor: #c2622a; }
-   .cob-app .instance-detail-container li[data-nivel="2"] { --cob-grupo-cor: #b39000; }
-   .cob-app .instance-detail-container li[data-nivel="3"] { --cob-grupo-cor: #3f8f46; }
-   .cob-app .instance-detail-container li[data-nivel="4"] { --cob-grupo-cor: #2a7ab0; }
-   .cob-app .instance-detail-container li[data-nivel="5"] { --cob-grupo-cor: #6b4fa8; }
+   .cob-app .instance-detail-container li[data-nivel="0"] {
+      --cob-grupo-cor: #b3004c;
+   }
+
+   .cob-app .instance-detail-container li[data-nivel="1"] {
+      --cob-grupo-cor: #c2622a;
+   }
+
+   .cob-app .instance-detail-container li[data-nivel="2"] {
+      --cob-grupo-cor: #b39000;
+   }
+
+   .cob-app .instance-detail-container li[data-nivel="3"] {
+      --cob-grupo-cor: #3f8f46;
+   }
+
+   .cob-app .instance-detail-container li[data-nivel="4"] {
+      --cob-grupo-cor: #2a7ab0;
+   }
+
+   .cob-app .instance-detail-container li[data-nivel="5"] {
+      --cob-grupo-cor: #6b4fa8;
+   }
 
    /* a caixa do grupo alinha exactamente com a coluna dos campos e do DETAILS,
       e leva o mesmo arredondamento (6px) que esses botões */
@@ -675,7 +817,8 @@
       padding-right: 0 !important;
       border-radius: 6px;
    }
-   .cob-app .instance-detail-container li.cob-grupo > table {
+
+   .cob-app .instance-detail-container li.cob-grupo>table {
       margin: 0 !important;
       width: 100% !important;
       /* Os mesmos 3px da caixa dos filhos, e nos quatro cantos: entre as duas
@@ -684,6 +827,7 @@
          pixel — sem o raio lá também, o canto quadrado dela tapava o da chapa. */
       border-radius: 3px;
    }
+
    /* A chapa só trabalha enquanto a barra está colada: é ela que tapa os campos
       que lhe passam por baixo. Cola só o $group mais de fora (ver _global.css),
       por isso num encaixado não há nada a tapar — e num grupo sem cor própria,
@@ -695,37 +839,44 @@
       cola. O cinzento que aqui estava era o topo do cartão de mobile, do tempo
       em que a barra e os campos eram um bloco só; agora quem os separa é o
       espaço e a moldura da caixa dos filhos. */
-   .cob-app .instance-detail-container li.cob-grupo:not([data-nivel="0"]) > table {
+   .cob-app .instance-detail-container li.cob-grupo:not([data-nivel="0"])>table {
       background: transparent;
    }
+
    /* o produto usa padding 1px/3px em cada <li>, que empilhado deixava o
       conteúdo 3px da esquerda e 9px da direita: aqui fica igual dos dois lados */
-   .cob-app .instance-detail-container li.cob-grupo > ol.fields {
+   .cob-app .instance-detail-container li.cob-grupo>ol.fields {
       margin: 0 !important;
    }
+
    /* O $group de topo fica com a caixa do produto — a mesma que tem em
       secretária. Só as margens laterais é que não servem: os 10px de cada lado
       são largura que num ecrã estreito faz falta aos campos, por isso a caixa
       continua colada às bordas do cartão. Em cima e em baixo ficam os 3px que
       separam a caixa da legenda. */
-   .cob-app .instance-detail-container li.cob-grupo[data-nivel="0"] > ol.fields {
+   .cob-app .instance-detail-container li.cob-grupo[data-nivel="0"]>ol.fields {
       margin: 3px 0 !important;
    }
-   .cob-app .instance-detail-container li.cob-grupo > ol.fields > li {
+
+   .cob-app .instance-detail-container li.cob-grupo>ol.fields>li {
       padding-left: 6px !important;
       padding-right: 6px !important;
    }
+
    /* a indentação dos grupos encaixados é só à esquerda: à direita os campos
       mantêm a mesma margem dos de fora, senão iam encolhendo a cada nível */
    .cob-app .instance-detail-container li.cob-grupo:not([data-nivel="0"]) {
       margin-right: 2px !important;
    }
-   .cob-app .instance-detail-container li.cob-grupo:not([data-nivel="0"]) > ol.fields > li {
+
+   .cob-app .instance-detail-container li.cob-grupo:not([data-nivel="0"])>ol.fields>li {
       padding-right: 0 !important;
    }
-   .cob-app .instance-detail-container li.cob-subcampos > ol.fields > li {
+
+   .cob-app .instance-detail-container li.cob-subcampos>ol.fields>li {
       padding-right: 2px !important;
    }
+
    /* e os campos ocupam a largura toda da sua célula, para que a única diferença
       entre níveis seja a indentação da esquerda */
    .cob-app .instance-detail-container ol.fields td.cob-field-container-value input[type="text"],
@@ -740,18 +891,26 @@
    /* cabeçalho do $group cola 34px abaixo do nível de cima, para empilharem */
    /* o .fields-container tem overflow:auto e, por ser o scrollport mais próximo,
       anulava o sticky (o elemento colava a um contentor que nunca rola) */
-   .cob-app .instance-detail-container .fields-container { overflow: visible !important; }
+   .cob-app .instance-detail-container .fields-container {
+      overflow: visible !important;
+   }
 
    /* o scroll é o do .cob-app e o topo já está ocupado pela barra da app (61px)
       e pelo cabeçalho de contexto (34px): o sticky começa por baixo deles */
-   .cob-app { --cob-topo: 62px; }
-   .cob-app:has(#mobile-context) { --cob-topo: 96px; }
+   .cob-app {
+      --cob-topo: 62px;
+   }
+
+   .cob-app:has(#mobile-context) {
+      --cob-topo: 96px;
+   }
+
    /* o sticky dos $group passou para o _global.css: vale em todas as larguras */
 
 
    /* seta pequena em vez do quadrado de 30px, em qualquer dos dois casos */
-   .cob-app .instance-detail-container div.instance-container ol.fields li.cob-grupo > table span.toggle-button,
-   .cob-app .instance-detail-container div.instance-container ol.fields li.cob-subcampos > table span.toggle-button {
+   .cob-app .instance-detail-container div.instance-container ol.fields li.cob-grupo>table span.toggle-button,
+   .cob-app .instance-detail-container div.instance-container ol.fields li.cob-subcampos>table span.toggle-button {
       font-size: 13px !important;
       min-width: 16px !important;
       padding: 6px 4px !important;
@@ -763,12 +922,14 @@
          o vermelho do $group, vermelho no subgrupo */
       color: inherit !important;
    }
+
    /* o campo com filhos deixa de ter a célula de acções a ocupar uma linha:
       a seta passa para junto da etiqueta (movida no _mobile.js) */
-   .cob-app .instance-detail-container li.cob-subcampos > table > tbody > tr.cob-field:not(.cob-field-with-actions) > td.cob-field-container-actions {
+   .cob-app .instance-detail-container li.cob-subcampos>table>tbody>tr.cob-field:not(.cob-field-with-actions)>td.cob-field-container-actions {
       display: none !important;
    }
-   .cob-app .instance-detail-container li.cob-subcampos > table > tbody > tr > td.cob-field-container-label {
+
+   .cob-app .instance-detail-container li.cob-subcampos>table>tbody>tr>td.cob-field-container-label {
       display: flex !important;
       /* o produto põe flex-direction:column nestas células em mobile — sem isto
          a seta ficava centrada numa linha só dela */
@@ -779,7 +940,8 @@
       text-align: left;
       gap: 4px;
    }
-   .cob-app .instance-detail-container li.cob-subcampos > table > tbody > tr > td.cob-field-container-label > label {
+
+   .cob-app .instance-detail-container li.cob-subcampos>table>tbody>tr>td.cob-field-container-label>label {
       /* o produto dá largura fixa à etiqueta; ao lado da seta isso transbordava
          uns pixels e tornava a página arrastável na horizontal */
       flex: 1 1 0;
@@ -787,7 +949,8 @@
       min-width: 0 !important;
       margin: 0 !important;
    }
-   .cob-app .instance-detail-container li.cob-subcampos > table > tbody > tr > td.cob-field-container-label > span.toggle-button {
+
+   .cob-app .instance-detail-container li.cob-subcampos>table>tbody>tr>td.cob-field-container-label>span.toggle-button {
       flex: none;
    }
 
@@ -797,7 +960,7 @@
       $style[use-reference-count] o _group_references.js clona o link de
       pesquisa para dentro do nome e dá-lhe também a classe "legend"; sem o
       :has(), esse <a> apanhava o display:flex e o ">>" caía para outra linha. */
-   .cob-app .instance-detail-container li.cob-grupo > table .legend:has(> .group-name) {
+   .cob-app .instance-detail-container li.cob-grupo>table .legend:has(> .group-name) {
       display: flex !important;
       flex-direction: row !important;
       align-items: center;
@@ -805,27 +968,34 @@
       gap: 2px;
       border-radius: 3px;
    }
-   .cob-app .instance-detail-container li.cob-grupo > table .legend > .group-name {
+
+   .cob-app .instance-detail-container li.cob-grupo>table .legend>.group-name {
       flex: 1 1 auto;
       min-width: 0;
    }
+
    /* a linha do cabeçalho inteira abre/fecha (o clique é delegado no JS) */
-   .cob-app .instance-detail-container li.cob-grupo > table td:first-child { cursor: pointer; }
+   .cob-app .instance-detail-container li.cob-grupo>table td:first-child {
+      cursor: pointer;
+   }
 
 }
 
 @media (max-width: 585px) {
+
    /* *************** Para alinhar melhor as opções do menu em mobile ******************* */
    .cob-app #header .app-menus,
    .cob-app #header .cobapps-menus {
-     margin-left: unset;
-   }   
-   .cob-app #header .nav > li {  
-     text-align:right
+      margin-left: unset;
+   }
+
+   .cob-app #header .nav>li {
+      text-align: right
    }
 }
 
 @media (hover: none) and (pointer: coarse) {
+
    /* *************** Aumentar o tamanho dos botões + e - em ecrãs tácteis ******************* */
    .js-advanced-field-add,
    .js-advanced-field-remove {
