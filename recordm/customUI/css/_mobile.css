@@ -170,43 +170,45 @@
       text-decoration: none;
       overflow: hidden;
    }
-   /* Campo + lupa + DETAILS na mesma linha. O critério é ser um $ref (tem
-      typeahead) e não a presença do DETAILS: esse link só existe com o campo
-      preenchido, e um $ref vazio ficaria de fora destas regras. */
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) {
+   /* Campo + lupa + DETAILS na mesma linha. O critério é ser um $ref (tem o
+      botão da lupa) e não a presença do DETAILS: esse link só existe com o campo
+      preenchido, e um $ref vazio ficaria de fora destas regras. Também não serve
+      o .twitter-typeahead: num $ref $readonly o produto não inicializa o
+      typeahead e esse span não existe, mas a lupa está lá na mesma. */
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.js-typeahead-btn) {
       display: flex !important;
       flex-direction: row !important;
       align-items: center;
       flex-wrap: nowrap;
       gap: 6px;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) > div,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) > input {
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.js-typeahead-btn) > div,
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.js-typeahead-btn) > input {
       flex: 1 1 auto;
       min-width: 0;
    }
    .cob-app .instance-detail-container ol.fields a.cob-ref-link { flex: none; }
    /* o campo tem largura mínima do produto (97%); aqui tem de poder encolher
       para caber ao lado da lupa e do DETAILS sem empurrar a linha para fora */
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) {
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.js-typeahead-btn) {
       width: auto !important;
       max-width: 100% !important;
    }
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) input,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) .tt-wrapper,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) .tt-query,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) .tt-hint,
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) .twitter-typeahead {
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.js-typeahead-btn) input,
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.js-typeahead-btn) .tt-wrapper,
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.js-typeahead-btn) .tt-query,
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.js-typeahead-btn) .tt-hint,
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.js-typeahead-btn) .twitter-typeahead {
       min-width: 0 !important;
       max-width: 100% !important;
       width: 100% !important;
    }
    /* o typeahead embrulha o input num span inline-block de largura fixa */
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) .twitter-typeahead {
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.js-typeahead-btn) .twitter-typeahead {
       display: block !important;
    }
    /* o input-append tem de dividir a linha entre campo e lupa */
-   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.twitter-typeahead) > .input-append {
+   .cob-app .instance-detail-container ol.fields table > tbody > tr > td.cob-field-container-value:has(.js-typeahead-btn) > .input-append {
       display: flex !important;
       flex-direction: row !important;
       align-items: center;
