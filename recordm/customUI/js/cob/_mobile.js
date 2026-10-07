@@ -776,6 +776,12 @@ cob.custom.customize.push(function (core, utils, ui) {
     }
 
     function moverLinksDeReferencia() {
+        // Só em modo compacto. O observador e os temporizadores de cima ficam
+        // vivos depois de a janela alargar, e o próprio undoMobileExtras, ao
+        // devolver os links à célula de descrição, é uma mutação que os
+        // acordava: voltavam a subir para a célula do valor, onde sem o CSS de
+        // mobile ficavam como texto corrido ("DETAILScriar") debaixo do campo.
+        if (!isScreenMd()) return
         document.querySelectorAll(".instance-detail-container td.cob-field-container-description a[href*='/instance/']").forEach(link => {
             const linha = link.closest("tr")
             const valor = linha && linha.querySelector("td.cob-field-container-value")
