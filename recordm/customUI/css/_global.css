@@ -663,6 +663,17 @@ display:none
    barra do registo (8) nem o menu (9). */
 .cob-app .instance-detail-container div.dollarImgDiv > span { z-index: 7; }
 
+/* O menu de colunas da grelha (Add/Remove columns) é o mesmo caso, do outro
+   lado: o SlickGrid desenha-o como filho do .cob-app, em position:absolute e
+   sem z-index nenhum. Fica no plano 0 dos posicionados e QUALQUER cabeçalho
+   colado lhe passa por cima — abrir o menu numa grelha perto do fundo do
+   registo dava-o cortado a meio pela barra do $group seguinte (plano 7). Ao
+   contrário da legenda do $image, isto não se resolve empatando planos: um
+   menu aberto tem de estar acima de tudo o que cola. Vai para 10, acima do
+   menu da app (9) — que nunca chega a tapar, porque o .cob-app o recorta
+   muito antes disso. */
+.cob-app .slick-header-menu { z-index: 10; }
+
 /* --- Editor de markdown preso à largura da célula -------------------------
    Uma linha de markdown sem quebra (um link longo, por exemplo) fazia o campo
    sair do grupo: o .markdown-container é inline-block, logo dimensiona-se ao
